@@ -28,5 +28,6 @@
       "trust": "scanned",
       "notes": "Release v0.4.2. Hash pinned and scanned with ClamAV 1.5.4/28152/Tue Oct 13 06:26:14 2026 in a throwaway CI runner; nobody reviewed the program itself. SHA-256 matches the digest published by GitHub."
     }
-  ]
+  ],
+  "cover": "https://upload.wikimedia.org/wikipedia/en/6/68/Bloodborne_Cover_Wallpaper.jpg"
 }

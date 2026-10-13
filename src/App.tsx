@@ -3,6 +3,24 @@ import { open, save } from "@tauri-apps/plugin-dialog";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { api, ByoStatus, ExternalEntry, Game, NativeBuild, SaveMeta, SystemInfo } from "./api";
 
+/** Store-style cover: the official image when the catalog has one, a titled placeholder otherwise. */
+function Cover({ src, title }: { src?: string; title: string }) {
+  const [broken, setBroken] = useState(false);
+  if (src && !broken) {
+    return (
+      <img
+        className="cover"
+        src={src}
+        alt=""
+        loading="lazy"
+        referrerPolicy="no-referrer"
+        onError={() => setBroken(true)}
+      />
+    );
+  }
+  return <div className="cover placeholder" aria-hidden="true">{title.slice(0, 2).toUpperCase()}</div>;
+}
+
 export function App() {
   const [games, setGames] = useState<Game[]>([]);
   const [installed, setInstalled] = useState<string[]>([]);
@@ -60,6 +78,7 @@ export function App() {
         <ul className="grid">
           {games.map((g) => (
             <li key={g.slug} onClick={() => setSelected(g)}>
+              <Cover src={g.cover} title={g.title} />
               <strong>{g.title}</strong>
               <small>{g.authors.join(", ")}</small>
               {installed.includes(g.slug) && <span className="badge">installed</span>}
@@ -288,6 +307,7 @@ function ExternalProjects(props: {
   return (
     <section className="external">
       <h2>Native ports</h2>
+      <p className="credit">Covers are served by their sources (Steam, Wikipedia, IGDB, RAWG) and belong to their rights holders.</p>
       <p>
         Your system: <strong>{label(system.os)} ({system.arch})</strong>. These games are not WebAssembly: they run
         as normal programs and are not hosted by Vapor. A program runs only if a build was pinned (size + SHA-256)
@@ -299,6 +319,7 @@ function ExternalProjects(props: {
           const shown = a.variant ?? entries[0];
           return (
             <li key={shown.group ?? shown.slug}>
+              <Cover src={shown.cover} title={shown.title} />
               <strong>{shown.title}</strong> <small>({shown.publisher})</small>
               <span className={`badge ${a.kind}`}>
                 {a.kind === "ready" && `Available for ${label(system.os)}`}

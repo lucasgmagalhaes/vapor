@@ -152,7 +152,7 @@ impl Catalog {
             .games
             .into_iter()
             .filter_map(|mut g| {
-                let cover = g.cover.take().filter(|c| covers::valid_cover_url(c));
+                let cover = g.cover.take().filter(|c| covers::valid_any_cover(c));
                 match g.validate(&g.slug) {
                     Ok(()) => {
                         g.cover = cover;
@@ -169,7 +169,7 @@ impl Catalog {
             .links
             .into_iter()
             .filter_map(|mut l| {
-                let cover = l.cover.take().filter(|c| covers::valid_cover_url(c));
+                let cover = l.cover.take().filter(|c| covers::valid_any_cover(c));
                 match l.validate(&l.slug) {
                     Ok(()) => {
                         l.cover = cover;
@@ -194,10 +194,14 @@ impl Catalog {
     pub fn attach_covers(&mut self, dir: &Path) -> Result<()> {
         let have = covers::check_dir(dir, &self.cover_keys())?;
         for g in &mut self.games {
-            g.cover = have.contains(&g.slug).then(|| covers::cover_url(&g.slug));
+            if g.cover.is_none() && have.contains(&g.slug) {
+                g.cover = Some(covers::cover_url(&g.slug));
+            }
         }
         for l in &mut self.links {
-            l.cover = have.contains(l.cover_key()).then(|| covers::cover_url(l.cover_key()));
+            if l.cover.is_none() && have.contains(l.cover_key()) {
+                l.cover = Some(covers::cover_url(l.cover_key()));
+            }
         }
         Ok(())
     }
@@ -324,8 +328,13 @@ mod tests {
         assert!(clean.links[0].cover.is_none());
 
         let mut hand_written = game("ok-game", "Ok", "https://github.com/a/ok", 'a');
+        hand_written.artifact.url = format!("{}t-1/ok-game.zip", crate::manifest::ARTIFACT_URL_PREFIX);
         hand_written.cover = Some(covers::cover_url("ok-game"));
-        assert!(hand_written.validate("ok-game").is_err(), "authors must not set cover by hand");
+        assert!(hand_written.validate("ok-game").is_err(), "our own cover URL is index-only");
+        hand_written.cover = Some("https://evil.example/c.jpg".into());
+        assert!(hand_written.validate("ok-game").is_err(), "unknown host");
+        hand_written.cover = Some("https://upload.wikimedia.org/wikipedia/en/a/ab/Cover.jpg".into());
+        assert!(hand_written.validate("ok-game").is_ok(), "an official image from an allowed host");
     }
 
     #[test]

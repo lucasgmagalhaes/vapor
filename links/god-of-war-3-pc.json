@@ -4,9 +4,16 @@
   "title": "God of War III Remastered PC port",
   "publisher": "Sony Interactive Entertainment / Santa Monica Studio",
   "url": "https://github.com/FelipePrado0/gow3_pc",
-  "platforms": ["windows","linux"],
+  "platforms": [
+    "windows",
+    "linux"
+  ],
   "requires": "A copy of the original game that you own (see the project's README for what is needed)",
   "summary": "Windows/Linux port of the PS4 remaster: original x86-64 code on a custom runtime, graphics on a Vulkan video core. Unofficial.",
   "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
-  "tags": ["native-port","vulkan"]
+  "tags": [
+    "native-port",
+    "vulkan"
+  ],
+  "cover": "https://upload.wikimedia.org/wikipedia/en/8/8b/God_of_War_III_cover_art.jpg"
 }

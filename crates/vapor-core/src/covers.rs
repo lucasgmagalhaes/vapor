@@ -11,6 +11,17 @@ use crate::{Error, Result};
 
 /// Where `catalog.yml` publishes `covers/` (the `catalog` branch of this repository).
 pub const COVER_URL_PREFIX: &str = "https://raw.githubusercontent.com/lucasgmagalhaes/vapor/catalog/covers/";
+/// Where a cover URL written by hand (found through a public API) may point. The repository never
+/// stores a copy of official art: it only records where the image is served from.
+pub const ALLOWED_COVER_HOSTS: &[&str] = &[
+    "upload.wikimedia.org",
+    "shared.fastly.steamstatic.com",
+    "cdn.cloudflare.steamstatic.com",
+    "cdn.akamai.steamstatic.com",
+    "images.igdb.com",
+    "media.rawg.io",
+];
+
 /// A cover is a thumbnail, not artwork storage.
 pub const MAX_COVER_BYTES: u64 = 250 * 1024;
 
@@ -27,6 +38,26 @@ pub fn valid_cover_url(url: &str) -> bool {
     url.strip_prefix(COVER_URL_PREFIX)
         .and_then(|rest| rest.strip_suffix(".webp"))
         .is_some_and(valid_key)
+}
+
+/// An https image URL on one of `ALLOWED_COVER_HOSTS`: no credentials, no port, a plain path to a
+/// jpg/png/webp file and at most a short harmless query (Steam adds a cache-busting `?t=`).
+pub fn valid_external_cover(url: &str) -> bool {
+    let Some(rest) = url.strip_prefix("https://") else { return false };
+    let (host, tail) = rest.split_once('/').unwrap_or((rest, ""));
+    if !ALLOWED_COVER_HOSTS.contains(&host) || url.len() > 400 || tail.is_empty() {
+        return false;
+    }
+    let (path, query) = tail.split_once('?').unwrap_or((tail, ""));
+    let path_ok = path.chars().all(|c| c.is_ascii_alphanumeric() || "/._%-,()".contains(c)) && !path.contains("..");
+    let ext_ok = ["jpg", "jpeg", "png", "webp"].iter().any(|e| path.to_ascii_lowercase().ends_with(&format!(".{e}")));
+    let query_ok = query.len() <= 40 && query.chars().all(|c| c.is_ascii_alphanumeric() || "=&._-".contains(c));
+    path_ok && ext_ok && query_ok
+}
+
+/// Anything the app may show as a cover: ours (from `covers/`) or an allowed external image.
+pub fn valid_any_cover(url: &str) -> bool {
+    valid_cover_url(url) || valid_external_cover(url)
 }
 
 /// A WebP container starts with `RIFF<size>WEBP`.
@@ -99,6 +130,35 @@ mod tests {
         ] {
             assert!(!valid_cover_url(bad), "{bad}");
         }
+    }
+
+    #[test]
+    fn external_covers_only_from_allowed_hosts_and_plain_image_paths() {
+        for ok in [
+            "https://upload.wikimedia.org/wikipedia/en/thumb/a/ab/Bloodborne_Cover_Wallpaper.jpg/460px-Bloodborne_Cover_Wallpaper.jpg",
+            "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1536610/header.jpg?t=1700000000",
+            "https://cdn.cloudflare.steamstatic.com/steam/apps/1536610/header.jpg",
+            "https://images.igdb.com/igdb/image/upload/t_cover_big/co1abc.jpg",
+            "https://media.rawg.io/media/games/abc/abcdef.jpg",
+        ] {
+            assert!(valid_external_cover(ok), "{ok}");
+        }
+        for bad in [
+            "http://upload.wikimedia.org/a.jpg",
+            "https://evil.example/a.jpg",
+            "https://upload.wikimedia.org.evil.example/a.jpg",
+            "https://user:pw@upload.wikimedia.org/a.jpg",
+            "https://upload.wikimedia.org:8443/a.jpg",
+            "https://upload.wikimedia.org/a.svg",
+            "https://upload.wikimedia.org/../a.jpg",
+            "https://upload.wikimedia.org/a.jpg?x=<script>",
+            "https://upload.wikimedia.org/",
+            "https://upload.wikimedia.org",
+            "javascript:alert(1)",
+        ] {
+            assert!(!valid_external_cover(bad), "{bad}");
+        }
+        assert!(valid_any_cover(&cover_url("x")) && valid_any_cover("https://cdn.cloudflare.steamstatic.com/a.png"));
     }
 
     #[test]

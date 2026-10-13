@@ -83,8 +83,8 @@ pub struct GameManifest {
     #[serde(default)]
     pub tags: Vec<String>,
     pub contact: String,
-    /// Public URL of `covers/<slug>.webp`. Filled in by `vapor index` for the catalog; a hand-written
-    /// `game.json` must not set it.
+    /// Cover image URL. Written by hand only for an official image found through a public API (a
+    /// host in `covers::ALLOWED_COVER_HOSTS`); otherwise `vapor index` fills it with `covers/<slug>.webp`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cover: Option<String>,
 }
@@ -123,8 +123,8 @@ impl GameManifest {
         if !self.source.repo.starts_with("https://") || self.source.repo.contains(char::is_whitespace) {
             return Err(bad("source.repo must be an https URL"));
         }
-        if self.cover.is_some() {
-            return Err(bad("cover is set by `vapor index`; add covers/<slug>.webp instead"));
+        if self.cover.as_deref().is_some_and(|c| !crate::covers::valid_external_cover(c)) {
+            return Err(bad("cover must be an https jpg/png/webp URL on upload.wikimedia.org or steamstatic.com (or add covers/<slug>.webp)"));
         }
         if let Some(v) = &self.variant_of {
             if !valid_slug(v) || *v == self.slug {

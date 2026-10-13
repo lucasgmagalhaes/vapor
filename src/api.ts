@@ -2,6 +2,8 @@ import { invoke } from "@tauri-apps/api/core";
 
 export interface Game {
   slug: string;
+  /** Cover image URL (official art found through a public API, or ours). */
+  cover?: string;
   title: string;
   authors: string[];
   source: { repo: string; commit: string };
@@ -43,6 +45,7 @@ export interface SystemInfo {
 
 export interface ExternalEntry {
   slug: string;
+  cover?: string;
   title: string;
   publisher: string;
   url: string;

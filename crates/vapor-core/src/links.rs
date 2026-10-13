@@ -142,7 +142,8 @@ pub struct ExternalEntry {
     /// Short label of this variant inside its group (e.g. "Windows port (author)").
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub variant: Option<String>,
-    /// Public URL of `covers/<group or slug>.webp`, set by `vapor index` only.
+    /// Cover image URL: an official image found through a public API (allowed hosts only), else
+    /// `vapor index` fills it from `covers/<group or slug>.webp`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cover: Option<String>,
     /// Reviewed native builds the app may run (see `NativeBuild`). Empty = link only.
@@ -199,8 +200,8 @@ impl ExternalEntry {
         if self.legal_note.trim().len() < 20 {
             return Err(bad("legal_note is mandatory: say it is unofficial and not hosted or endorsed by Vapor"));
         }
-        if self.cover.is_some() {
-            return Err(bad("cover is set by `vapor index`; add covers/<group or slug>.webp instead"));
+        if self.cover.as_deref().is_some_and(|c| !crate::covers::valid_external_cover(c)) {
+            return Err(bad("cover must be an https jpg/png/webp URL on upload.wikimedia.org or steamstatic.com (or add covers/<group or slug>.webp)"));
         }
         match (&self.group, &self.variant) {
             (None, None) => {}
