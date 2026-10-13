@@ -5,6 +5,7 @@ pub mod blocklist;
 pub mod catalog;
 pub mod manifest;
 pub mod saves;
+pub mod unpack;
 
 use thiserror::Error;
 
@@ -20,6 +21,8 @@ pub enum Error {
     InvalidManifest { path: String, reason: String },
     #[error("game blocked by blocklist: {0}")]
     Blocked(String),
+    #[error("invalid archive: {0}")]
+    InvalidArchive(String),
     #[error("invalid save: {0}")]
     InvalidSave(String),
 }
