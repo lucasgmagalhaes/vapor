@@ -6,6 +6,7 @@ pub mod audit;
 pub mod bridge;
 pub mod byo;
 pub mod catalog;
+pub mod links;
 pub mod manifest;
 pub mod saves;
 pub mod serve;
