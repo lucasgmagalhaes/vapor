@@ -135,6 +135,13 @@ pub struct ExternalEntry {
     pub legal_note: String,
     #[serde(default)]
     pub tags: Vec<String>,
+    /// Entries of the same game for different systems share a `group`; the app shows ONE card per
+    /// group and picks the variant that fits the player's system.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub group: Option<String>,
+    /// Short label of this variant inside its group (e.g. "Windows port (author)").
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub variant: Option<String>,
     /// Reviewed native builds the app may run (see `NativeBuild`). Empty = link only.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub native: Vec<NativeBuild>,
@@ -188,6 +195,11 @@ impl ExternalEntry {
         }
         if self.legal_note.trim().len() < 20 {
             return Err(bad("legal_note is mandatory: say it is unofficial and not hosted or endorsed by Vapor"));
+        }
+        match (&self.group, &self.variant) {
+            (None, None) => {}
+            (Some(g), Some(v)) if valid_slug(g) && !v.trim().is_empty() => {}
+            _ => return Err(bad("group (a slug) and variant (a label) must be set together")),
         }
         if let Some((host, repo)) = parse_repo_url(&self.url) {
             for n in &self.native {
@@ -264,9 +276,25 @@ mod tests {
             summary: "Unofficial native port.".into(),
             legal_note: "Unofficial; derived from proprietary code; not hosted or endorsed by Vapor.".into(),
             tags: vec![],
+            group: None,
+            variant: None,
             native: vec![],
             status: None,
         }
+    }
+
+    #[test]
+    fn group_and_variant_go_together() {
+        let mut e = entry();
+        e.group = Some("some-game".into());
+        assert!(e.validate("some-port").is_err(), "group without variant");
+        e.variant = Some("Windows port".into());
+        assert!(e.validate("some-port").is_ok());
+        e.group = Some("Bad Group".into());
+        assert!(e.validate("some-port").is_err(), "group must be a slug");
+        let mut only_variant = entry();
+        only_variant.variant = Some("x".into());
+        assert!(only_variant.validate("some-port").is_err());
     }
 
     fn build() -> NativeBuild {

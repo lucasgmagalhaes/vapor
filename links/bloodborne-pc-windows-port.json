@@ -1,12 +1,19 @@
 {
   "schema": 1,
   "slug": "bloodborne-pc-windows-port",
-  "title": "Bloodborne PC port (Windows)",
+  "title": "Bloodborne",
   "publisher": "Sony Interactive Entertainment / FromSoftware",
   "url": "https://github.com/Mrsuss60/bloodborne_pc_windows_port",
-  "platforms": ["windows"],
+  "platforms": [
+    "windows"
+  ],
   "requires": "A copy of the original game that you own (see the project's README for what is needed)",
   "summary": "Native 64-bit Windows port of the PS4 game with Vulkan rendering, based on deadinside28's bbport. Unofficial.",
   "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
-  "tags": ["native-port","vulkan"]
+  "tags": [
+    "native-port",
+    "vulkan"
+  ],
+  "group": "bloodborne",
+  "variant": "Windows port (Mrsuss60)"
 }

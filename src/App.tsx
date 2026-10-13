@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { open, save } from "@tauri-apps/plugin-dialog";
 import { openUrl } from "@tauri-apps/plugin-opener";
-import { api, ByoStatus, ExternalEntry, Game, NativeBuild, SaveMeta } from "./api";
+import { api, ByoStatus, ExternalEntry, Game, NativeBuild, SaveMeta, SystemInfo } from "./api";
 
 export function App() {
   const [games, setGames] = useState<Game[]>([]);
@@ -10,11 +10,13 @@ export function App() {
   const [selected, setSelected] = useState<Game | null>(null);
   const [status, setStatus] = useState("");
   const [links, setLinks] = useState<ExternalEntry[]>([]);
+  const [system, setSystem] = useState<SystemInfo | null>(null);
 
   const load = useCallback(async () => {
     setGames(await api.getCatalog(query));
     setInstalled(await api.installedGames());
     setLinks(await api.getLinks());
+    setSystem(await api.getSystem());
   }, [query]);
 
   useEffect(() => {
@@ -65,7 +67,7 @@ export function App() {
           ))}
           {games.length === 0 && <li className="empty">Catalog is empty. Click “Refresh catalog”.</li>}
         </ul>
-        {links.length > 0 && <ExternalProjects links={links} run={run} />}
+        {links.length > 0 && system && <ExternalProjects links={links} system={system} run={run} />}
         {selected && (
           <GameDetail
             game={selected}
@@ -204,8 +206,6 @@ function GameDetail(props: {
   );
 }
 
-const SYSTEM = navigator.userAgent.includes("Windows") ? "windows" : "linux";
-
 function mb(n: number) {
   return `${Math.round(n / 1048576)} MB`;
 }
@@ -256,37 +256,79 @@ function NativeRun(props: {
   );
 }
 
-/** Games that are not WebAssembly: the original source is always shown; a pinned native build, when
- *  one exists for this system, can be downloaded and run after an explicit confirmation. */
+const OS_LABEL: Record<string, string> = { windows: "Windows", linux: "Linux", macos: "macOS" };
+const label = (os: string) => OS_LABEL[os] ?? os;
+
+/** Entries of one game (same `group`) shown as one card. */
+function groupLinks(links: ExternalEntry[]): ExternalEntry[][] {
+  const groups = new Map<string, ExternalEntry[]>();
+  for (const l of links) groups.set(l.group ?? l.slug, [...(groups.get(l.group ?? l.slug) ?? []), l]);
+  return [...groups.values()];
+}
+
+/** What this computer can do with a game: the variant for its system and a plain verdict. */
+export function availability(entries: ExternalEntry[], system: SystemInfo) {
+  const variant = entries.find((e) => e.platforms.includes(system.os));
+  const build = variant?.native?.find((n) => n.platform === system.os);
+  const all = [...new Set(entries.flatMap((e) => e.platforms))];
+  if (!variant) return { kind: "unavailable" as const, variant, build, all };
+  if (!system.native_ok) return { kind: "cannot-run" as const, variant, build, all };
+  if (!build) return { kind: "no-build" as const, variant, build, all };
+  return { kind: "ready" as const, variant, build, all };
+}
+
+/** Games that are not WebAssembly. One card per game: Vapor looks at the player's system, shows the
+ *  version that fits it, and says clearly whether it can run here. */
 function ExternalProjects(props: {
   links: ExternalEntry[];
+  system: SystemInfo;
   run: (label: string, fn: () => Promise<unknown>) => Promise<void>;
 }) {
-  const { links, run } = props;
+  const { links, system, run } = props;
   return (
     <section className="external">
       <h2>Native ports</h2>
       <p>
-        Not WebAssembly: they run as normal programs and are not hosted by Vapor. The original source is checked
-        every few hours; a program can be run only if a build was pinned (size + SHA-256) for your system.
+        Your system: <strong>{label(system.os)} ({system.arch})</strong>. These games are not WebAssembly: they run
+        as normal programs and are not hosted by Vapor. A program runs only if a build was pinned (size + SHA-256)
+        for your system.
       </p>
       <ul>
-        {links.map((l) => {
-          const build = l.native?.find((n) => n.platform === SYSTEM);
+        {groupLinks(links).map((entries) => {
+          const a = availability(entries, system);
+          const shown = a.variant ?? entries[0];
           return (
-            <li key={l.slug}>
-              <strong>{l.title}</strong> <small>({l.publisher}; {l.platforms.join(", ")})</small>
-              {l.status && (
-                <span className="badge">
-                  {l.status.state}
-                  {l.status.latest_release ? ` · ${l.status.latest_release}` : ""}
-                </span>
+            <li key={shown.group ?? shown.slug}>
+              <strong>{shown.title}</strong> <small>({shown.publisher})</small>
+              <span className={`badge ${a.kind}`}>
+                {a.kind === "ready" && `Available for ${label(system.os)}`}
+                {a.kind === "no-build" && `Version for ${label(system.os)} exists, no verified build yet`}
+                {a.kind === "cannot-run" && `Cannot run on ${system.arch}`}
+                {a.kind === "unavailable" && `Not available for ${label(system.os)}`}
+              </span>
+              <p>
+                {a.kind === "unavailable"
+                  ? `Exists only for: ${a.all.map(label).join(", ")}.`
+                  : shown.summary}
+              </p>
+              {a.kind !== "unavailable" && (
+                <>
+                  {shown.variant && <p><em>Version:</em> {shown.variant}</p>}
+                  <p><em>Needs:</em> {shown.requires}</p>
+                  <p className="legal">{shown.legal_note}</p>
+                  {shown.status && (
+                    <small>
+                      Source {shown.status.state}
+                      {shown.status.latest_release ? ` · latest release ${shown.status.latest_release}` : ""}
+                    </small>
+                  )}
+                  {a.kind === "ready" && a.build && <NativeRun entry={shown} build={a.build} run={run} />}
+                  {a.kind === "cannot-run" && (
+                    <p>Pinned builds are x86-64 programs and Vapor does not emulate; this computer is {system.arch}.</p>
+                  )}
+                  <button onClick={() => openUrl(shown.url)}>Open original source</button>
+                </>
               )}
-              <p>{l.summary}</p>
-              <p><em>Needs:</em> {l.requires}</p>
-              <p className="legal">{l.legal_note}</p>
-              {build && <NativeRun entry={l} build={build} run={run} />}
-              <button onClick={() => openUrl(l.url)}>Open original source</button>
             </li>
           );
         })}
