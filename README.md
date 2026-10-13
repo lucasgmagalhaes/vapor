@@ -11,3 +11,4 @@ App desktop: **Tauri 2** (Rust) + **React + TypeScript + Vite**.
 - `takedown/` política e blocklist de remoção
 
 Veja `docs/CONTRIBUTING.md` e `takedown/TAKEDOWN.md`.
+- Artefatos dos jogos (build + Releases): [vapor-artifacts](https://github.com/lucasgmagalhaes/vapor-artifacts)

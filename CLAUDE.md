@@ -18,7 +18,8 @@ App desktop (Tauri 2: Rust + React/TypeScript/Vite) que é uma "Steam" de jogos 
 - `src/` — UI React; `src/api.ts` espelha os comandos Tauri.
 - `games/<slug>/game.json` — o catálogo. `schema/game.schema.json` descreve o formato (a validação real é `GameManifest::validate`).
 - `takedown/` — política (`TAKEDOWN.md`) e `blocklist.json`.
-- `.github/workflows/` — `ci.yml`, `catalog.yml` (publica `catalog.json` na branch `catalog`), `build-doom-freedoom.yml`.
+- `.github/workflows/` — `ci.yml`, `catalog.yml` (publica `catalog.json` na branch `catalog`).
+- Artefatos dos jogos NÃO ficam aqui: o build e os Releases vivem em `lucasgmagalhaes/vapor-artifacts` (um workflow `build-<slug>.yml` por jogo). Os Releases deste repositório são só versões do app (`v*`).
 
 ## Regras que não podem quebrar
 - O repositório guarda só metadados. Nunca commite binários, ROMs ou assets; em `games/` só `game.json` e `cover.webp` (a CI rejeita o resto).
@@ -31,7 +32,7 @@ App desktop (Tauri 2: Rust + React/TypeScript/Vite) que é uma "Steam" de jogos 
 ## Estado e pendências
 - `src-tauri` ainda não foi compilado em lugar nenhum; espere erros no primeiro `cargo check` com as libs instaladas.
 - `install_game` só baixa e guarda `artifact.bin`: falta descompactar com segurança, servir em webview isolada e ligar o FS virtual do wasm ao `SaveStore`.
-- `games/doom-freedoom/game.json` tem URL/hash/size provisórios até o workflow `build-doom-freedoom` publicar o Release. `games/demo-game` é só exemplo (URL fictícia).
+- `games/doom-freedoom/game.json` aponta para o Release do `vapor-artifacts`. `games/demo-game` é só exemplo (URL fictícia).
 - Meta: Resident Evil 1 via decomp próprio, em repositório separado, como `bring-your-own`.
 
 ## Convenções
