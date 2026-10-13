@@ -3997,6 +3997,7 @@ dependencies = [
 name = "vapor-app"
 version = "0.1.0"
 dependencies = [
+ "percent-encoding",
  "reqwest 0.12.28",
  "serde",
  "serde_json",
@@ -4011,6 +4012,7 @@ dependencies = [
 name = "vapor-core"
 version = "0.1.0"
 dependencies = [
+ "base64 0.22.1",
  "hex",
  "serde",
  "serde_json",

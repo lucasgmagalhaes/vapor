@@ -167,3 +167,9 @@ pub fn import_save(app: AppHandle, src: String) -> CmdResult<SaveMeta> {
 pub fn delete_game_saves(app: AppHandle, slug: String) -> CmdResult<()> {
     saves(&app)?.delete_game(&slug).map_err(err)
 }
+
+/// Opens an installed game in its own isolated window.
+#[tauri::command]
+pub fn play_game(app: AppHandle, slug: String) -> CmdResult<()> {
+    crate::game::open(&app, &slug)
+}
