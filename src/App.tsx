@@ -62,6 +62,12 @@ export function App() {
       setStatus(notes.join(". "));
     });
 
+  // The catalog is cached on disk; fetch the published one once at startup so covers, new links and
+  // takedowns show up without a manual click. Offline is fine: the cache stays.
+  useEffect(() => {
+    api.refreshCatalog().then(() => load()).catch(() => {});
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="app">
       <header>
