@@ -62,6 +62,7 @@ jobs:
 
       - name: Download, check, scan and pin the build
         run: |
+          set -o pipefail  # without it, `| tee` hides a failing verification
           args=(--slug "$SLUG" --platform "$PLATFORM")
           [ -n "$TAG" ] && args+=(--tag "$TAG")
           [ -n "$ASSET" ] && args+=(--asset "$ASSET")
