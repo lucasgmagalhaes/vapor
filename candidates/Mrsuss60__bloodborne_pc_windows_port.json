@@ -1,7 +1,7 @@
 {
   "repo": "Mrsuss60/bloodborne_pc_windows_port",
   "url": "https://github.com/Mrsuss60/bloodborne_pc_windows_port",
-  "status": "rejected",
+  "status": "external-only",
   "manual": true,
   "commit_checked": "e0a2a27ca898a85e6c2973520aa83293e87076d0",
   "license": { "spdx": "GPL-2.0" },

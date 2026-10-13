@@ -1,7 +1,7 @@
 {
   "repo": "arcanite24/pinyon-shift",
   "url": "https://github.com/arcanite24/pinyon-shift",
-  "status": "rejected",
+  "status": "external-only",
   "manual": true,
   "commit_checked": "a72a92a5f215a32875386b824b8b6f0f34e1caf9",
   "license": { "spdx": "BSD-3-Clause" },

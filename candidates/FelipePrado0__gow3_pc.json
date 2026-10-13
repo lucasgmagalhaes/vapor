@@ -1,7 +1,7 @@
 {
   "repo": "FelipePrado0/gow3_pc",
   "url": "https://github.com/FelipePrado0/gow3_pc",
-  "status": "rejected",
+  "status": "external-only",
   "manual": true,
   "commit_checked": "0cefb44bef20a1b899ebbc42fe24820ca12b81a2",
   "license": { "spdx": "GPL-2.0" },

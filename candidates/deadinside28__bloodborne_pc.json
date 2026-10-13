@@ -1,7 +1,7 @@
 {
   "repo": "deadinside28/bloodborne_pc",
   "url": "https://github.com/deadinside28/bloodborne_pc",
-  "status": "rejected",
+  "status": "external-only",
   "manual": true,
   "commit_checked": "3c57da4198ad62039f63f33bfd205b9916518acf",
   "license": { "spdx": "GPL-2.0" },
