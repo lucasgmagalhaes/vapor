@@ -1,0 +1,28 @@
+{
+  "repo": "mkeeter/pont",
+  "url": "https://github.com/mkeeter/pont",
+  "description": "An online board game in Rust and WebAssembly",
+  "stars": 268,
+  "pushed_at": "2025-12-11T14:28:56Z",
+  "default_branch": "main",
+  "commit_checked": "ea3ba35b012912d21488dc0e9411dd99ac94e7d4",
+  "license": {
+    "spdx": "Apache-2.0",
+    "file": null
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "pont-client/deploy/pont_client_bg.wasm"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T15:21:19.204Z",
+  "decomp": false,
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open"
+  ]
+}

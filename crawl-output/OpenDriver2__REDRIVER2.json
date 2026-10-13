@@ -1,0 +1,32 @@
+{
+  "repo": "OpenDriver2/REDRIVER2",
+  "url": "https://github.com/OpenDriver2/REDRIVER2",
+  "description": "Driver 2 Playstation game reverse engineering effort",
+  "stars": 1397,
+  "pushed_at": "2026-09-22T12:58:13Z",
+  "default_branch": "master",
+  "commit_checked": "b2d8857426f815007486def9bd23f9a6007a2c64",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "src_rebuild/platform/Emscripten/emscripten_exports.cpp",
+      "src_rebuild/platform/Emscripten/lsfs.js",
+      "src_rebuild/platform/Emscripten/shell.html",
+      "src_rebuild/platform/Emscripten/style.css",
+      "src_rebuild/premake_modules/emscripten/LICENSE.txt"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T15:21:07.809Z",
+  "decomp": true,
+  "status": "byo-only",
+  "reasons": [
+    "decompilation project: the game's original assets are almost certainly proprietary (bring-your-own)"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "repo": "elicoggins/keyboardwarrior",
+  "url": "https://github.com/elicoggins/keyboardwarrior",
+  "description": "A rhythm typing game built in Rust. Type letters in time with the music, using your existing Clone Hero / YARG chart library.",
+  "stars": 202,
+  "pushed_at": "2026-09-24T03:23:10Z",
+  "default_branch": "main",
+  "commit_checked": "43333020cba07699ad65347a7efe63cc93d1bacb",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE.md"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "docs/keyboardwarrior.wasm"
+    ],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T15:21:21.910Z",
+  "decomp": false,
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized"
+  ]
+}

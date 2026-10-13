@@ -1,0 +1,26 @@
+{
+  "repo": "YuriSizuku/OnscripterYuri",
+  "url": "https://github.com/YuriSizuku/OnscripterYuri",
+  "description": "An enhancement ONScripter project porting to many platforms, especially web. ",
+  "stars": 855,
+  "pushed_at": "2026-06-23T17:47:09Z",
+  "default_branch": "master",
+  "commit_checked": "08f744b31cc1907b66a15f0402e62321a131ed81",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T15:21:10.704Z",
+  "decomp": false,
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "repo": "mosra/magnum",
+  "url": "https://github.com/mosra/magnum",
+  "description": "Lightweight and modular C++11 graphics middleware for games and data visualization",
+  "stars": 5218,
+  "pushed_at": "2026-10-07T20:55:06Z",
+  "default_branch": "master",
+  "commit_checked": "a816a15a4a8dd227734b66a529a8ccd3c26b570f",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "COPYING"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "package/archlinux/PKGBUILD-emscripten-wasm",
+      "package/archlinux/PKGBUILD-emscripten-wasm-webgl2",
+      "package/ci/emscripten.sh",
+      "src/Magnum/Platform/EmscriptenApplication.cpp",
+      "src/Magnum/Platform/EmscriptenApplication.h"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T15:21:03.492Z",
+  "decomp": false,
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized"
+  ]
+}

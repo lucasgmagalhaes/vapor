@@ -1,0 +1,32 @@
+{
+  "repo": "deathkiller/jazz2-native",
+  "url": "https://github.com/deathkiller/jazz2-native",
+  "description": "🎮 · Jazz² Resurrection: Native C++ reimplementation of Jazz Jackrabbit 2",
+  "stars": 714,
+  "pushed_at": "2026-10-13T15:12:11Z",
+  "default_branch": "master",
+  "commit_checked": "26dbbd2d2cbdbc222244d25f974c2618e3b46d44",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      ".github/workflows/emscripten.yml",
+      "Sources/Shared/IO/EmscriptenFileStream.cpp",
+      "Sources/Shared/IO/EmscriptenFileStream.h",
+      "Sources/Utilities/AssetPacker/Web/README.md",
+      "Sources/Utilities/AssetPacker/Web/assetpacker-worker.js"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": true
+  },
+  "crawled_at": "2026-10-13T15:21:12.464Z",
+  "decomp": false,
+  "status": "byo-only",
+  "reasons": [
+    "mentions freeware/shareware: not an open license"
+  ]
+}

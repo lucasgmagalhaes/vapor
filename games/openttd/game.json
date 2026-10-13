@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "slug": "openttd",
+  "title": "OpenTTD",
+  "authors": ["OpenTTD team", "OpenGFX team", "OpenSFX team", "OpenMSX team"],
+  "source": { "repo": "https://github.com/OpenTTD/OpenTTD", "commit": "14ec60f248547d4d062a1160f0fc26d742319888" },
+  "license": { "code": "GPL-2.0", "assets": "GPL-2.0 (OpenGFX, OpenMSX), CC-BY-SA-3.0 (OpenSFX)" },
+  "assets_policy": "open",
+  "artifact": {
+    "url": "https://github.com/lucasgmagalhaes/vapor-artifacts/releases/download/openttd-2/openttd.zip",
+    "sha256": "d0ca3010a799a223f72b74a7701af5ea3d27ad7babf1fbf523f09bd77133c998",
+    "size": 19702076,
+    "entry": "openttd/openttd.html"
+  },
+  "saves": { "paths": ["/home/web_user/.openttd"], "version": 1 },
+  "tags": ["simulation", "tycoon", "transport", "openttd"],
+  "contact": "https://github.com/lucasgmagalhaes/vapor/issues"
+}
