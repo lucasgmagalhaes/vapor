@@ -26,7 +26,9 @@ export function GameDetail(props: { game: Game; installed: boolean; run: Run }) 
 
   return (
     <div className="detail">
-      <Cover src={game.cover} title={game.title} className="detail-cover" />
+      <div className="detail-artwork">
+        <Cover src={game.cover} title={game.title} className="detail-cover" />
+      </div>
       <div className="detail-body">
         <h2>{game.title}</h2>
         <p className="muted">{game.authors.join(", ")}</p>

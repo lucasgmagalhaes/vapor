@@ -99,7 +99,9 @@ export function NativeDetail(props: { entries: ExternalEntry[]; system: SystemIn
   const v = verdict(a.kind, system);
   return (
     <div className="detail">
-      <Cover src={shown.cover} title={shown.title} className="detail-cover" />
+      <div className="detail-artwork">
+        <Cover src={shown.cover} title={shown.title} className="detail-cover" />
+      </div>
       <div className="detail-body">
         <h2>{shown.title}</h2>
         <p className="muted">{shown.publisher}</p>
