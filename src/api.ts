@@ -34,6 +34,13 @@ export interface NativeBuild {
   notes?: string;
 }
 
+export interface SystemInfo {
+  os: string;
+  arch: string;
+  /** Windows or Linux on x86-64: pinned native builds can run here. */
+  native_ok: boolean;
+}
+
 export interface ExternalEntry {
   slug: string;
   title: string;
@@ -44,6 +51,8 @@ export interface ExternalEntry {
   summary: string;
   legal_note: string;
   tags: string[];
+  group?: string;
+  variant?: string;
   native?: NativeBuild[];
   status?: LinkStatus;
 }
@@ -72,6 +81,7 @@ export interface RefreshResult {
 
 export const api = {
   runNative: (slug: string, confirm: string) => invoke<number>("run_native", { slug, confirm }),
+  getSystem: () => invoke<SystemInfo>("get_system"),
   getLinks: () => invoke<ExternalEntry[]>("get_links"),
   getCatalog: (query?: string) => invoke<Game[]>("get_catalog", { query }),
   refreshCatalog: () => invoke<RefreshResult>("refresh_catalog"),

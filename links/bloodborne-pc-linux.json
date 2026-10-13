@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "slug": "bloodborne-pc-linux",
-  "title": "Bloodborne PC port (Linux)",
+  "title": "Bloodborne",
   "publisher": "Sony Interactive Entertainment / FromSoftware",
   "url": "https://github.com/deadinside28/bloodborne_pc",
   "platforms": [
@@ -26,5 +26,7 @@
       "trust": "scanned",
       "notes": "Release 0.51. Hash pinned and scanned with ClamAV 1.5.4/28152/Tue Oct 13 06:26:14 2026 in a throwaway CI runner; nobody reviewed the program itself. SHA-256 matches the digest published by GitHub."
     }
-  ]
+  ],
+  "group": "bloodborne",
+  "variant": "Linux port (deadinside28)"
 }

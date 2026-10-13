@@ -277,6 +277,12 @@ pub async fn run_native(app: AppHandle, slug: String, confirm: String) -> CmdRes
     crate::native::run(app, slug, confirm).await
 }
 
+/// The player's operating system and architecture, and whether pinned native builds can run here.
+#[tauri::command]
+pub fn get_system() -> vapor_core::native::System {
+    vapor_core::native::system()
+}
+
 /// Link entries: listed with their original source; some also carry a pinned native build.
 #[tauri::command]
 pub fn get_links(app: AppHandle) -> CmdResult<Vec<ExternalEntry>> {

@@ -30,6 +30,25 @@ pub fn platform() -> Option<&'static str> {
     }
 }
 
+/// The player's system, as far as running pinned native builds is concerned.
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+pub struct System {
+    /// `windows`, `linux`, `macos` or whatever `std::env::consts::OS` says.
+    pub os: String,
+    pub arch: String,
+    /// True when Vapor can run a pinned native build here: Windows or Linux on x86-64 (the builds
+    /// are x86-64 programs; Vapor does not emulate).
+    pub native_ok: bool,
+}
+
+pub fn system() -> System {
+    system_of(std::env::consts::OS, std::env::consts::ARCH)
+}
+
+pub fn system_of(os: &str, arch: &str) -> System {
+    System { os: os.into(), arch: arch.into(), native_ok: matches!(os, "windows" | "linux") && arch == "x86_64" }
+}
+
 /// Size and SHA-256 of a downloaded asset against what the reviewer pinned.
 pub fn verify_asset(build: &NativeBuild, bytes: &[u8]) -> Result<()> {
     if bytes.len() as u64 != build.size {
@@ -190,6 +209,16 @@ mod tests {
         ];
         let kept: Vec<String> = clean_env(env.into_iter()).into_iter().map(|(k, _)| k).collect();
         assert_eq!(kept, vec!["PATH", "Path", "DISPLAY"]);
+    }
+
+    #[test]
+    fn native_builds_need_windows_or_linux_on_x86_64() {
+        assert!(system_of("windows", "x86_64").native_ok);
+        assert!(system_of("linux", "x86_64").native_ok);
+        assert!(!system_of("macos", "aarch64").native_ok);
+        assert!(!system_of("macos", "x86_64").native_ok);
+        assert!(!system_of("windows", "aarch64").native_ok, "no emulation");
+        assert!(!system_of("linux", "aarch64").native_ok);
     }
 
     #[test]

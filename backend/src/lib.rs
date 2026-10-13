@@ -23,6 +23,7 @@ pub fn run() {
             commands::delete_game_saves,
             commands::play_game,
             commands::get_links,
+            commands::get_system,
             commands::run_native,
             commands::byo_status,
             commands::byo_import,
