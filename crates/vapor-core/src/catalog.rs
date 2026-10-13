@@ -3,6 +3,7 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 
 use crate::blocklist::Blocklist;
+use crate::links::{self, ExternalEntry};
 use crate::manifest::GameManifest;
 use crate::{Error, Result};
 
@@ -10,6 +11,9 @@ use crate::{Error, Result};
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Catalog {
     pub games: Vec<GameManifest>,
+    /// Link-only entries (`links/*.json`): listed with their original source, never run.
+    #[serde(default)]
+    pub links: Vec<ExternalEntry>,
     /// Non-fatal findings (for example a probable duplicate); not part of `catalog.json`.
     #[serde(skip)]
     pub warnings: Vec<String>,
@@ -24,6 +28,31 @@ fn norm(s: &str) -> String {
 fn norm_repo(url: &str) -> String {
     let u = url.trim().trim_end_matches('/').trim_end_matches(".git").to_lowercase();
     u.strip_prefix("https://").or_else(|| u.strip_prefix("http://")).unwrap_or(&u).to_string()
+}
+
+/// A link-only entry may not repeat a game Vapor already runs, or another link.
+fn check_link_duplicates(games: &[GameManifest], links: &[ExternalEntry]) -> Result<()> {
+    for (i, l) in links.iter().enumerate() {
+        let dup = |why: String| Error::InvalidManifest { path: format!("links/{}", l.slug), reason: format!("duplicate: {why}") };
+        for g in games {
+            if g.slug == l.slug {
+                return Err(dup(format!("same slug as game {}", g.slug)));
+            }
+            let gk = norm_repo(&g.source.repo);
+            if l.repo_key() == gk {
+                return Err(dup(format!("same source repository as game {}", g.slug)));
+            }
+        }
+        for o in &links[i + 1..] {
+            if o.repo_key() == l.repo_key() {
+                return Err(dup(format!("same source repository as links/{}", o.slug)));
+            }
+            if o.slug == l.slug {
+                return Err(dup("same slug".into()));
+            }
+        }
+    }
+    Ok(())
 }
 
 fn words(title: &str) -> std::collections::BTreeSet<String> {
@@ -97,7 +126,18 @@ impl Catalog {
         }
         games.sort_by(|a, b| a.slug.cmp(&b.slug));
         let warnings = check_duplicates(&games)?;
-        Ok(Self { games, warnings })
+        let mut links = match games_dir.parent() {
+            Some(root) => links::load_dir(&root.join("links"))?,
+            None => Vec::new(),
+        };
+        for l in &links {
+            if let Some(reference) = blocklist.check_link(l) {
+                return Err(Error::Blocked(format!("links/{} ({reference})", l.slug)));
+            }
+        }
+        check_link_duplicates(&games, &links)?;
+        links.sort_by(|a, b| a.slug.cmp(&b.slug));
+        Ok(Self { games, links, warnings })
     }
 
     pub fn search(&self, query: &str) -> Vec<&GameManifest> {
@@ -162,5 +202,37 @@ mod tests {
         let b = game("b", "SuperTux Kart Racing", "https://github.com/y/b", 'b');
         let w = check_duplicates(&[a, b]).unwrap();
         assert_eq!(w.len(), 1, "{w:?}");
+    }
+
+    fn link(slug: &str, url: &str) -> ExternalEntry {
+        serde_json::from_value(serde_json::json!({
+            "schema": 1, "slug": slug, "title": "T", "publisher": "P", "url": url,
+            "platforms": ["windows"], "requires": "A copy of the original game", "summary": "s",
+            "legal_note": "Unofficial; not hosted or endorsed by Vapor."
+        }))
+        .unwrap()
+    }
+
+    #[test]
+    fn links_cannot_repeat_games_or_each_other() {
+        let g = game("doom", "Doom", "https://github.com/a/doom", 'a');
+        assert!(check_link_duplicates(&[g.clone()], &[link("x", "https://github.com/b/x")]).is_ok());
+        assert!(check_link_duplicates(&[g.clone()], &[link("y", "https://GitHub.com/A/Doom/")]).is_err(), "same repo as a game");
+        assert!(check_link_duplicates(&[g], &[link("doom", "https://github.com/b/other")]).is_err(), "same slug as a game");
+        assert!(check_link_duplicates(&[], &[link("a", "https://github.com/b/x"), link("b", "https://github.com/B/X")]).is_err());
+    }
+
+    #[test]
+    fn blocklist_removes_links_by_slug_or_repository() {
+        use crate::blocklist::{BlockEntry, Blocklist};
+        let b = |slug: Option<&str>, domain: Option<&str>| Blocklist {
+            entries: vec![BlockEntry { slug: slug.map(Into::into), sha256: None, domain: domain.map(Into::into), date: "2026-01-01".into(), reference: "r".into() }],
+        };
+        let l = link("x", "https://github.com/owner/x");
+        assert!(b(Some("x"), None).check_link(&l).is_some());
+        assert!(b(None, Some("github.com/owner")).check_link(&l).is_some(), "whole owner");
+        assert!(b(None, Some("github.com/owner/x")).check_link(&l).is_some(), "exact repo");
+        assert!(b(None, Some("github.com")).check_link(&l).is_none(), "never block a whole host by accident");
+        assert!(b(None, Some("github.com/owne")).check_link(&l).is_none());
     }
 }
