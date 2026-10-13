@@ -21,6 +21,19 @@ export interface LinkStatus {
   latest_release?: string | null;
 }
 
+export interface NativeBuild {
+  platform: "windows" | "linux";
+  url: string;
+  sha256: string;
+  size: number;
+  exe: string;
+  reviewed_by: string;
+  reviewed_on: string;
+  /** reviewed = a named person looked at it; scanned = only hash pinned + antivirus scan. */
+  trust: "reviewed" | "scanned";
+  notes?: string;
+}
+
 export interface ExternalEntry {
   slug: string;
   title: string;
@@ -31,6 +44,7 @@ export interface ExternalEntry {
   summary: string;
   legal_note: string;
   tags: string[];
+  native?: NativeBuild[];
   status?: LinkStatus;
 }
 
@@ -57,6 +71,7 @@ export interface RefreshResult {
 }
 
 export const api = {
+  runNative: (slug: string, confirm: string) => invoke<number>("run_native", { slug, confirm }),
   getLinks: () => invoke<ExternalEntry[]>("get_links"),
   getCatalog: (query?: string) => invoke<Game[]>("get_catalog", { query }),
   refreshCatalog: () => invoke<RefreshResult>("refresh_catalog"),

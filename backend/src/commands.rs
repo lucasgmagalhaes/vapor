@@ -51,7 +51,7 @@ fn read_cached(app: &AppHandle) -> CmdResult<Catalog> {
 
 /// Downloads `url` into memory, refusing anything that is not exactly `expected` bytes. The size
 /// comes from the manifest, so a hostile server cannot make the app buffer an unbounded body.
-async fn download_exact(url: &str, expected: u64) -> CmdResult<Vec<u8>> {
+pub(crate) async fn download_exact(url: &str, expected: u64) -> CmdResult<Vec<u8>> {
     let client = reqwest::Client::builder()
         .timeout(std::time::Duration::from_secs(30 * 60))
         .redirect(reqwest::redirect::Policy::limited(5))
@@ -265,7 +265,19 @@ pub fn byo_clear(app: AppHandle, slug: String) -> CmdResult<()> {
     crate::game::byo_store(&app).ok_or("no data dir")?.delete_game(&slug).map_err(err)
 }
 
-/// Link-only entries (projects Vapor lists but never runs), minus those whose source is gone.
+/// The visible link entries from the (re-validated) cached catalog.
+pub(crate) fn cached_links(app: &AppHandle) -> CmdResult<Vec<ExternalEntry>> {
+    Ok(read_cached(app)?.links.into_iter().filter(|l| l.visible()).collect())
+}
+
+/// Downloads (first time), verifies and starts a pinned native build. `confirm` must be the
+/// project's slug, typed by the player after reading the warning.
+#[tauri::command]
+pub async fn run_native(app: AppHandle, slug: String, confirm: String) -> CmdResult<u32> {
+    crate::native::run(app, slug, confirm).await
+}
+
+/// Link entries: listed with their original source; some also carry a pinned native build.
 #[tauri::command]
 pub fn get_links(app: AppHandle) -> CmdResult<Vec<ExternalEntry>> {
     Ok(read_cached(&app)?.links.into_iter().filter(|l| l.visible()).collect())

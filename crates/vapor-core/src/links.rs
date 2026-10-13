@@ -33,6 +33,90 @@ pub struct LinkStatus {
     pub failures: u32,
 }
 
+/// A native build a maintainer has reviewed and pinned. "Verified" here means exactly this and
+/// nothing more: the file is one specific release asset of the linked repository, its size and
+/// SHA-256 were recorded by a named reviewer on a date, and the app re-checks both before every
+/// run. It is NOT a statement that the program is safe, and Vapor cannot sandbox native code.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct NativeBuild {
+    /// `windows` or `linux`.
+    pub platform: String,
+    /// Release asset URL; must live under `https://github.com/<owner>/<repo>/releases/download/`
+    /// of the same repository as the entry's `url`.
+    pub url: String,
+    pub sha256: String,
+    pub size: u64,
+    /// Program to start: the asset itself (a plain executable/AppImage: use its file name) or a
+    /// relative path inside the `.zip` asset.
+    pub exe: String,
+    pub reviewed_by: String,
+    /// `YYYY-MM-DD`.
+    pub reviewed_on: String,
+    /// What stands behind the build: `reviewed` (a named person looked at it) or `scanned` (only
+    /// the automatic pipeline: hash pinned and antivirus-scanned in a throwaway CI runner). The
+    /// app shows the difference and asks for an explicit confirmation either way.
+    #[serde(default = "default_trust")]
+    pub trust: String,
+    #[serde(default)]
+    pub notes: String,
+}
+
+fn default_trust() -> String {
+    "scanned".into()
+}
+
+/// Largest native asset the app will download (the Linux AppImages seen are up to ~900 MB).
+pub const MAX_NATIVE_BYTES: u64 = 2 * 1024 * 1024 * 1024;
+
+fn safe_rel_path(p: &str) -> bool {
+    !p.is_empty()
+        && !p.starts_with('/')
+        && !p.contains(['\\', '\0', ':'])
+        && p.split('/').all(|c| !c.is_empty() && c != "." && c != "..")
+}
+
+fn valid_date(d: &str) -> bool {
+    d.len() == 10
+        && d.char_indices().all(|(i, c)| if i == 4 || i == 7 { c == '-' } else { c.is_ascii_digit() })
+}
+
+impl NativeBuild {
+    fn validate(&self, entry_repo: &str) -> std::result::Result<(), String> {
+        if !matches!(self.platform.as_str(), "windows" | "linux") {
+            return Err("native.platform must be windows or linux".into());
+        }
+        let prefix = format!("https://github.com/{entry_repo}/releases/download/");
+        if !self.url.to_ascii_lowercase().starts_with(&prefix.to_ascii_lowercase()) || self.url.contains(['?', '#']) {
+            return Err(format!("native.url must be a release asset of {entry_repo} (…/releases/download/<tag>/<file>)"));
+        }
+        if self.sha256.len() != 64 || !self.sha256.chars().all(|c| c.is_ascii_hexdigit()) {
+            return Err("native.sha256 must be 64 hex chars".into());
+        }
+        if self.size == 0 || self.size > MAX_NATIVE_BYTES {
+            return Err("native.size must be between 1 byte and 2 GiB".into());
+        }
+        if !safe_rel_path(&self.exe) {
+            return Err("native.exe must be a relative path without .., backslashes or drive letters".into());
+        }
+        if !matches!(self.trust.as_str(), "reviewed" | "scanned") {
+            return Err("native.trust must be reviewed or scanned".into());
+        }
+        if self.reviewed_by.trim().is_empty() || !valid_date(&self.reviewed_on) {
+            return Err("native.reviewed_by and native.reviewed_on (YYYY-MM-DD) are required".into());
+        }
+        Ok(())
+    }
+
+    /// File name of the downloaded asset.
+    pub fn asset_name(&self) -> &str {
+        self.url.rsplit('/').next().unwrap_or("")
+    }
+
+    pub fn is_zip(&self) -> bool {
+        self.asset_name().to_ascii_lowercase().ends_with(".zip")
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct ExternalEntry {
     pub schema: u32,
@@ -51,6 +135,9 @@ pub struct ExternalEntry {
     pub legal_note: String,
     #[serde(default)]
     pub tags: Vec<String>,
+    /// Reviewed native builds the app may run (see `NativeBuild`). Empty = link only.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub native: Vec<NativeBuild>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<LinkStatus>,
 }
@@ -102,12 +189,25 @@ impl ExternalEntry {
         if self.legal_note.trim().len() < 20 {
             return Err(bad("legal_note is mandatory: say it is unofficial and not hosted or endorsed by Vapor"));
         }
+        if let Some((host, repo)) = parse_repo_url(&self.url) {
+            for n in &self.native {
+                if host != "github.com" {
+                    return Err(bad("native builds are only supported for github.com repositories"));
+                }
+                n.validate(&repo).map_err(|e| bad(&e))?;
+            }
+        }
         Ok(())
     }
 
     /// Normalized `host/owner/repo`, to detect the same project listed twice.
     pub fn repo_key(&self) -> String {
         parse_repo_url(&self.url).map_or_else(String::new, |(h, r)| format!("{h}/{}", r.to_lowercase()))
+    }
+
+    /// The reviewed build for `platform` (`windows`/`linux`), if any.
+    pub fn native_for(&self, platform: &str) -> Option<&NativeBuild> {
+        self.native.iter().find(|n| n.platform == platform)
     }
 
     /// Hidden once the source is gone or blocked, or after repeated failed checks.
@@ -164,8 +264,54 @@ mod tests {
             summary: "Unofficial native port.".into(),
             legal_note: "Unofficial; derived from proprietary code; not hosted or endorsed by Vapor.".into(),
             tags: vec![],
+            native: vec![],
             status: None,
         }
+    }
+
+    fn build() -> NativeBuild {
+        NativeBuild {
+            platform: "windows".into(),
+            url: "https://github.com/owner/some-port/releases/download/v1/game.zip".into(),
+            sha256: "a".repeat(64),
+            size: 1000,
+            exe: "game/run.exe".into(),
+            reviewed_by: "maintainer".into(),
+            reviewed_on: "2026-10-13".into(),
+            trust: "reviewed".into(),
+            notes: String::new(),
+        }
+    }
+
+    #[test]
+    fn native_builds_must_be_pinned_assets_of_the_same_repository() {
+        let mut e = entry();
+        e.native = vec![build()];
+        assert!(e.validate("some-port").is_ok());
+        assert_eq!(e.native_for("windows").unwrap().asset_name(), "game.zip");
+        assert!(e.native_for("linux").is_none());
+
+        let bad = |f: &dyn Fn(&mut NativeBuild)| {
+            let mut e = entry();
+            let mut b = build();
+            f(&mut b);
+            e.native = vec![b];
+            e.validate("some-port").is_err()
+        };
+        assert!(bad(&|b| b.url = "https://github.com/other/repo/releases/download/v1/game.zip".into()), "other repo");
+        assert!(bad(&|b| b.url = "https://evil.example/owner/some-port/releases/download/v1/g.zip".into()), "other host");
+        assert!(bad(&|b| b.url = "https://github.com/owner/some-port/archive/main.zip".into()), "not a release asset");
+        assert!(bad(&|b| b.url = "https://github.com/owner/some-port/releases/download/v1/g.zip?x=1".into()), "query string");
+        assert!(bad(&|b| b.sha256 = "zz".into()));
+        assert!(bad(&|b| b.size = 0));
+        assert!(bad(&|b| b.size = MAX_NATIVE_BYTES + 1));
+        assert!(bad(&|b| b.platform = "macos".into()));
+        assert!(bad(&|b| b.exe = "../run.exe".into()));
+        assert!(bad(&|b| b.exe = "C:/run.exe".into()));
+        assert!(bad(&|b| b.exe = "a\\b.exe".into()));
+        assert!(bad(&|b| b.reviewed_by = " ".into()), "a named reviewer is required");
+        assert!(bad(&|b| b.reviewed_on = "yesterday".into()));
+        assert!(bad(&|b| b.trust = "trusted".into()), "only reviewed or scanned");
     }
 
     #[test]

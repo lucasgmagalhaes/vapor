@@ -1,5 +1,6 @@
 mod commands;
 mod game;
+mod native;
 
 pub fn run() {
     tauri::Builder::default()
@@ -22,6 +23,7 @@ pub fn run() {
             commands::delete_game_saves,
             commands::play_game,
             commands::get_links,
+            commands::run_native,
             commands::byo_status,
             commands::byo_import,
             commands::byo_clear,

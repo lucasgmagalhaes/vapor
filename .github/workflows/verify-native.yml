@@ -1,0 +1,95 @@
+name: verify-native
+# Pins a native build of a link entry so the app may download and run it. Everything happens in this
+# throwaway runner, never on a player's machine:
+#   download the release asset -> check size and the SHA-256 GitHub publishes -> unpack (nothing is
+#   executed) -> scan with ClamAV -> write the `native` build (trust: scanned) into links/<slug>.json
+#   -> `vapor validate` -> pull request ready for review.
+# "scanned" means hash pinned + antivirus scan. It is NOT a review; the app says so before running.
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "links/<slug>.json to pin a build for"
+        required: true
+      platform:
+        description: "windows or linux"
+        required: true
+        default: "windows"
+      tag:
+        description: "Release tag (empty = latest)"
+        required: false
+      asset:
+        description: "Asset name (empty = pick automatically)"
+        required: false
+      exe:
+        description: "Program inside a zip (empty = pick automatically)"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: verify-native-${{ inputs.slug }}-${{ inputs.platform }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SLUG: ${{ inputs.slug }}
+      PLATFORM: ${{ inputs.platform }}
+      TAG: ${{ inputs.tag }}
+      ASSET: ${{ inputs.asset }}
+      EXE: ${{ inputs.exe }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+
+      - name: Install ClamAV and update its signatures
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clamav unzip
+          sudo systemctl stop clamav-freshclam || true
+          sudo freshclam
+          clamscan --version
+
+      - name: Download, check, scan and pin the build
+        run: |
+          args=(--slug "$SLUG" --platform "$PLATFORM")
+          [ -n "$TAG" ] && args+=(--tag "$TAG")
+          [ -n "$ASSET" ] && args+=(--asset "$ASSET")
+          [ -n "$EXE" ] && args+=(--exe "$EXE")
+          node tools/pipeline/verify-native.mjs "${args[@]}" | tee verify.log
+
+      - name: Validate the catalog
+        run: cargo run -q -p vapor-cli -- validate .
+
+      - name: Open the pull request
+        run: |
+          set -euo pipefail
+          branch="native/$SLUG-$PLATFORM"
+          git config user.name "vapor-bot"; git config user.email "bot@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add links
+          git commit -m "feat(catalog): pin a scanned $PLATFORM build for $SLUG"
+          git push -f origin "$branch"
+          {
+            echo "## Pin a $PLATFORM native build for \`$SLUG\`"
+            echo
+            echo "Produced by the \`verify-native\` workflow in a throwaway runner. **Trust level: scanned**: the file's size and SHA-256 are pinned (and match the digest GitHub publishes) and it was scanned with ClamAV. **Nobody reviewed the program itself.** The app tells the player this and requires a typed confirmation before running it."
+            echo
+            echo '```'
+            cat verify.log
+            echo '```'
+            echo
+            echo "- [ ] You accept that the app can download and run this program for players on request"
+          } > pr-body.md
+          gh pr create --base main --head "$branch" --title "Pin a scanned $PLATFORM build for $SLUG" --body-file pr-body.md --label auto-pr \
+            || gh pr edit "$branch" --body-file pr-body.md

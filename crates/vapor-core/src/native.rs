@@ -128,6 +128,7 @@ mod tests {
             exe: exe.into(),
             reviewed_by: "m".into(),
             reviewed_on: "2026-10-13".into(),
+            trust: "scanned".into(),
             notes: String::new(),
         }
     }

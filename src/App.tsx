@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { open, save } from "@tauri-apps/plugin-dialog";
 import { openUrl } from "@tauri-apps/plugin-opener";
-import { api, ByoStatus, ExternalEntry, Game, SaveMeta } from "./api";
+import { api, ByoStatus, ExternalEntry, Game, NativeBuild, SaveMeta } from "./api";
 
 export function App() {
   const [games, setGames] = useState<Game[]>([]);
@@ -65,7 +65,7 @@ export function App() {
           ))}
           {games.length === 0 && <li className="empty">Catalog is empty. Click “Refresh catalog”.</li>}
         </ul>
-        {links.length > 0 && <ExternalProjects links={links} />}
+        {links.length > 0 && <ExternalProjects links={links} run={run} />}
         {selected && (
           <GameDetail
             game={selected}
@@ -204,31 +204,92 @@ function GameDetail(props: {
   );
 }
 
-/** Projects Vapor does not host or run: the original source is always shown and opened in the browser. */
-function ExternalProjects({ links }: { links: ExternalEntry[] }) {
+const SYSTEM = navigator.userAgent.includes("Windows") ? "windows" : "linux";
+
+function mb(n: number) {
+  return `${Math.round(n / 1048576)} MB`;
+}
+
+/** Native programs: how the build is vouched for, the risk, and a typed confirmation. */
+function NativeRun(props: {
+  entry: ExternalEntry;
+  build: NativeBuild;
+  run: (label: string, fn: () => Promise<unknown>) => Promise<void>;
+}) {
+  const { entry, build, run } = props;
+  const [open, setOpen] = useState(false);
+  const [typed, setTyped] = useState("");
+  const reviewed = build.trust === "reviewed";
+  return (
+    <div className="native">
+      <p>
+        <strong>{reviewed ? "Reviewed build" : "Automatically scanned build (not reviewed by a person)"}</strong>
+        {" "}pinned by {build.reviewed_by} on {build.reviewed_on} · {mb(build.size)} · sha256{" "}
+        <code>{build.sha256.slice(0, 12)}…</code>
+      </p>
+      {build.notes && <p>{build.notes}</p>}
+      {!open ? (
+        <button onClick={() => setOpen(true)}>Download and run…</button>
+      ) : (
+        <div className="confirm">
+          <p>
+            This downloads a <strong>native program</strong> from the project's own release, checks its size and
+            SHA-256 against the pinned values, and runs it with <strong>your user's permissions</strong>. Vapor
+            cannot sandbox it, and the checks do not prove it is safe
+            {reviewed ? "" : "; nobody has reviewed it, it was only hash-pinned and antivirus-scanned"}. The
+            files are re-checked before every launch.
+          </p>
+          <p>
+            Type <code>{entry.slug}</code> to confirm:
+          </p>
+          <input value={typed} onChange={(e) => setTyped(e.target.value)} />
+          <button
+            disabled={typed !== entry.slug}
+            onClick={() => run("Downloading, verifying and starting", () => api.runNative(entry.slug, typed))}
+          >
+            Run
+          </button>
+          <button onClick={() => { setOpen(false); setTyped(""); }}>Cancel</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Games that are not WebAssembly: the original source is always shown; a pinned native build, when
+ *  one exists for this system, can be downloaded and run after an explicit confirmation. */
+function ExternalProjects(props: {
+  links: ExternalEntry[];
+  run: (label: string, fn: () => Promise<unknown>) => Promise<void>;
+}) {
+  const { links, run } = props;
   return (
     <section className="external">
-      <h2>External projects (link only)</h2>
+      <h2>Native ports</h2>
       <p>
-        Not hosted, tested or endorsed by Vapor, and they do not run inside it. Vapor only lists them and
-        links the original source, which is checked every few hours.
+        Not WebAssembly: they run as normal programs and are not hosted by Vapor. The original source is checked
+        every few hours; a program can be run only if a build was pinned (size + SHA-256) for your system.
       </p>
       <ul>
-        {links.map((l) => (
-          <li key={l.slug}>
-            <strong>{l.title}</strong> <small>({l.publisher}; {l.platforms.join(", ")})</small>
-            {l.status && (
-              <span className="badge">
-                {l.status.state}
-                {l.status.latest_release ? ` · ${l.status.latest_release}` : ""}
-              </span>
-            )}
-            <p>{l.summary}</p>
-            <p><em>Needs:</em> {l.requires}</p>
-            <p className="legal">{l.legal_note}</p>
-            <button onClick={() => openUrl(l.url)}>Open original source</button>
-          </li>
-        ))}
+        {links.map((l) => {
+          const build = l.native?.find((n) => n.platform === SYSTEM);
+          return (
+            <li key={l.slug}>
+              <strong>{l.title}</strong> <small>({l.publisher}; {l.platforms.join(", ")})</small>
+              {l.status && (
+                <span className="badge">
+                  {l.status.state}
+                  {l.status.latest_release ? ` · ${l.status.latest_release}` : ""}
+                </span>
+              )}
+              <p>{l.summary}</p>
+              <p><em>Needs:</em> {l.requires}</p>
+              <p className="legal">{l.legal_note}</p>
+              {build && <NativeRun entry={l} build={build} run={run} />}
+              <button onClick={() => openUrl(l.url)}>Open original source</button>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
