@@ -1,34 +1,31 @@
-import { useCallback, useEffect, useState } from "react";
-import { open, save } from "@tauri-apps/plugin-dialog";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { openUrl } from "@tauri-apps/plugin-opener";
-import { api, ByoStatus, ExternalEntry, Game, NativeBuild, SaveMeta, SystemInfo } from "./api";
+import { api, ExternalEntry, Game, SystemInfo } from "./api";
+import { GameDetail } from "./detail";
+import { HeroCarousel, Slide } from "./hero";
+import { NativeDetail, availability, groupLinks, label, verdict } from "./native";
+import { EMPTY, Progress, ProgressEvent, apply, load as loadProgress, store as storeProgress } from "./progress";
+import { GamificationBar, NavigationHeader, Sidebar, View } from "./shell";
+import { Cover, GameGrid, Item, Modal, SectionHeader } from "./ui";
 
-/** Store-style cover: the official image when the catalog has one, a titled placeholder otherwise. */
-function Cover({ src, title }: { src?: string; title: string }) {
-  const [broken, setBroken] = useState(false);
-  if (src && !broken) {
-    return (
-      <img
-        className="cover"
-        src={src}
-        alt=""
-        loading="lazy"
-        referrerPolicy="no-referrer"
-        onError={() => setBroken(true)}
-      />
-    );
-  }
-  return <div className="cover placeholder" aria-hidden="true">{title.slice(0, 2).toUpperCase()}</div>;
+const norm = (s: string) => s.toLowerCase();
+
+function matches(i: Item, q: string) {
+  const n = norm(q.trim());
+  return !n || [i.title, i.subtitle, ...i.tags].some((t) => norm(t).includes(n));
 }
 
 export function App() {
   const [games, setGames] = useState<Game[]>([]);
   const [installed, setInstalled] = useState<string[]>([]);
-  const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<Game | null>(null);
-  const [status, setStatus] = useState("");
   const [links, setLinks] = useState<ExternalEntry[]>([]);
   const [system, setSystem] = useState<SystemInfo | null>(null);
+  const [query, setQuery] = useState("");
+  const [view, setView] = useState<View>("home");
+  const [category, setCategory] = useState<string | null>(null);
+  const [status, setStatus] = useState("");
+  const [opened, setOpened] = useState<Item | null>(null);
+  const [progress, setProgress] = useState<Progress>(() => loadProgress());
 
   const load = useCallback(async () => {
     setGames(await api.getCatalog(query));
@@ -41,11 +38,18 @@ export function App() {
     load().catch((e) => setStatus(String(e)));
   }, [load]);
 
-  const run = async (label: string, fn: () => Promise<unknown>) => {
-    setStatus(`${label}…`);
+  const run = async (text: string, fn: () => Promise<unknown>, event?: ProgressEvent) => {
+    setStatus(`${text}…`);
     try {
       await fn();
       setStatus("");
+      if (event) {
+        setProgress((p) => {
+          const next = apply(p, event, new Date());
+          storeProgress(next);
+          return next;
+        });
+      }
       await load();
     } catch (e) {
       setStatus(`Error: ${e}`);
@@ -68,310 +72,258 @@ export function App() {
     api.refreshCatalog().then(() => load()).catch(() => {});
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (
-    <div className="app">
-      <header>
-        <h1>Vapor</h1>
-        <input
-          placeholder="Search games…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button onClick={refresh}>Refresh catalog</button>
-      </header>
-      {status && <p className="status">{status}</p>}
-      <main>
-        <ul className="grid">
-          {games.map((g) => (
-            <li key={g.slug} onClick={() => setSelected(g)}>
-              <Cover src={g.cover} title={g.title} />
-              <strong>{g.title}</strong>
-              <small>{g.authors.join(", ")}</small>
-              {installed.includes(g.slug) && <span className="badge">installed</span>}
-            </li>
-          ))}
-          {games.length === 0 && <li className="empty">Catalog is empty. Click “Refresh catalog”.</li>}
-        </ul>
-        {links.length > 0 && system && <ExternalProjects links={links} system={system} run={run} />}
-        {selected && (
-          <GameDetail
-            game={selected}
-            installed={installed.includes(selected.slug)}
-            run={run}
-          />
-        )}
-      </main>
+  const groups = useMemo(() => groupLinks(links), [links]);
+
+  const wasmItems: Item[] = useMemo(
+    () =>
+      games.map((g) => ({
+        key: `w:${g.slug}`,
+        title: g.title,
+        subtitle: g.authors.join(", "),
+        cover: g.cover,
+        tags: g.tags,
+        kind: "wasm" as const,
+        badge: installed.includes(g.slug) ? { text: "Installed", tone: "ok" as const } : { text: "WASM", tone: "muted" as const },
+      })),
+    [games, installed],
+  );
+
+  const nativeItems: Item[] = useMemo(() => {
+    if (!system) return [];
+    return groups.map((entries) => {
+      const a = availability(entries, system);
+      const shown = a.variant ?? entries[0];
+      return {
+        key: `n:${shown.group ?? shown.slug}`,
+        title: shown.title,
+        subtitle: shown.publisher,
+        cover: shown.cover,
+        tags: [...new Set(entries.flatMap((e) => e.tags))],
+        kind: "native" as const,
+        badge: verdict(a.kind, system),
+        unavailable: a.kind === "unavailable" || a.kind === "cannot-run",
+      };
+    });
+  }, [groups, system]);
+
+  const everything = useMemo(() => [...wasmItems, ...nativeItems].filter((i) => matches(i, query)), [wasmItems, nativeItems, query]);
+
+  const open = (i: Item) => setOpened(i);
+
+  const tags = useMemo(() => {
+    const m = new Map<string, Item[]>();
+    for (const i of [...wasmItems, ...nativeItems]) for (const t of i.tags) m.set(t, [...(m.get(t) ?? []), i]);
+    return [...m.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+  }, [wasmItems, nativeItems]);
+
+  const slides: Slide[] = useMemo(() => {
+    const out: Slide[] = [];
+    for (const g of games.filter((x) => x.cover)) {
+      const isIn = installed.includes(g.slug);
+      const item = wasmItems.find((i) => i.key === `w:${g.slug}`)!;
+      out.push({
+        key: item.key,
+        title: g.title,
+        summary: `Runs right here, no setup. By ${g.authors.join(", ")}.`,
+        cover: g.cover,
+        badge: "WebAssembly",
+        primary: isIn
+          ? { label: "Play now", play: true, onClick: () => run("Starting", () => api.playGame(g.slug), { type: "play", slug: g.slug }) }
+          : { label: "Install", onClick: () => run("Downloading and verifying", () => api.installGame(g.slug), { type: "install", slug: g.slug }) },
+        secondary: { label: "View details", onClick: () => open(item) },
+      });
+    }
+    for (const entries of groups) {
+      const shown = (system && availability(entries, system).variant) ?? entries[0];
+      const item = nativeItems.find((i) => i.key === `n:${shown.group ?? shown.slug}`);
+      if (!item || !shown.cover) continue;
+      out.push({
+        key: item.key,
+        title: shown.title,
+        summary: shown.summary,
+        cover: shown.cover,
+        badge: "Native port",
+        primary: { label: "View details", onClick: () => open(item) },
+        secondary: { label: "Original source", onClick: () => openUrl(shown.url) },
+      });
+    }
+    return out.slice(0, 5);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [games, installed, groups, system, wasmItems, nativeItems]);
+
+  const detail = () => {
+    if (!opened || !system) return null;
+    if (opened.kind === "wasm") {
+      const g = games.find((x) => `w:${x.slug}` === opened.key);
+      return g ? <GameDetail game={g} installed={installed.includes(g.slug)} run={run} /> : null;
+    }
+    const entries = groups.find((e) => `n:${e[0].group ?? e[0].slug}` === opened.key);
+    return entries ? <NativeDetail entries={entries} system={system} run={run} /> : null;
+  };
+
+  const categoryTiles = (
+    <div className="category-grid">
+      {tags.map(([tag, list]) => (
+        <button
+          key={tag}
+          className="category"
+          onClick={() => {
+            setCategory(tag);
+            setView("categories");
+          }}
+        >
+          <Cover src={list.find((i) => i.cover)?.cover} title={tag} className="category-image" />
+          <span className="category-shade" />
+          <span className="category-name">{tag}</span>
+          <span className="category-count">{list.length} {list.length === 1 ? "game" : "games"}</span>
+        </button>
+      ))}
     </div>
   );
-}
 
-function GameDetail(props: {
-  game: Game;
-  installed: boolean;
-  run: (label: string, fn: () => Promise<unknown>) => Promise<void>;
-}) {
-  const { game, installed, run } = props;
-  const [saves, setSaves] = useState<SaveMeta[]>([]);
-  const [byo, setByo] = useState<ByoStatus[]>([]);
-  const isByo = game.assets_policy === "bring-your-own";
+  const empty = (text: string) => <p className="empty">{text}</p>;
+  const featured = wasmItems.filter((i) => matches(i, query));
+  const natives = nativeItems.filter((i) => matches(i, query));
 
-  const reloadByo = useCallback(() => {
-    if (!isByo || !installed) return setByo([]);
-    api.byoStatus(game.slug).then(setByo).catch(() => setByo([]));
-  }, [game.slug, isByo, installed]);
-  useEffect(reloadByo, [reloadByo]);
-  const ready = byo.every((f) => f.present);
-
-  const reload = useCallback(() => {
-    api.listSaves(game.slug).then(setSaves).catch(() => setSaves([]));
-  }, [game.slug]);
-  useEffect(reload, [reload]);
-
-  return (
-    <aside>
-      <h2>{game.title}</h2>
-      <p>
-        License: {game.license.code} · Assets:{" "}
-        {game.assets_policy === "bring-your-own" ? "bring your own (BYO)" : "open"}
-      </p>
-      <p>
-        <a href={game.source.repo} target="_blank" rel="noreferrer">source code</a> · contact: {game.contact}
-      </p>
-      {installed ? (
+  let body;
+  switch (view) {
+    case "home":
+      body = (
         <>
-          <button
-            disabled={isByo && !ready}
-            onClick={() => run("Starting", () => api.playGame(game.slug))}
-          >
-            Play
-          </button>
-          <button onClick={() => run("Uninstalling", () => api.uninstallGame(game.slug))}>
-            Uninstall
-          </button>
+          <HeroCarousel slides={slides} />
+          {featured.length > 0 && (
+            <section className="block">
+              <SectionHeader title="Featured games" action={{ label: "See all", onClick: () => setView("explore") }} />
+              <GameGrid items={featured.slice(0, 6)} open={open} />
+            </section>
+          )}
+          {natives.length > 0 && (
+            <section className="block">
+              <SectionHeader title="Native ports" action={{ label: "See all", onClick: () => setView("explore") }} />
+              <p className="muted note">
+                Your system: <strong>{system ? `${label(system.os)} (${system.arch})` : "…"}</strong>. These games are
+                not WebAssembly: they run as normal programs and are not hosted by Vapor.
+              </p>
+              <GameGrid items={natives.slice(0, 6)} open={open} />
+            </section>
+          )}
+          {tags.length > 0 && (
+            <section className="block">
+              <SectionHeader title="Categories" action={{ label: "See all", onClick: () => { setCategory(null); setView("categories"); } }} />
+              {categoryTiles}
+            </section>
+          )}
+          {featured.length + natives.length === 0 && empty("The catalog is empty. Use the refresh button at the top right.")}
         </>
-      ) : (
-        <button onClick={() => run("Downloading and verifying", () => api.installGame(game.slug))}>
-          Install
-        </button>
-      )}
-
-      {installed && isByo && (
-        <>
-          <h3>Your game files</h3>
-          <p>
-            This game does not include its assets. Pick files you own; they are checked on this
-            computer and never uploaded.
-          </p>
-          <ul>
-            {byo.map((f) => (
-              <li key={f.name}>
-                {f.description} {f.present ? "✓" : "(missing)"}
-                <button
-                  onClick={async () => {
-                    const src = await open();
-                    if (typeof src === "string") {
-                      await run("Verifying file", () => api.byoImport(game.slug, f.name, src));
-                      reloadByo();
-                    }
-                  }}
-                >
-                  {f.present ? "Replace" : "Choose file"}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={async () => {
-              await run("Removing your files", () => api.byoClear(game.slug));
-              reloadByo();
-            }}
-          >
-            Remove my files
-          </button>
-        </>
-      )}
-
-      <h3>Saves</h3>
-      <ul>
-        {saves.map((s) => (
-          <li key={s.slot}>
-            {s.slot} · rev {s.revision} · {new Date(s.created_at * 1000).toLocaleString()}
+      );
+      break;
+    case "explore":
+      body = (
+        <section className="block">
+          <h1 className="page-title">Explore</h1>
+          {everything.length ? <GameGrid items={everything} open={open} /> : empty("No games match your search.")}
+        </section>
+      );
+      break;
+    case "categories": {
+      const list = category ? [...wasmItems, ...nativeItems].filter((i) => i.tags.includes(category) && matches(i, query)) : [];
+      body = (
+        <section className="block">
+          <h1 className="page-title">{category ?? "Categories"}</h1>
+          {category ? (
+            <>
+              <button className="link back" onClick={() => setCategory(null)}>All categories</button>
+              {list.length ? <GameGrid items={list} open={open} /> : empty("Nothing in this category matches your search.")}
+            </>
+          ) : tags.length ? (
+            categoryTiles
+          ) : (
+            empty("No categories yet.")
+          )}
+        </section>
+      );
+      break;
+    }
+    case "collection": {
+      const mine = wasmItems.filter((i) => installed.includes(i.key.slice(2)) && matches(i, query));
+      body = (
+        <section className="block">
+          <h1 className="page-title">Collection</h1>
+          {mine.length ? <GameGrid items={mine} open={open} /> : empty("Games you install appear here.")}
+        </section>
+      );
+      break;
+    }
+    case "downloads":
+      body = (
+        <section className="block">
+          <h1 className="page-title">Downloads</h1>
+          <div className="panel">
+            <h3>Now</h3>
+            <p>{status && !status.startsWith("Error") ? status : "Nothing is downloading."}</p>
+          </div>
+          <div className="panel">
+            <h3>Installed on this computer</h3>
+            {installed.length ? (
+              <ul className="plain">
+                {installed.map((slug) => (
+                  <li key={slug} className="row spread">
+                    <span>{games.find((g) => g.slug === slug)?.title ?? slug}</span>
+                    <button className="btn" onClick={() => run("Uninstalling", () => api.uninstallGame(slug))}>Uninstall</button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="muted">No game installed.</p>
+            )}
+          </div>
+        </section>
+      );
+      break;
+    default:
+      body = (
+        <section className="block">
+          <h1 className="page-title">Settings</h1>
+          <div className="panel">
+            <h3>This computer</h3>
+            <p>{system ? `${label(system.os)} (${system.arch})${system.native_ok ? "" : " – native ports cannot run here"}` : "…"}</p>
+          </div>
+          <div className="panel">
+            <h3>Catalog</h3>
+            <p className="muted">{games.length} browser games, {groups.length} linked native games.</p>
+            <button className="btn" onClick={refresh}>Refresh catalog</button>
+          </div>
+          <div className="panel">
+            <h3>Progress</h3>
+            <p className="muted">XP, streak and achievements are kept on this computer only.</p>
             <button
-              onClick={async () => {
-                const dest = await save({ defaultPath: `${s.slug}-${s.slot}.vsave` });
-                if (dest) await run("Exporting", () => api.exportSave(s.slug, s.slot, dest));
+              className="btn danger"
+              onClick={() => {
+                if (window.confirm("Reset your level, streak and achievements?")) {
+                  storeProgress(EMPTY);
+                  setProgress(EMPTY);
+                }
               }}
             >
-              Export
+              Reset progress
             </button>
-          </li>
-        ))}
-        {saves.length === 0 && <li>No saves.</li>}
-      </ul>
-      <button
-        onClick={async () => {
-          const src = await open({ filters: [{ name: "Vapor save", extensions: ["vsave"] }] });
-          if (typeof src === "string") {
-            await run("Importing", () => api.importSave(src));
-            reload();
-          }
-        }}
-      >
-        Import .vsave
-      </button>
-      <button
-        onClick={async () => {
-          await run("Deleting saves", () => api.deleteGameSaves(game.slug));
-          reload();
-        }}
-      >
-        Delete all saves
-      </button>
-    </aside>
-  );
-}
+          </div>
+        </section>
+      );
+  }
 
-function mb(n: number) {
-  return `${Math.round(n / 1048576)} MB`;
-}
-
-/** Native programs: how the build is vouched for, the risk, and a typed confirmation. */
-function NativeRun(props: {
-  entry: ExternalEntry;
-  build: NativeBuild;
-  run: (label: string, fn: () => Promise<unknown>) => Promise<void>;
-}) {
-  const { entry, build, run } = props;
-  const [open, setOpen] = useState(false);
-  const [typed, setTyped] = useState("");
-  const reviewed = build.trust === "reviewed";
   return (
-    <div className="native">
-      <p>
-        <strong>{reviewed ? "Reviewed build" : "Automatically scanned build (not reviewed by a person)"}</strong>
-        {" "}pinned by {build.reviewed_by} on {build.reviewed_on} · {mb(build.size)} · sha256{" "}
-        <code>{build.sha256.slice(0, 12)}…</code>
-      </p>
-      {build.notes && <p>{build.notes}</p>}
-      {!open ? (
-        <button onClick={() => setOpen(true)}>Download and run…</button>
-      ) : (
-        <div className="confirm">
-          <p>
-            This downloads a <strong>native program</strong> from the project's own release, checks its size and
-            SHA-256 against the pinned values, and runs it with <strong>your user's permissions</strong>. Vapor
-            cannot sandbox it, and the checks do not prove it is safe
-            {reviewed ? "" : "; nobody has reviewed it, it was only hash-pinned and antivirus-scanned"}. The
-            files are re-checked before every launch.
-          </p>
-          <p>
-            Type <code>{entry.slug}</code> to confirm:
-          </p>
-          <input value={typed} onChange={(e) => setTyped(e.target.value)} />
-          <button
-            disabled={typed !== entry.slug}
-            onClick={() => run("Downloading, verifying and starting", () => api.runNative(entry.slug, typed))}
-          >
-            Run
-          </button>
-          <button onClick={() => { setOpen(false); setTyped(""); }}>Cancel</button>
-        </div>
-      )}
+    <div className="shell">
+      <GamificationBar progress={progress} onRefresh={refresh} />
+      <NavigationHeader view={view} setView={(v) => { setView(v); if (v !== "categories") setCategory(null); }} query={query} setQuery={setQuery} />
+      <div className="frame">
+        <Sidebar view={view} setView={(v) => { setView(v); if (v !== "categories") setCategory(null); }} />
+        <main className="content">
+          {status && <p className={`status${status.startsWith("Error") ? " error" : ""}`} role="status">{status}</p>}
+          {body}
+        </main>
+      </div>
+      {opened && <Modal onClose={() => setOpened(null)}>{detail()}</Modal>}
     </div>
-  );
-}
-
-const OS_LABEL: Record<string, string> = { windows: "Windows", linux: "Linux", macos: "macOS" };
-const label = (os: string) => OS_LABEL[os] ?? os;
-
-/** Entries of one game (same `group`) shown as one card. */
-function groupLinks(links: ExternalEntry[]): ExternalEntry[][] {
-  const groups = new Map<string, ExternalEntry[]>();
-  for (const l of links) groups.set(l.group ?? l.slug, [...(groups.get(l.group ?? l.slug) ?? []), l]);
-  return [...groups.values()];
-}
-
-/** What this computer can do with a game: the variant for its system and a plain verdict. */
-export function availability(entries: ExternalEntry[], system: SystemInfo) {
-  const variant = entries.find((e) => e.platforms.includes(system.os));
-  const build = variant?.native?.find((n) => n.platform === system.os);
-  const all = [...new Set(entries.flatMap((e) => e.platforms))];
-  if (!variant) return { kind: "unavailable" as const, variant, build, all };
-  if (!system.native_ok) return { kind: "cannot-run" as const, variant, build, all };
-  if (!build) return { kind: "no-build" as const, variant, build, all };
-  return { kind: "ready" as const, variant, build, all };
-}
-
-/** Games that are not WebAssembly. One card per game: Vapor looks at the player's system, shows the
- *  version that fits it, and says clearly whether it can run here. */
-function ExternalProjects(props: {
-  links: ExternalEntry[];
-  system: SystemInfo;
-  run: (label: string, fn: () => Promise<unknown>) => Promise<void>;
-}) {
-  const { links, system, run } = props;
-  return (
-    <section className="external">
-      <h2>Native ports</h2>
-      <p className="credit">Covers are served by their sources (Steam, Wikipedia, IGDB, RAWG) and belong to their rights holders.</p>
-      <p>
-        Your system: <strong>{label(system.os)} ({system.arch})</strong>. These games are not WebAssembly: they run
-        as normal programs and are not hosted by Vapor. A program runs only if a build was pinned (size + SHA-256)
-        for your system.
-      </p>
-      <ul>
-        {groupLinks(links).map((entries) => {
-          const a = availability(entries, system);
-          const shown = a.variant ?? entries[0];
-          return (
-            <li key={shown.group ?? shown.slug}>
-              <Cover src={shown.cover} title={shown.title} />
-              <strong>{shown.title}</strong> <small>({shown.publisher})</small>
-              <span className={`badge ${a.kind}`}>
-                {a.kind === "ready" && `Available for ${label(system.os)}`}
-                {a.kind === "no-build" && `Version for ${label(system.os)} exists, no verified build yet`}
-                {a.kind === "cannot-run" && `Cannot run on ${system.arch}`}
-                {a.kind === "unavailable" && `Not available for ${label(system.os)}`}
-              </span>
-              <p>
-                {a.kind === "unavailable"
-                  ? `Exists only for: ${a.all.map(label).join(", ")}.`
-                  : shown.summary}
-              </p>
-              {a.kind !== "unavailable" && (
-                <>
-                  {shown.variant && <p><em>Version:</em> {shown.variant}</p>}
-                  <p><em>Needs:</em> {shown.requires}</p>
-                  {/dump|disc image/i.test(shown.requires) && (
-                    <details className="dump-help">
-                      <summary>What is a game dump?</summary>
-                      <p>
-                        This port is only the game engine, rewritten to run on a PC. It does not include
-                        the game itself: the models, textures, sound and levels. Those come from your own
-                        copy, which you copy (dump) from the disc or console you bought. Vapor never
-                        downloads, hosts or uploads game files, and your dump stays on this computer.
-                      </p>
-                      <p>The exact files needed are listed above. Without them the port cannot start.</p>
-                    </details>
-                  )}
-                  <p className="legal">{shown.legal_note}</p>
-                  {shown.status && (
-                    <small>
-                      Source {shown.status.state}
-                      {shown.status.latest_release ? ` · latest release ${shown.status.latest_release}` : ""}
-                    </small>
-                  )}
-                  {a.kind === "ready" && a.build && <NativeRun entry={shown} build={a.build} run={run} />}
-                  {a.kind === "cannot-run" && (
-                    <p>Pinned builds are x86-64 programs and Vapor does not emulate; this computer is {system.arch}.</p>
-                  )}
-                  <button onClick={() => openUrl(shown.url)}>Open original source</button>
-                </>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </section>
   );
 }

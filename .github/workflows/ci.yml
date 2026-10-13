@@ -56,6 +56,7 @@ jobs:
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      - run: node --experimental-strip-types --test tools/ui/progress.test.ts
   tauri:
     runs-on: ubuntu-latest
     steps:

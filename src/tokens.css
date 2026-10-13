@@ -1,0 +1,97 @@
+/* Design tokens: the only place that holds raw colours, sizes, spacing and timings. */
+:root {
+  color-scheme: dark;
+
+  /* Backgrounds */
+  --bg-canvas: #07131d;
+  --bg-sidebar: #081925;
+  --bg-header: #091723;
+  --bg-surface: #10212e;
+  --bg-surface-hover: #162b3b;
+  --bg-elevated: #192d3d;
+  --bg-selected: #173247;
+  --bg-input: #142331;
+
+  /* Primary */
+  --primary-400: #38bdf8;
+  --primary-500: #0ea5f5;
+  --primary-600: #0284d8;
+  --primary-hover: #29b4ff;
+  --primary-subtle: #0d3148;
+
+  /* Text */
+  --text-primary: #f5f8fc;
+  --text-secondary: #b9c6d5;
+  --text-muted: #8194a8;
+  --text-disabled: #526578;
+  --text-accent: #38bdf8;
+
+  /* Semantic */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #38bdf8;
+  --xp: #168fec;
+  --streak: #f97355;
+  --achievement: #f5b942;
+
+  /* Borders */
+  --border: #243747;
+  --border-subtle: #1b2c39;
+  --border-hover: #3c596f;
+  --border-focus: #38bdf8;
+  --border-secondary-btn: #3a4e5f;
+
+  /* Tags */
+  --tag-bg: #253747;
+  --tag-text: #c2ccd8;
+  --xp-track: #203344;
+  --xp-from: #0879cb;
+
+  /* Typography (Inter when installed; the system UI font otherwise, as external fonts are blocked) */
+  --font: Inter, "Geist Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-hero: 32px;
+  --fs-page: 24px;
+  --fs-section: 20px;
+  --fs-body: 14px;
+  --fs-nav: 13px;
+  --fs-meta: 12px;
+  --fs-caption: 11px;
+
+  /* Spacing (4px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Radius */
+  --r-button: 7px;
+  --r-input: 8px;
+  --r-card: 9px;
+  --r-hero: 10px;
+  --r-panel: 10px;
+  --r-item: 8px;
+  --r-badge: 6px;
+  --r-modal: 12px;
+
+  /* Layout */
+  --gami-h: 60px;
+  --nav-h: 66px;
+  --sidebar-w: 204px;
+
+  /* Motion */
+  --t-button: 120ms ease-out;
+  --t-card: 160ms ease-out;
+  --t-select: 150ms ease-out;
+  --t-modal: 180ms ease-out;
+  --t-carousel: 300ms ease-in-out;
+  --t-xp: 400ms ease-out;
+
+  --shade: rgba(4, 12, 20, 0.95);
+  --shade-mid: rgba(4, 12, 20, 0.75);
+}
