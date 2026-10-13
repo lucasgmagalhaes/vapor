@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "slug": "condemned2recomp",
+  "title": "Condemned2Recomp",
+  "publisher": "Unknown (see the project's README)",
+  "url": "https://github.com/psxrestore/Condemned2Recomp",
+  "platforms": [
+    "other"
+  ],
+  "requires": "A copy of the original game that you own (see the project's README)",
+  "summary": "A static recompilation of Condemned 2: Bloodshot done with RexGlue.",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": [
+    "recompilation"
+  ]
+}
