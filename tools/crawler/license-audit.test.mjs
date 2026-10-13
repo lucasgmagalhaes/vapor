@@ -30,6 +30,7 @@ test("classify: open licenses, bad terms, and the BSD 'all rights reserved' boil
   assert.ok(classify("Copyright (c) 2020 X. All rights reserved. Redistribution and use in source and binary forms").bad.length === 0);
   assert.deepEqual(classify("Copyright X. All rights reserved.").bad, ["all-rights-reserved"]);
   assert.deepEqual(classify("GNU GENERAL PUBLIC LICENSE c) allowed only occasionally and noncommercially, and").bad, []);
+  assert.deepEqual(classify("GNU GENERAL PUBLIC LICENSE (This alternative is allowed only for noncommercial distribution and only if you received the program in object code").bad, []);
   assert.ok(classifySpdx("CC-BY-NC-4.0").bad.length === 1);
   assert.ok(classifySpdx("CC-BY-SA-4.0").ok.length === 1);
 });
