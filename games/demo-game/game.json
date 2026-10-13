@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "slug": "demo-game",
+  "title": "Demo Game (exemplo)",
+  "authors": ["vapor-contributors"],
+  "source": { "repo": "https://github.com/lucasgmagalhaes/vapor", "commit": "0000000" },
+  "license": { "code": "MIT", "assets": "MIT" },
+  "assets_policy": "open",
+  "artifact": {
+    "url": "https://example.com/demo-game.zip",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "size": 1,
+    "entry": "index.html"
+  },
+  "saves": { "paths": ["/saves"], "version": 1 },
+  "tags": ["exemplo"],
+  "contact": "maintainers@example.com"
+}

@@ -1,0 +1,39 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --workspace
+      - run: cargo run -q -p vapor-cli -- validate .
+      - name: Rejeitar binários/arquivos grandes em games/
+        run: |
+          if find games -type f -size +512k | grep .; then echo "arquivo grande em games/"; exit 1; fi
+          if find games -type f ! -name game.json ! -name cover.webp | grep .; then echo "só game.json e cover.webp são permitidos"; exit 1; fi
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+  tauri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile && pnpm build
+      - run: cargo check --manifest-path src-tauri/Cargo.toml

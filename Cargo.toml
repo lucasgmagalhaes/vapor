@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+members = ["crates/vapor-core", "crates/vapor-cli"]
+# src-tauri fica fora do workspace padrão: precisa de libs de sistema (webkit2gtk)
+exclude = ["src-tauri"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
