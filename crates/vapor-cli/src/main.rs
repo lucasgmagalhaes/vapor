@@ -144,6 +144,10 @@ fn main() -> ExitCode {
                 eprintln!("error: {e}");
                 return ExitCode::FAILURE;
             }
+            if let Err(e) = vapor_core::covers::check_dir(&root.join("covers"), &c.cover_keys()) {
+                eprintln!("error: {e}");
+                return ExitCode::FAILURE;
+            }
             println!("ok: {} valid, audited game(s)", c.games.len());
             ExitCode::SUCCESS
         }
@@ -156,6 +160,10 @@ fn main() -> ExitCode {
                 .and_then(|b| serde_json::from_slice::<std::collections::HashMap<String, vapor_core::links::LinkStatus>>(&b).ok())
             {
                 vapor_core::links::apply_status(&mut c.links, &statuses);
+            }
+            if let Err(e) = c.attach_covers(&root.join("covers")) {
+                eprintln!("error: {e}");
+                return ExitCode::FAILURE;
             }
             let before = c.links.len();
             c.links.retain(|l| l.visible());

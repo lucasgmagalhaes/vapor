@@ -11,5 +11,11 @@ main { display: flex; flex: 1; min-height: 0; }
 .grid li { background: #1b1e27; padding: 14px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
 .grid li.empty { grid-column: 1 / -1; cursor: default; opacity: .7; }
 .badge { font-size: 11px; color: #7ee787; }
+.badge.unavailable, .badge.cannot-run { color: #f0883e; }
+.badge.no-build { color: #d29922; }
+.cover { width: 100%; aspect-ratio: 460 / 215; object-fit: contain; background: #11131a; border-radius: 6px; display: block; margin-bottom: 6px; }
+.cover.placeholder { display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; color: #3b4254; letter-spacing: 2px; }
+.external li .cover { max-width: 460px; }
+.credit { font-size: 11px; opacity: .6; margin: 0 0 8px; }
 aside { width: 340px; padding: 16px; background: #1b1e27; overflow: auto; }
 aside ul { padding-left: 16px; }

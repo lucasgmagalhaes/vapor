@@ -36,4 +36,4 @@ jobs:
       - run: |
           git config user.name "vapor-bot"; git config user.email "bot@users.noreply.github.com"
           git checkout --orphan catalog && git rm -rf --cached . >/dev/null
-          git add -f catalog.json links-status.json && git commit -m "catalog" && git push -f origin catalog
+          git add -f catalog.json links-status.json && { [ -d covers ] && git add -f covers || true; } && git commit -m "catalog" && git push -f origin catalog

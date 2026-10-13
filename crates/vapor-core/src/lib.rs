@@ -6,6 +6,7 @@ pub mod audit;
 pub mod bridge;
 pub mod byo;
 pub mod catalog;
+pub mod covers;
 pub mod links;
 pub mod native;
 pub mod manifest;

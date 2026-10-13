@@ -36,7 +36,7 @@ const MIME = {
   svg: "image/svg+xml", ogg: "audio/ogg", wav: "audio/wav", mp3: "audio/mpeg", txt: "text/plain",
 };
 
-function serve(dir, csp) {
+export function serve(dir, csp) {
   const requests = [];
   const server = http.createServer((req, res) => {
     const url = decodeURIComponent((req.url ?? "/").split("?")[0]);

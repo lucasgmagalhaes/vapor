@@ -142,6 +142,10 @@ pub struct ExternalEntry {
     /// Short label of this variant inside its group (e.g. "Windows port (author)").
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub variant: Option<String>,
+    /// Cover image URL: an official image found through a public API (allowed hosts only), else
+    /// `vapor index` fills it from `covers/<group or slug>.webp`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub cover: Option<String>,
     /// Reviewed native builds the app may run (see `NativeBuild`). Empty = link only.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub native: Vec<NativeBuild>,
@@ -196,6 +200,9 @@ impl ExternalEntry {
         if self.legal_note.trim().len() < 20 {
             return Err(bad("legal_note is mandatory: say it is unofficial and not hosted or endorsed by Vapor"));
         }
+        if self.cover.as_deref().is_some_and(|c| !crate::covers::valid_external_cover(c)) {
+            return Err(bad("cover must be an https jpg/png/webp URL on upload.wikimedia.org or steamstatic.com (or add covers/<group or slug>.webp)"));
+        }
         match (&self.group, &self.variant) {
             (None, None) => {}
             (Some(g), Some(v)) if valid_slug(g) && !v.trim().is_empty() => {}
@@ -215,6 +222,11 @@ impl ExternalEntry {
     /// Normalized `host/owner/repo`, to detect the same project listed twice.
     pub fn repo_key(&self) -> String {
         parse_repo_url(&self.url).map_or_else(String::new, |(h, r)| format!("{h}/{}", r.to_lowercase()))
+    }
+
+    /// Key of this entry's cover: the group of its game when it has one, else its slug.
+    pub fn cover_key(&self) -> &str {
+        self.group.as_deref().unwrap_or(&self.slug)
     }
 
     /// The reviewed build for `platform` (`windows`/`linux`), if any.
@@ -278,6 +290,7 @@ mod tests {
             tags: vec![],
             group: None,
             variant: None,
+            cover: None,
             native: vec![],
             status: None,
         }

@@ -114,6 +114,7 @@ function linkPrBody(entry, candidate) {
     `- [ ] \`publisher\` is a placeholder ("${entry.publisher}"): put the publisher of the original game`,
     `- [ ] \`platforms\` (${entry.platforms.join(", ")}) and \`requires\` are guesses from the description: read the README`,
     "- [ ] The summary is the repository description: reword if needed",
+    `- [ ] Cover: run \`node tools/pipeline/find-cover.mjs --query "<real game title>" --write links/${entry.slug}.json\` (official art from Steam/IGDB/RAWG/Wikipedia; the repository title may not be the game's name)`,
     "",
     "## Review checklist",
     "- [ ] You are comfortable with the legal exposure of linking to this project (its license covers the authors' code, **not** the game it runs)",

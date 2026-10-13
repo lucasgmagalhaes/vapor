@@ -21,6 +21,11 @@ access to that repository (`gen-build.mjs` generates the file).
 Note: PRs opened with the workflow token do not start CI by themselves, so `auto-prs` dispatches
 `ci.yml` on each branch; results show up as checks on the branch head.
 
+## Covers
+`find-cover.mjs` resolves the official cover through public APIs and records only its URL (Steam header,
+IGDB and RAWG when their free keys are set as `IGDB_CLIENT_ID`/`IGDB_CLIENT_SECRET`/`RAWG_API_KEY`, else
+the Wikipedia infobox image). Without any key it still finds Steam and Wikipedia covers.
+
 ## The pieces
 
 Everything runs in GitHub Actions; a person only decides at the two marked points.
