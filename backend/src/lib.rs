@@ -20,6 +20,9 @@ pub fn run() {
             commands::import_save,
             commands::delete_game_saves,
             commands::play_game,
+            commands::byo_status,
+            commands::byo_import,
+            commands::byo_clear,
         ])
         .run(tauri::generate_context!())
         .expect("error while starting Vapor");

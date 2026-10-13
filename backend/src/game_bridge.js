@@ -8,6 +8,8 @@
   if (!token) return;
   const API = "/" + token + "/__vapor/saves";
   const ROOTS = __VAPOR_SAVE_ROOTS__;
+  // Files the player supplied for this game: [{ name, mount }].
+  const BYO = __VAPOR_BYO__;
   const FLUSH_MS = 3000;
   let mod = null;
   let last = "";
@@ -73,10 +75,27 @@
   }
   window.__vaporFlush = () => flush(true);
 
+  function mountByo(m) {
+    return Promise.all(
+      BYO.map((f) =>
+        fetch("/" + token + "/__vapor/byo/" + encodeURIComponent(f.name))
+          .then((r) => {
+            if (!r.ok) throw new Error(f.name + ": " + r.status);
+            return r.arrayBuffer();
+          })
+          .then((buf) => {
+            const dir = f.mount.slice(0, f.mount.lastIndexOf("/"));
+            if (dir) m.FS.mkdirTree(dir);
+            m.FS.writeFile(f.mount, new Uint8Array(buf));
+          })
+      )
+    ).catch((e) => console.error("[vapor] could not mount player files", e));
+  }
+
   function restore(m) {
     const dep = typeof m.addRunDependency === "function";
     if (dep) m.addRunDependency("vapor-saves");
-    fetch(API)
+    mountByo(m).then(() => fetch(API))
       .then((r) => (r.ok ? r.json() : { files: [] }))
       .then(({ files }) => {
         for (const f of files) {
