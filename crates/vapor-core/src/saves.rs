@@ -53,7 +53,7 @@ fn safe_component(s: &str) -> Result<()> {
     }
 }
 
-fn safe_file_path(p: &str) -> Result<()> {
+pub(crate) fn safe_file_path(p: &str) -> Result<()> {
     let bad = p.is_empty()
         || p.starts_with('/')
         || p.contains('\\')
