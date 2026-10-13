@@ -41,6 +41,20 @@ pub struct SaveConfig {
     pub version: u32,
 }
 
+/// A file the player must supply for a `bring-your-own` game. It is checked against
+/// `size` and `sha256` on the player's machine and never uploaded anywhere.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct ByoFile {
+    /// Identifier, also the file name inside Vapor's local store.
+    pub name: String,
+    /// What to ask the player for, e.g. "Disc 1 image (.bin)".
+    pub description: String,
+    pub sha256: String,
+    pub size: u64,
+    /// Where the file is mounted in the wasm virtual FS.
+    pub mount: String,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct GameManifest {
     pub schema: u32,
@@ -52,6 +66,9 @@ pub struct GameManifest {
     pub assets_policy: AssetsPolicy,
     pub artifact: Artifact,
     pub saves: SaveConfig,
+    /// Required for `bring-your-own` games, empty otherwise.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub byo_files: Vec<ByoFile>,
     #[serde(default)]
     pub tags: Vec<String>,
     pub contact: String,
@@ -99,8 +116,46 @@ impl GameManifest {
         if self.saves.paths.iter().any(|p| !p.starts_with('/') || p.contains("..")) {
             return Err(bad("saves.paths must be absolute and contain no '..'"));
         }
+        self.validate_byo(&bad)?;
         if !self.contact.contains('@') && !self.contact.starts_with("https://") {
             return Err(bad("contact must be an e-mail or https URL"));
+        }
+        Ok(())
+    }
+}
+
+impl GameManifest {
+    fn validate_byo(&self, bad: &dyn Fn(&str) -> Error) -> Result<()> {
+        match (&self.assets_policy, self.byo_files.is_empty()) {
+            (AssetsPolicy::BringYourOwn, true) => {
+                return Err(bad("bring-your-own games must list byo_files"))
+            }
+            (AssetsPolicy::Open, false) => return Err(bad("byo_files requires bring-your-own")),
+            _ => {}
+        }
+        let mut names = std::collections::HashSet::new();
+        for f in &self.byo_files {
+            let name_ok = !f.name.is_empty()
+                && f.name.len() <= 64
+                && f.name.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '-' | '_' | '.'))
+                && !f.name.starts_with('.');
+            if !name_ok || !names.insert(f.name.as_str()) {
+                return Err(bad("byo_files names must be unique [A-Za-z0-9._-]"));
+            }
+            if f.sha256.len() != 64 || !f.sha256.chars().all(|c| c.is_ascii_hexdigit()) {
+                return Err(bad("byo_files sha256 must be 64 hex chars"));
+            }
+            if f.size == 0 || f.description.trim().is_empty() {
+                return Err(bad("byo_files need a size and a description"));
+            }
+            let m = f.mount.as_str();
+            let mount_ok = m.starts_with('/')
+                && !m.ends_with('/')
+                && !m.contains('\\')
+                && m[1..].split('/').all(|c| !c.is_empty() && c != "." && c != "..");
+            if !mount_ok {
+                return Err(bad("byo_files mount must be an absolute VFS path without '..'"));
+            }
         }
         Ok(())
     }
@@ -145,6 +200,7 @@ mod tests {
                 entry: "index.html".into(),
             },
             saves: SaveConfig { paths: vec!["/saves".into()], version: 1 },
+            byo_files: vec![],
             tags: vec![],
             contact: "a@b.c".into(),
         }
@@ -159,6 +215,46 @@ mod tests {
         assert!(m.validate("demo-game").is_err());
         let mut m = sample();
         m.saves.paths = vec!["/a/../b".into()];
+        assert!(m.validate("demo-game").is_err());
+    }
+
+    fn byo_sample() -> GameManifest {
+        let mut m = sample();
+        m.assets_policy = AssetsPolicy::BringYourOwn;
+        m.byo_files = vec![ByoFile {
+            name: "disc1.bin".into(),
+            description: "Disc 1 image".into(),
+            sha256: "b".repeat(64),
+            size: 10,
+            mount: "/game/disc1.bin".into(),
+        }];
+        m
+    }
+
+    #[test]
+    fn byo_manifest_rules() {
+        assert!(byo_sample().validate("demo-game").is_ok());
+        let mut m = byo_sample();
+        m.byo_files.clear();
+        assert!(m.validate("demo-game").is_err(), "byo needs files");
+        let mut m = byo_sample();
+        m.assets_policy = AssetsPolicy::Open;
+        assert!(m.validate("demo-game").is_err(), "open cannot list byo files");
+        for mount in ["game/x", "/a/../x", "/a//x", "/a\\x", "/a/", "/"] {
+            let mut m = byo_sample();
+            m.byo_files[0].mount = mount.into();
+            assert!(m.validate("demo-game").is_err(), "{mount}");
+        }
+        for name in ["", "../x", "a/b", ".hidden", "a b"] {
+            let mut m = byo_sample();
+            m.byo_files[0].name = name.into();
+            assert!(m.validate("demo-game").is_err(), "{name:?}");
+        }
+        let mut m = byo_sample();
+        m.byo_files.push(m.byo_files[0].clone());
+        assert!(m.validate("demo-game").is_err(), "duplicate names");
+        let mut m = byo_sample();
+        m.byo_files[0].sha256 = "zz".into();
         assert!(m.validate("demo-game").is_err());
     }
 
