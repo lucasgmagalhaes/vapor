@@ -4,9 +4,27 @@
   "title": "Bloodborne PC port (Linux)",
   "publisher": "Sony Interactive Entertainment / FromSoftware",
   "url": "https://github.com/deadinside28/bloodborne_pc",
-  "platforms": ["linux"],
+  "platforms": [
+    "linux"
+  ],
   "requires": "A copy of the original game that you own (see the project's README for what is needed)",
   "summary": "Native Linux port of the PS4 game (AppImage). Unofficial.",
   "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
-  "tags": ["native-port","vulkan"]
+  "tags": [
+    "native-port",
+    "vulkan"
+  ],
+  "native": [
+    {
+      "platform": "linux",
+      "url": "https://github.com/deadinside28/bloodborne_pc/releases/download/0.51/Bloodborne-bbport-x86_64.AppImage",
+      "sha256": "3dbbec828aebd542622cf25f0ea10a16f50b13f8b5338fb6596a1a69a635fcce",
+      "size": 398993952,
+      "exe": "Bloodborne-bbport-x86_64.AppImage",
+      "reviewed_by": "automatic scan (ClamAV 1.5.4) in GitHub Actions run 38443444110",
+      "reviewed_on": "2026-10-13",
+      "trust": "scanned",
+      "notes": "Release 0.51. Hash pinned and scanned with ClamAV 1.5.4/28152/Tue Oct 13 06:26:14 2026 in a throwaway CI runner; nobody reviewed the program itself. SHA-256 matches the digest published by GitHub."
+    }
+  ]
 }
