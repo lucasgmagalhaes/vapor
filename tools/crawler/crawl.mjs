@@ -28,6 +28,13 @@ const QUERIES = [
   "topic:emscripten-port",
   "topic:decompilation topic:game",
   "topic:game-engine topic:remake",
+  // Projects that cannot run in Vapor but can be listed as link-only entries (status
+  // `external-only`): static recompilations and native ports of commercial games.
+  "topic:recompilation topic:game",
+  "topic:static-recompilation",
+  "topic:game-recompilation",
+  "topic:native-port topic:game",
+  "static recompilation game port in:description",
 ];
 // Drop curated lists and other non-game noise from search results.
 const NOISE = /(^|[-_/])awesome([-_]|$)|beginners|tutorial|boilerplate|template|\bcourse\b/i;
@@ -39,6 +46,9 @@ const SIGNALS = {
   openAssets: /cc[- ]?by(-sa)?|cc0|creative commons|public domain|open ?gfx|freedoom|free (art|assets|graphics|content)/i,
   byo: /bring your own|original (game )?(data|assets|files)|own copy|requires? (the )?(original|retail|commercial)|game data (is )?not included|\.(pak|wad|iso|rom)\b/i,
   freeware: /freeware|shareware/i,
+  // Ports that run a commercial console game's own binary from the player's dump/disc: native
+  // executables derived from proprietary code, never a wasm build. Rejected up front.
+  consolePort: /CUSA\d{4,}|PPSA\d{4,}|your own (game )?dump|bring your own dump|shadPS4|PS4 (port|emulat)|PS5 (port|emulat)|static[- ]recompil|\bN64Recomp\b|\bXenonRecomp\b|\brecomp\b|jailbr[eo]ken console|decrypted (eboot|elf|dump)/i,
 };
 
 // Supply-chain signals: things a malicious or careless repository would ship. They never
@@ -220,6 +230,12 @@ function classify(rec) {
   else if (!codeOpen) reasons.push(`code license ${rec.license.spdx} is not a known open license`);
   if (!rec.signals.wasm) reasons.push("no wasm/emscripten signal found");
   let status;
+  if (rec.signals.consolePort) {
+    // Not wasm and not hostable, but it can be listed as a link to the original source (never
+    // run, never mirrored). Needs a person: legal_note, requirements and a liveness check.
+    reasons.push("native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)");
+    return { status: "external-only", reasons };
+  }
   if (!codeOpen) status = "rejected";
   else if (rec.signals.byo || rec.decomp) status = "byo-only"; // conservative: assume proprietary assets
   else if (rec.signals.wasm) status = "needs-asset-audit";
@@ -271,6 +287,7 @@ async function inspect(repo) {
         openAssets: SIGNALS.openAssets.test(text) || SIGNALS.openAssets.test(licenseText),
         byo: SIGNALS.byo.test(text),
         freeware: SIGNALS.freeware.test(text),
+        consolePort: SIGNALS.consolePort.test(`${repo.name} ${text}`),
       },
       crawled_at: new Date().toISOString(),
     };
@@ -364,7 +381,7 @@ async function runOnce(o) {
 
   const files = (await readdir(o.out)).filter((f) => f.endsWith(".json") && !["state.json", "index.json", "duplicates.json"].includes(f));
   const all = await Promise.all(files.map((f) => loadJson(path.join(o.out, f), null)));
-  const rank = { listed: -1, "ready-to-build": 0, "needs-asset-audit": 1, "byo-only": 2, "needs-port": 3, blocked: 4, rejected: 5 };
+  const rank = { listed: -1, "ready-to-build": 0, "needs-asset-audit": 1, "byo-only": 2, "external-only": 2.5, "needs-port": 3, blocked: 4, rejected: 5 };
   const index = all.filter(Boolean)
     .sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9) || b.stars - a.stars)
     .map((r) => ({ repo: r.repo, status: r.status, stars: r.stars, license: r.license.spdx, wasm: r.signals.wasm, security: r.security?.flags ?? [], duplicate_of: r.duplicate_of ?? [], reasons: r.reasons }));

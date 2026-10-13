@@ -8,6 +8,7 @@ use tauri::{AppHandle, Manager};
 use vapor_core::catalog::Catalog;
 use vapor_core::manifest::{verify_artifact, GameManifest};
 use vapor_core::byo::ByoStatus;
+use vapor_core::links::ExternalEntry;
 use vapor_core::saves::{SaveMeta, SaveStore};
 use vapor_core::{audit, unpack};
 
@@ -237,4 +238,10 @@ pub async fn byo_import(app: AppHandle, slug: String, name: String, src: String)
 #[tauri::command]
 pub fn byo_clear(app: AppHandle, slug: String) -> CmdResult<()> {
     crate::game::byo_store(&app).ok_or("no data dir")?.delete_game(&slug).map_err(err)
+}
+
+/// Link-only entries (projects Vapor lists but never runs), minus those whose source is gone.
+#[tauri::command]
+pub fn get_links(app: AppHandle) -> CmdResult<Vec<ExternalEntry>> {
+    Ok(read_cached(&app)?.links.into_iter().filter(|l| l.visible()).collect())
 }

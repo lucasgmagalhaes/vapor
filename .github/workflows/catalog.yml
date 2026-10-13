@@ -1,19 +1,36 @@
 name: publish-catalog
 # Builds catalog.json and publishes it to the `catalog` branch; the app downloads it from there.
+# It also runs every 4 hours to re-check that the sources of link-only entries (links/) are still
+# reachable: dead, removed or legally blocked sources disappear from the catalog on their own.
 on:
   push:
     branches: [main]
-    paths: ["games/**", "takedown/**"]
+    paths: ["games/**", "audits/**", "links/**", "takedown/**"]
+  schedule:
+    - cron: "43 */4 * * *"
+  workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: publish-catalog
+  cancel-in-progress: false
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Previous liveness results (to count consecutive failures)
+        run: |
+          git fetch origin catalog --depth 1 2>/dev/null && git show FETCH_HEAD:links-status.json > links-status.json || echo '{}' > links-status.json
+      - name: Check that every linked source is still alive
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node tools/links/check.mjs --previous links-status.json --out links-status.json
       - run: cargo run -q -p vapor-cli -- index .
       - run: |
           git config user.name "vapor-bot"; git config user.email "bot@users.noreply.github.com"
           git checkout --orphan catalog && git rm -rf --cached . >/dev/null
-          git add -f catalog.json && git commit -m "catalog" && git push -f origin catalog
+          git add -f catalog.json links-status.json && git commit -m "catalog" && git push -f origin catalog

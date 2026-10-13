@@ -394,7 +394,9 @@ checksum = "a2c754d6c33795a1c324727428e5a7dedb5b06195f9890bdbcba760d3e246563"
 name = "vapor-cli"
 version = "0.1.0"
 dependencies = [
+ "hex",
  "serde_json",
+ "sha2",
  "vapor-core",
 ]
 

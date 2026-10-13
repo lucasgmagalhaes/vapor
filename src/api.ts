@@ -14,6 +14,26 @@ export interface Game {
   contact: string;
 }
 
+export interface LinkStatus {
+  state: "alive" | "stale" | "archived" | "unknown" | "gone" | "blocked";
+  checked_at: string;
+  pushed_at?: string | null;
+  latest_release?: string | null;
+}
+
+export interface ExternalEntry {
+  slug: string;
+  title: string;
+  publisher: string;
+  url: string;
+  platforms: string[];
+  requires: string;
+  summary: string;
+  legal_note: string;
+  tags: string[];
+  status?: LinkStatus;
+}
+
 export interface SaveMeta {
   slug: string;
   slot: string;
@@ -36,6 +56,7 @@ export interface RefreshResult {
 }
 
 export const api = {
+  getLinks: () => invoke<ExternalEntry[]>("get_links"),
   getCatalog: (query?: string) => invoke<Game[]>("get_catalog", { query }),
   refreshCatalog: () => invoke<RefreshResult>("refresh_catalog"),
   installGame: (slug: string) => invoke<void>("install_game", { slug }),

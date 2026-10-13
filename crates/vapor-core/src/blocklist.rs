@@ -2,6 +2,7 @@ use std::path::Path;
 
 use serde::{Deserialize, Serialize};
 
+use crate::links::ExternalEntry;
 use crate::manifest::GameManifest;
 use crate::Result;
 
@@ -32,6 +33,20 @@ fn host_of(url: &str) -> &str {
 }
 
 impl Blocklist {
+    /// Link-only entries are blocked by slug, or by an explicit `domain` entry that is the
+    /// link's repository host or a `host/owner/repo` prefix of it.
+    pub fn check_link(&self, e: &ExternalEntry) -> Option<&str> {
+        let key = e.repo_key();
+        self.entries.iter().find_map(|b| {
+            let hit = b.slug.as_deref() == Some(e.slug.as_str())
+                || b.domain.as_deref().is_some_and(|d| {
+                    let d = d.to_ascii_lowercase();
+                    d.contains('/') && (key == d || key.starts_with(&format!("{d}/")))
+                });
+            hit.then_some(b.reference.as_str())
+        })
+    }
+
     pub fn load(path: &Path) -> Result<Self> {
         if !path.exists() {
             return Ok(Self::default());
