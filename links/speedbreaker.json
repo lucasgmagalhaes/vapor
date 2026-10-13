@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "slug": "speedbreaker",
+  "title": "Speedbreaker",
+  "publisher": "Unknown (see the project's README)",
+  "url": "https://github.com/SpeedBreakerProject/speedbreaker",
+  "platforms": [
+    "linux"
+  ],
+  "requires": "A copy of the original game that you own (see the project's README)",
+  "summary": "Unofficial static recompilation of the Xbox 360 version of Need for Speed: Most Wanted (2005): a native port for Steam Deck, Steam Machine, Steam Frame, Linux and Mac (iPhone/iPad: sideload the experimental IPA or build it yourself). Bring your own disc: no game files included. Not affiliated wit...",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": [
+    "recompilation"
+  ]
+}
