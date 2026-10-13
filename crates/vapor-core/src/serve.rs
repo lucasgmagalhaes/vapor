@@ -19,6 +19,10 @@ connect-src 'self' data: blob:; \
 worker-src 'self' blob:; \
 object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
 
+/// Browser features a game page may never use. Emscripten/SDL glue references `getUserMedia`
+/// and friends; denying them here means the webview never even shows a permission prompt.
+pub const PERMISSIONS_POLICY: &str = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), clipboard-read=(), display-capture=(), midi=(), publickey-credentials-get=(), screen-wake-lock=()";
+
 /// Resolves a URL path (already percent-decoded, relative to the game's `files`
 /// directory) to a file path inside `root`. Rejects anything that could escape it.
 pub fn resolve(root: &Path, rel: &str) -> Result<PathBuf> {
@@ -63,6 +67,13 @@ mod tests {
         assert_eq!(resolve(root, "a/b.js").unwrap(), root.join("a/b.js"));
         for bad in ["", "/etc/passwd", "../x", "a/../../x", "a\\b", "C:/x", "a//b", "a/./b", "a\0b"] {
             assert!(resolve(root, bad).is_err(), "{bad:?}");
+        }
+    }
+
+    #[test]
+    fn permissions_policy_denies_sensitive_features() {
+        for f in ["camera", "microphone", "geolocation", "usb", "serial", "display-capture"] {
+            assert!(PERMISSIONS_POLICY.contains(&format!("{f}=()")), "{f}");
         }
     }
 

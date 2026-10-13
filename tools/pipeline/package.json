@@ -10,6 +10,6 @@
     "playwright-core": "1.49.1"
   },
   "devDependencies": {
-    "yaml": "^2.6.1"
+    "yaml": "^2.9.1"
   }
 }

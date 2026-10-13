@@ -116,6 +116,9 @@ impl GameManifest {
         if !self.artifact.url.starts_with(ARTIFACT_URL_PREFIX) {
             return Err(bad("artifact.url must point to a Release of lucasgmagalhaes/vapor-artifacts"));
         }
+        if !self.source.repo.starts_with("https://") || self.source.repo.contains(char::is_whitespace) {
+            return Err(bad("source.repo must be an https URL"));
+        }
         if let Some(v) = &self.variant_of {
             if !valid_slug(v) || *v == self.slug {
                 return Err(bad("variant_of must be the slug of another game"));
@@ -233,6 +236,11 @@ mod tests {
         let mut m = sample();
         m.artifact.url = "https://evil.example/vapor-artifacts/releases/download/x.zip".into();
         assert!(m.validate("demo-game").is_err(), "only our artifacts repository is accepted");
+        for repo in ["javascript:alert(1)", "http://github.com/a/b", "file:///etc/passwd", "https://a b"] {
+            let mut m = sample();
+            m.source.repo = repo.into();
+            assert!(m.validate("demo-game").is_err(), "{repo}");
+        }
         let mut m = sample();
         m.variant_of = Some("demo-game".into());
         assert!(m.validate("demo-game").is_err(), "a game cannot be a variant of itself");

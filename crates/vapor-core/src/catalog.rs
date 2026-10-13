@@ -140,6 +140,36 @@ impl Catalog {
         Ok(Self { games, links, warnings })
     }
 
+    /// Re-validates a catalog received over the network (or read back from disk) with the same
+    /// rules CI applies, dropping what fails. Returns the clean catalog and one line per drop.
+    /// The app calls this on every download and every read: it never trusts the catalog branch.
+    pub fn sanitized(self) -> (Self, Vec<String>) {
+        let mut dropped = Vec::new();
+        let games: Vec<_> = self
+            .games
+            .into_iter()
+            .filter(|g| match g.validate(&g.slug) {
+                Ok(()) => true,
+                Err(e) => {
+                    dropped.push(format!("game {}: {e}", g.slug));
+                    false
+                }
+            })
+            .collect();
+        let links: Vec<_> = self
+            .links
+            .into_iter()
+            .filter(|l| match l.validate(&l.slug) {
+                Ok(()) => true,
+                Err(e) => {
+                    dropped.push(format!("link {}: {e}", l.slug));
+                    false
+                }
+            })
+            .collect();
+        (Self { games, links, warnings: self.warnings }, dropped)
+    }
+
     pub fn search(&self, query: &str) -> Vec<&GameManifest> {
         let q = query.trim().to_lowercase();
         self.games
@@ -211,6 +241,23 @@ mod tests {
             "legal_note": "Unofficial; not hosted or endorsed by Vapor."
         }))
         .unwrap()
+    }
+
+    #[test]
+    fn sanitized_drops_entries_that_fail_validation() {
+        let mut ok = game("ok-game", "Ok", "https://github.com/a/ok", 'a');
+        ok.artifact.url = format!("{}t-1/ok-game.zip", crate::manifest::ARTIFACT_URL_PREFIX);
+        let mut evil_url = game("evil-url", "Evil", "https://github.com/a/evil", 'b');
+        evil_url.artifact.url = "https://evil.example/payload.zip".into();
+        let mut evil_repo = game("evil-repo", "Evil2", "javascript:alert(1)", 'c');
+        evil_repo.artifact.url = format!("{}t-1/x.zip", crate::manifest::ARTIFACT_URL_PREFIX);
+        let good_link = link("good-link", "https://github.com/b/good");
+        let bad_link = link("bad-link", "https://evil.example/o/r");
+        let cat = Catalog { games: vec![ok, evil_url, evil_repo], links: vec![good_link, bad_link], warnings: vec![] };
+        let (clean, dropped) = cat.sanitized();
+        assert_eq!(clean.games.iter().map(|g| g.slug.as_str()).collect::<Vec<_>>(), ["ok-game"]);
+        assert_eq!(clean.links.iter().map(|l| l.slug.as_str()).collect::<Vec<_>>(), ["good-link"]);
+        assert_eq!(dropped.len(), 3, "{dropped:?}");
     }
 
     #[test]
