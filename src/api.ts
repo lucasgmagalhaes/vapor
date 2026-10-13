@@ -46,6 +46,7 @@ export interface SystemInfo {
 export interface ExternalEntry {
   slug: string;
   cover?: string;
+  backdrop?: string;
   title: string;
   publisher: string;
   url: string;

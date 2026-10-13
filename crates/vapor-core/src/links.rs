@@ -198,6 +198,9 @@ pub struct ExternalEntry {
     /// `vapor index` fills it from `covers/<group or slug>.webp`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cover: Option<String>,
+    /// Official wide artwork for the detail header and home highlight.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub backdrop: Option<String>,
     /// Reviewed native builds the app may run (see `NativeBuild`). Empty = link only.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub native: Vec<NativeBuild>,
@@ -253,7 +256,10 @@ impl ExternalEntry {
             return Err(bad("legal_note is mandatory: say it is unofficial and not hosted or endorsed by Vapor"));
         }
         if self.cover.as_deref().is_some_and(|c| !crate::covers::valid_external_cover(c)) {
-            return Err(bad("cover must be an https jpg/png/webp URL on upload.wikimedia.org or steamstatic.com (or add covers/<group or slug>.webp)"));
+            return Err(bad("cover must be an https jpg/png/webp URL on an approved image host (or add covers/<group or slug>.webp)"));
+        }
+        if self.backdrop.as_deref().is_some_and(|c| !crate::covers::valid_external_backdrop(c)) {
+            return Err(bad("backdrop must be an approved https image URL"));
         }
         match (&self.group, &self.variant) {
             (None, None) => {}
@@ -343,6 +349,7 @@ mod tests {
             group: None,
             variant: None,
             cover: None,
+            backdrop: None,
             native: vec![],
             status: None,
         }

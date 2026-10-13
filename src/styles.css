@@ -173,6 +173,7 @@ button.gami-group:hover { background: var(--bg-surface-hover); }
 .modal-pad { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); }
 .detail-artwork { display: flex; align-items: center; justify-content: center; height: 280px; overflow: hidden; background: var(--bg-input); }
 .detail-artwork .detail-cover { width: auto; max-width: 100%; height: auto; max-height: 280px; object-fit: contain; }
+.detail-artwork .detail-backdrop { width: 100%; height: 100%; object-fit: cover; }
 .detail-artwork .detail-cover.placeholder { width: 100%; height: 100%; }
 .detail-body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); padding: var(--space-6); }
 .detail-body h2 { font-size: var(--fs-page); line-height: 1.25; }

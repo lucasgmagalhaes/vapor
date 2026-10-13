@@ -6,6 +6,7 @@ export interface Slide {
   title: string;
   summary: string;
   cover?: string;
+  fallbackCover?: string;
   badge: string;
   primary: { label: string; onClick: () => void; play?: boolean };
   secondary: { label: string; onClick: () => void };
@@ -32,7 +33,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         if (e.key === "ArrowRight") go(1);
       }}
     >
-      <Cover src={s.cover} title={s.title} className="hero-image" />
+      <Cover src={s.cover} fallbackSrc={s.fallbackCover} title={s.title} className="hero-image" />
       <div className="hero-shade" />
       <div className="hero-content">
         <span className="hero-badge">{s.badge}</span>

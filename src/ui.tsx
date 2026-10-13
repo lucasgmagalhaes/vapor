@@ -68,18 +68,19 @@ export function IconButton(props: { icon: IconName; label: string; onClick: () =
 }
 
 /** Store-style cover: the official image when the catalog has one, a titled placeholder otherwise. */
-export function Cover({ src, title, className = "", showPlaceholderTitle = false }: { src?: string; title: string; className?: string; showPlaceholderTitle?: boolean }) {
-  const [broken, setBroken] = useState(false);
-  useEffect(() => setBroken(false), [src]);
-  if (src && !broken) {
+export function Cover({ src, fallbackSrc, title, className = "", fallbackClassName, showPlaceholderTitle = false }: { src?: string; fallbackSrc?: string; title: string; className?: string; fallbackClassName?: string; showPlaceholderTitle?: boolean }) {
+  const [failed, setFailed] = useState<string[]>([]);
+  useEffect(() => setFailed([]), [src, fallbackSrc]);
+  const image = src && !failed.includes(src) ? src : fallbackSrc && !failed.includes(fallbackSrc) ? fallbackSrc : undefined;
+  if (image) {
     return (
       <img
-        className={`cover ${className}`}
-        src={src}
-        alt={`Cover of ${title}`}
+        className={`cover ${image === fallbackSrc ? fallbackClassName ?? className : className}`}
+        src={image}
+        alt={`Artwork for ${title}`}
         loading="lazy"
         referrerPolicy="no-referrer"
-        onError={() => setBroken(true)}
+        onError={() => setFailed((current) => [...current, image])}
       />
     );
   }

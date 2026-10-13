@@ -20,6 +20,7 @@ pub const ALLOWED_COVER_HOSTS: &[&str] = &[
     "cdn.akamai.steamstatic.com",
     "images.igdb.com",
     "media.rawg.io",
+    "image.api.playstation.com",
 ];
 
 /// A cover is a thumbnail, not artwork storage.
@@ -53,6 +54,20 @@ pub fn valid_external_cover(url: &str) -> bool {
     let ext_ok = ["jpg", "jpeg", "png", "webp"].iter().any(|e| path.to_ascii_lowercase().ends_with(&format!(".{e}")));
     let query_ok = query.len() <= 40 && query.chars().all(|c| c.is_ascii_alphanumeric() || "=&._-".contains(c));
     path_ok && ext_ok && query_ok
+}
+
+/// A wide image for details and highlights. PlayStation's official media server uses
+/// extensionless image paths, so accept only its image endpoint and fixed size presets.
+pub fn valid_external_backdrop(url: &str) -> bool {
+    if valid_external_cover(url) {
+        return true;
+    }
+    let Some(tail) = url.strip_prefix("https://gmedia.playstation.com/is/image/SIEPDC/") else { return false };
+    let Some((name, size)) = tail.split_once('?') else { return false };
+    !name.is_empty()
+        && name.len() <= 160
+        && name.chars().all(|c| c.is_ascii_alphanumeric() || c == '-')
+        && matches!(size, "$1200px$" | "$1600px$" | "$2400px$")
 }
 
 /// Anything the app may show as a cover: ours (from `covers/`) or an allowed external image.
@@ -159,6 +174,15 @@ mod tests {
             assert!(!valid_external_cover(bad), "{bad}");
         }
         assert!(valid_any_cover(&cover_url("x")) && valid_any_cover("https://cdn.cloudflare.steamstatic.com/a.png"));
+    }
+
+    #[test]
+    fn official_playstation_artwork_urls_are_constrained() {
+        assert!(valid_external_cover("https://image.api.playstation.com/vulcan/img/rnd/202011/0711/p8JCvA8692BICXAPoyylh7ed.png"));
+        assert!(valid_external_backdrop("https://gmedia.playstation.com/is/image/SIEPDC/god-of-war-iii-remastered-hero-banner-desktop-01-en-18aug21?$1200px$"));
+        assert!(!valid_external_backdrop("https://gmedia.playstation.com/is/image/SIEPDC/../secret?$1200px$"));
+        assert!(!valid_external_backdrop("https://gmedia.playstation.com/is/image/SIEPDC/art?$99999px$"));
+        assert!(!valid_external_backdrop("https://gmedia.playstation.com/other/art?$1200px$"));
     }
 
     #[test]

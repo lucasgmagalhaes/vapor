@@ -100,7 +100,7 @@ export function NativeDetail(props: { entries: ExternalEntry[]; system: SystemIn
   return (
     <div className="detail">
       <div className="detail-artwork">
-        <Cover src={shown.cover} title={shown.title} className="detail-cover" />
+        <Cover src={shown.backdrop} fallbackSrc={shown.cover} title={shown.title} className="detail-backdrop" fallbackClassName="detail-cover" />
       </div>
       <div className="detail-body">
         <h2>{shown.title}</h2>
