@@ -35,7 +35,11 @@ export function App() {
   const refresh = () =>
     run("Refreshing catalog", async () => {
       const r = await api.refreshCatalog();
-      setStatus(r.removed.length ? `Removed from catalog: ${r.removed.join(", ")}` : "");
+      const notes = [
+        r.removed.length ? `Removed from catalog: ${r.removed.join(", ")}` : "",
+        r.rejected.length ? `Ignored ${r.rejected.length} invalid catalog entr${r.rejected.length === 1 ? "y" : "ies"}` : "",
+      ].filter(Boolean);
+      setStatus(notes.join(". "));
     });
 
   return (

@@ -38,12 +38,37 @@ fn now() -> u64 {
     SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_secs()).unwrap_or(0)
 }
 
+/// The cached catalog, re-validated on every read: a file edited on disk, or one written by an
+/// older version, can never smuggle in an artifact URL or link that CI would have rejected.
 fn read_cached(app: &AppHandle) -> CmdResult<Catalog> {
     let p = data_dir(app)?.join("catalog.json");
     if !p.exists() {
         return Ok(Catalog::default());
     }
-    serde_json::from_slice(&std::fs::read(p).map_err(err)?).map_err(err)
+    let catalog: Catalog = serde_json::from_slice(&std::fs::read(p).map_err(err)?).map_err(err)?;
+    Ok(catalog.sanitized().0)
+}
+
+/// Downloads `url` into memory, refusing anything that is not exactly `expected` bytes. The size
+/// comes from the manifest, so a hostile server cannot make the app buffer an unbounded body.
+async fn download_exact(url: &str, expected: u64) -> CmdResult<Vec<u8>> {
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(30 * 60))
+        .redirect(reqwest::redirect::Policy::limited(5))
+        .build()
+        .map_err(err)?;
+    let mut resp = client.get(url).send().await.and_then(|r| r.error_for_status()).map_err(err)?;
+    if resp.content_length().is_some_and(|l| l != expected) {
+        return Err("the server reports a different size than the manifest: refusing to download".into());
+    }
+    let mut buf = Vec::with_capacity(expected.min(64 * 1024 * 1024) as usize);
+    while let Some(chunk) = resp.chunk().await.map_err(err)? {
+        if (buf.len() + chunk.len()) as u64 > expected {
+            return Err("the download is larger than the size in the manifest: aborted".into());
+        }
+        buf.extend_from_slice(&chunk);
+    }
+    Ok(buf)
 }
 
 #[tauri::command]
@@ -57,6 +82,8 @@ pub struct RefreshResult {
     pub total: usize,
     /// Installed games that left the catalog (e.g. takedown) and were removed.
     pub removed: Vec<String>,
+    /// Entries of the downloaded catalog that failed validation and were dropped.
+    pub rejected: Vec<String>,
 }
 
 /// Downloads the catalog and applies removals: whatever left the index is deleted
@@ -70,10 +97,14 @@ pub async fn refresh_catalog(app: AppHandle) -> CmdResult<RefreshResult> {
         .bytes()
         .await
         .map_err(err)?;
-    let catalog: Catalog = serde_json::from_slice(&bytes).map_err(err)?;
+    let downloaded: Catalog = serde_json::from_slice(&bytes).map_err(err)?;
+    // Same rules as CI: never trust the catalog branch blindly. Only the clean part is stored.
+    let (catalog, rejected) = downloaded.sanitized();
     let dir = data_dir(&app)?;
     tokio::fs::create_dir_all(&dir).await.map_err(err)?;
-    tokio::fs::write(dir.join("catalog.json"), &bytes).await.map_err(err)?;
+    tokio::fs::write(dir.join("catalog.json"), serde_json::to_vec(&catalog).map_err(err)?)
+        .await
+        .map_err(err)?;
 
     let mut removed = Vec::new();
     let inst = installed_dir(&app)?;
@@ -86,7 +117,7 @@ pub async fn refresh_catalog(app: AppHandle) -> CmdResult<RefreshResult> {
             }
         }
     }
-    Ok(RefreshResult { total: catalog.games.len(), removed })
+    Ok(RefreshResult { total: catalog.games.len(), removed, rejected })
 }
 
 /// Downloads the manifest's artifact and only writes it if size and SHA-256 match.
@@ -97,13 +128,7 @@ pub async fn install_game(app: AppHandle, slug: String) -> CmdResult<()> {
         .into_iter()
         .find(|g| g.slug == slug)
         .ok_or("game is not in the catalog")?;
-    let bytes = reqwest::get(&game.artifact.url)
-        .await
-        .and_then(|r| r.error_for_status())
-        .map_err(err)?
-        .bytes()
-        .await
-        .map_err(err)?;
+    let bytes = download_exact(&game.artifact.url, game.artifact.size).await?;
     verify_artifact(&game.artifact, &bytes).map_err(err)?;
     let dir = installed_dir(&app)?.join(&game.slug);
     tokio::fs::create_dir_all(&dir).await.map_err(err)?;
