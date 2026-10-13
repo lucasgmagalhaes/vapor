@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { open, save } from "@tauri-apps/plugin-dialog";
-import { api, Game, SaveMeta } from "./api";
+import { api, ByoStatus, Game, SaveMeta } from "./api";
 
 export function App() {
   const [games, setGames] = useState<Game[]>([]);
@@ -77,6 +77,15 @@ function GameDetail(props: {
 }) {
   const { game, installed, run } = props;
   const [saves, setSaves] = useState<SaveMeta[]>([]);
+  const [byo, setByo] = useState<ByoStatus[]>([]);
+  const isByo = game.assets_policy === "bring-your-own";
+
+  const reloadByo = useCallback(() => {
+    if (!isByo || !installed) return setByo([]);
+    api.byoStatus(game.slug).then(setByo).catch(() => setByo([]));
+  }, [game.slug, isByo, installed]);
+  useEffect(reloadByo, [reloadByo]);
+  const ready = byo.every((f) => f.present);
 
   const reload = useCallback(() => {
     api.listSaves(game.slug).then(setSaves).catch(() => setSaves([]));
@@ -95,7 +104,12 @@ function GameDetail(props: {
       </p>
       {installed ? (
         <>
-          <button onClick={() => run("Starting", () => api.playGame(game.slug))}>Play</button>
+          <button
+            disabled={isByo && !ready}
+            onClick={() => run("Starting", () => api.playGame(game.slug))}
+          >
+            Play
+          </button>
           <button onClick={() => run("Uninstalling", () => api.uninstallGame(game.slug))}>
             Uninstall
           </button>
@@ -104,6 +118,42 @@ function GameDetail(props: {
         <button onClick={() => run("Downloading and verifying", () => api.installGame(game.slug))}>
           Install
         </button>
+      )}
+
+      {installed && isByo && (
+        <>
+          <h3>Your game files</h3>
+          <p>
+            This game does not include its assets. Pick files you own; they are checked on this
+            computer and never uploaded.
+          </p>
+          <ul>
+            {byo.map((f) => (
+              <li key={f.name}>
+                {f.description} {f.present ? "✓" : "(missing)"}
+                <button
+                  onClick={async () => {
+                    const src = await open();
+                    if (typeof src === "string") {
+                      await run("Verifying file", () => api.byoImport(game.slug, f.name, src));
+                      reloadByo();
+                    }
+                  }}
+                >
+                  {f.present ? "Replace" : "Choose file"}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={async () => {
+              await run("Removing your files", () => api.byoClear(game.slug));
+              reloadByo();
+            }}
+          >
+            Remove my files
+          </button>
+        </>
       )}
 
       <h3>Saves</h3>
