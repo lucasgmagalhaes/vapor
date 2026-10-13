@@ -4,7 +4,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-export function summarize(index) {
+export function summarize(index, review = []) {
   const by = (s) => index.filter((r) => r.status === s);
   const line = (r) =>
     `- ${r.repo} (${r.license ?? "no license"})` +
@@ -19,10 +19,15 @@ export function summarize(index) {
     ...section("needs-asset-audit (license not proven: a person decides)", by("needs-asset-audit")),
     ...section("blocked (incompatible asset terms)", by("blocked")),
     ...section("byo-only", by("byo-only")),
+    ...section("external-only (native ports and console recompilations)", by("external-only")),
+    ...section("distribution review", review.map((r) => ({ repo: `${r.repo} [${r.project_kind}]`, license: r.distribution?.reason ?? r.distribution?.status }))),
   ].join("\n");
 }
 
 if (process.argv[1] && path.basename(process.argv[1]) === "summary.mjs") {
   const dir = process.argv[2] ?? "crawl-output";
-  console.log(summarize(JSON.parse(readFileSync(path.join(dir, "index.json"), "utf8"))));
+  console.log(summarize(
+    JSON.parse(readFileSync(path.join(dir, "index.json"), "utf8")),
+    JSON.parse(readFileSync(path.join(dir, "review.json"), "utf8")),
+  ));
 }

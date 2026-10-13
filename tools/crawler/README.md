@@ -1,6 +1,7 @@
 # Candidate crawler
 
-Finds open-source games on GitHub that could be packaged for the Vapor catalog and records what
+Finds decompilation and recompilation projects for released games, plus game-specific native
+ports that may qualify as links to their original source, and records what
 it learns, so a human can review them. It **never writes to `games/`**.
 
 ```sh
@@ -13,14 +14,26 @@ Options: `--out` (default `crawl-output`), `--curated` (default `candidates`), `
 limit; an invalid token silently falls back to anonymous mode.
 
 ## How it works
-1. **Discover** via GitHub search (emscripten/webassembly/decompilation/remake topics), dropping
-   awesome-lists and other noise.
+1. **Discover** via GitHub search for decompilation, reverse engineering, recompilation and
+   game-specific native ports, dropping engines, frameworks, tutorials and other noise. Eight
+   search requests run without a fixed delay. Forks are included because some maintained ports
+   are forks. `seeds.json` names specific GitHub repositories worth inspecting even when their
+   GitHub description and topics are empty.
 2. **Inspect** each new or changed repo with a blobless shallow `git clone` (no REST quota): file
-   tree, README, LICENSE. The code license comes from GitHub's detection.
-3. **Classify** into `needs-asset-audit`, `byo-only`, `needs-port` or `rejected` with reasons.
-   Decompilation projects are always treated as bring-your-own.
-4. **Write** one JSON record per repo plus `index.json` to `crawl-output/`. State for incremental
+   tree, README, LICENSE. The code license comes from GitHub's detection. Its README or GitHub
+   homepage must link to an official Steam, Epic, PlayStation, Xbox or Nintendo product page.
+3. **Verify distribution** against the live store. Steam requires a released `game` product and
+   a matching title in the repository text. Epic and console product pages with matching titles
+   are marked `review`: a person must confirm the release and project identity. Missing evidence
+   gets `distribution-unverified`. Both are omitted from `index.json` and appear in `review.json`.
+4. **Classify** verified decompilations into `needs-asset-audit`, `byo-only`, `needs-port` or
+   `rejected` with reasons. Decompilation projects are treated as bring-your-own. Native ports
+   are `external-only`: they cannot run in Vapor's WebAssembly player or be mirrored.
+5. **Write** one JSON record per repo plus `index.json` and `review.json` to `crawl-output/`. State for incremental
    runs is kept in `state.json`.
+
+The crawler currently searches GitHub repositories. A standalone itch.io release such as
+Azimuth requires a separate source adapter and is outside this crawler's discovery scope.
 
 ## Curated records
 `candidates/` holds hand-reviewed records (`"manual": true`, with the license files read at a
@@ -32,6 +45,7 @@ used there: `listed`, `ready-to-build` and `blocked`.
 branch (state included, so runs are incremental).
 
 ## Limits
-The signals are heuristics from text and file names. A `needs-asset-audit` record means "worth
+The signals are heuristics from text and file names. A storefront match does not prove that the
+repository implements the linked game; a reviewer must check that relationship. A `needs-asset-audit` record means "worth
 looking at", never "safe to list". Asset licenses must be verified file by file before a game gets
 `assets_policy: "open"`.
