@@ -52,8 +52,17 @@ pub struct NativeBuild {
     pub reviewed_by: String,
     /// `YYYY-MM-DD`.
     pub reviewed_on: String,
+    /// What stands behind the build: `reviewed` (a named person looked at it) or `scanned` (only
+    /// the automatic pipeline: hash pinned and antivirus-scanned in a throwaway CI runner). The
+    /// app shows the difference and asks for an explicit confirmation either way.
+    #[serde(default = "default_trust")]
+    pub trust: String,
     #[serde(default)]
     pub notes: String,
+}
+
+fn default_trust() -> String {
+    "scanned".into()
 }
 
 /// Largest native asset the app will download (the Linux AppImages seen are up to ~900 MB).
@@ -88,6 +97,9 @@ impl NativeBuild {
         }
         if !safe_rel_path(&self.exe) {
             return Err("native.exe must be a relative path without .., backslashes or drive letters".into());
+        }
+        if !matches!(self.trust.as_str(), "reviewed" | "scanned") {
+            return Err("native.trust must be reviewed or scanned".into());
         }
         if self.reviewed_by.trim().is_empty() || !valid_date(&self.reviewed_on) {
             return Err("native.reviewed_by and native.reviewed_on (YYYY-MM-DD) are required".into());
@@ -266,6 +278,7 @@ mod tests {
             exe: "game/run.exe".into(),
             reviewed_by: "maintainer".into(),
             reviewed_on: "2026-10-13".into(),
+            trust: "reviewed".into(),
             notes: String::new(),
         }
     }
@@ -298,6 +311,7 @@ mod tests {
         assert!(bad(&|b| b.exe = "a\\b.exe".into()));
         assert!(bad(&|b| b.reviewed_by = " ".into()), "a named reviewer is required");
         assert!(bad(&|b| b.reviewed_on = "yesterday".into()));
+        assert!(bad(&|b| b.trust = "trusted".into()), "only reviewed or scanned");
     }
 
     #[test]

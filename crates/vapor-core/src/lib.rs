@@ -7,6 +7,7 @@ pub mod bridge;
 pub mod byo;
 pub mod catalog;
 pub mod links;
+pub mod native;
 pub mod manifest;
 pub mod saves;
 pub mod serve;
