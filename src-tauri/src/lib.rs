@@ -15,5 +15,5 @@ pub fn run() {
             commands::delete_game_saves,
         ])
         .run(tauri::generate_context!())
-        .expect("erro ao iniciar o Vapor");
+        .expect("error while starting Vapor");
 }

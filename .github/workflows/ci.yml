@@ -11,10 +11,10 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo test --workspace
       - run: cargo run -q -p vapor-cli -- validate .
-      - name: Rejeitar binários/arquivos grandes em games/
+      - name: Reject binaries/large files in games/
         run: |
-          if find games -type f -size +512k | grep .; then echo "arquivo grande em games/"; exit 1; fi
-          if find games -type f ! -name game.json ! -name cover.webp | grep .; then echo "só game.json e cover.webp são permitidos"; exit 1; fi
+          if find games -type f -size +512k | grep .; then echo "large file in games/"; exit 1; fi
+          if find games -type f ! -name game.json ! -name cover.webp | grep .; then echo "only game.json and cover.webp are allowed"; exit 1; fi
   frontend:
     runs-on: ubuntu-latest
     steps:

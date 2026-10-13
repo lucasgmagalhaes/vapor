@@ -1,5 +1,5 @@
 name: publish-catalog
-# Gera catalog.json e publica na branch `catalog`; o app baixa dali.
+# Builds catalog.json and publishes it to the `catalog` branch; the app downloads it from there.
 on:
   push:
     branches: [main]

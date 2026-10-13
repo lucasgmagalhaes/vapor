@@ -1,14 +1,14 @@
-# Política de remoção (takedown)
+# Takedown policy
 
-O Vapor **não hospeda jogos**: o catálogo guarda apenas manifestos que apontam para URLs externas.
+Vapor **does not host games**: the catalog only holds manifests that point to external URLs.
 
-## Como pedir a remoção
-Abra uma issue com o template "Takedown" ou escreva para o contato do projeto, informando: o jogo (slug), a obra protegida, quem é o titular/representante e uma declaração de boa-fé.
+## How to request removal
+Open an issue with the "Takedown" template, or write to the project contact, stating: the game (slug), the protected work, who the rights holder/representative is, and a good-faith statement.
 
-## O que fazemos
-1. Um mantenedor abre um PR que apaga `games/<slug>/` e adiciona a entrada (slug, sha256 e/ou domínio, data, referência) em `takedown/blocklist.json`.
-2. A CI recusa qualquer manifesto que bata com a blocklist no futuro.
-3. Ao atualizar o catálogo, o app apaga do disco do jogador os arquivos de jogos que saíram do índice. **Os saves do jogador são preservados** (são dados dele) e continuam exportáveis.
-4. O autor pode contestar via issue; um mantenedor humano decide e registra o resultado.
+## What we do
+1. A maintainer opens a PR that deletes `games/<slug>/` and adds an entry (slug, sha256 and/or domain, date, reference) to `takedown/blocklist.json`.
+2. CI rejects any future manifest that matches the blocklist.
+3. When the catalog is refreshed, the app deletes from the player's disk the files of games that left the index. **The player's saves are preserved** (they are the player's data) and remain exportable.
+4. The author may dispute via an issue; a human maintainer decides and records the outcome.
 
-> Nunca faça commit de binários, ROMs ou assets neste repositório: a CI rejeita.
+> Never commit binaries, ROMs or assets to this repository: CI rejects them.

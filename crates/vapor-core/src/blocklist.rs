@@ -13,7 +13,7 @@ pub struct BlockEntry {
     pub sha256: Option<String>,
     #[serde(default)]
     pub domain: Option<String>,
-    /// Data e referência do pedido de remoção (sem o conteúdo do jogo).
+    /// Date and reference of the takedown request (never the game content).
     pub date: String,
     pub reference: String,
 }
@@ -39,7 +39,7 @@ impl Blocklist {
         Ok(serde_json::from_slice(&std::fs::read(path)?)?)
     }
 
-    /// Retorna a referência do pedido se o manifesto bate com alguma entrada.
+    /// Returns the request reference if the manifest matches any entry.
     pub fn check(&self, m: &GameManifest) -> Option<&str> {
         let host = host_of(&m.artifact.url).to_ascii_lowercase();
         self.entries.iter().find_map(|e| {

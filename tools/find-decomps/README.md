@@ -1,11 +1,11 @@
 # find-decomps
 
-Descobre no GitHub projetos de decompilação de jogos candidatos a port para wasm.
+Discovers game decompilation projects on GitHub that are candidates for a wasm port.
 
 ```sh
 node tools/find-decomps/find-decomps.mjs --query "resident evil" --deep
-GITHUB_TOKEN=... node tools/find-decomps/find-decomps.mjs --min-stars 50 --limit 20 --json > candidatos.json
+GITHUB_TOKEN=... node tools/find-decomps/find-decomps.mjs --min-stars 50 --limit 20 --json > candidates.json
 ```
 
-Pontuação: estrelas, licença presente, sinais de wasm/emscripten/SDL, indícios de "bring your own assets" e atividade recente.
-Os sinais são heurísticos. **Todo candidato precisa de revisão humana** (licença do código, política de assets e risco de takedown) antes de virar `games/<slug>/game.json`.
+Scoring: stars, license present, wasm/emscripten/SDL signals, hints of "bring your own assets", and recent activity.
+The signals are heuristic. **Every candidate needs human review** (code license, asset policy and takedown risk) before it becomes `games/<slug>/game.json`.

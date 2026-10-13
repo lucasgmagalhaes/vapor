@@ -1,5 +1,5 @@
-//! Armazenamento local de saves. Cada versão de um slot é um arquivo `.vsave`
-//! (zip com `meta.json` + `files/...`), o mesmo formato usado para export/import.
+//! Local save storage. Each version of a slot is a `.vsave` file
+//! (zip with `meta.json` + `files/...`), the same format used for export/import.
 
 use std::io::{Cursor, Read, Write};
 use std::path::{Path, PathBuf};
@@ -9,25 +9,25 @@ use zip::write::SimpleFileOptions;
 
 use crate::{Error, Result};
 
-/// Quantas versões anteriores de cada slot são mantidas.
+/// How many versions of each slot are kept.
 pub const KEEP_VERSIONS: usize = 5;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct SaveMeta {
     pub slug: String,
     pub slot: String,
-    /// Versão do formato de save declarada pelo jogo.
+    /// Save format version declared by the game.
     pub save_version: u32,
-    /// Hash do artefato com que o save foi criado.
+    /// Hash of the artifact the save was created with.
     pub artifact_sha256: String,
-    /// Contador monotônico por slot (base para detectar conflitos).
+    /// Monotonic per-slot counter (basis for conflict detection).
     pub revision: u64,
     pub created_at: u64,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SaveFile {
-    /// Caminho relativo dentro do FS virtual do jogo, ex.: `saves/slot1.dat`.
+    /// Relative path inside the game's virtual FS, e.g. `saves/slot1.dat`.
     pub path: String,
     pub data: Vec<u8>,
 }
@@ -49,7 +49,7 @@ fn safe_component(s: &str) -> Result<()> {
     if ok {
         Ok(())
     } else {
-        Err(Error::InvalidSave(format!("identificador inválido: {s:?}")))
+        Err(Error::InvalidSave(format!("invalid identifier: {s:?}")))
     }
 }
 
@@ -59,7 +59,7 @@ fn safe_file_path(p: &str) -> Result<()> {
         || p.contains('\\')
         || p.split('/').any(|c| c.is_empty() || c == "." || c == "..");
     if bad {
-        Err(Error::InvalidSave(format!("caminho inválido: {p:?}")))
+        Err(Error::InvalidSave(format!("invalid path: {p:?}")))
     } else {
         Ok(())
     }
@@ -78,7 +78,7 @@ pub fn encode(data: &SaveData) -> Result<Vec<u8>> {
     Ok(zip.finish()?.into_inner())
 }
 
-/// Limite de tamanho descomprimido, contra zip bombs em saves importados.
+/// Uncompressed size limit, against zip bombs in imported saves.
 const MAX_UNCOMPRESSED: u64 = 256 * 1024 * 1024;
 
 pub fn decode(bytes: &[u8]) -> Result<SaveData> {
@@ -91,7 +91,7 @@ pub fn decode(bytes: &[u8]) -> Result<SaveData> {
         let name = entry.name().to_string();
         total += entry.size();
         if total > MAX_UNCOMPRESSED {
-            return Err(Error::InvalidSave("save grande demais".into()));
+            return Err(Error::InvalidSave("save too large".into()));
         }
         let mut buf = Vec::new();
         entry.take(MAX_UNCOMPRESSED).read_to_end(&mut buf)?;
@@ -105,7 +105,7 @@ pub fn decode(bytes: &[u8]) -> Result<SaveData> {
             files.push(SaveFile { path: rel.to_string(), data: buf });
         }
     }
-    let meta = meta.ok_or_else(|| Error::InvalidSave("meta.json ausente".into()))?;
+    let meta = meta.ok_or_else(|| Error::InvalidSave("meta.json missing".into()))?;
     safe_component(&meta.slug)?;
     safe_component(&meta.slot)?;
     Ok(SaveData { meta, files })
@@ -137,7 +137,7 @@ impl SaveStore {
         Ok(v)
     }
 
-    /// Grava uma nova revisão do slot e poda as mais antigas.
+    /// Writes a new slot revision and prunes the oldest ones.
     pub fn write(
         &self,
         slug: &str,
@@ -160,7 +160,7 @@ impl SaveStore {
             created_at: now,
         };
         let bytes = encode(&SaveData { meta: meta.clone(), files })?;
-        // escrita atômica: nunca deixa um .vsave pela metade
+        // atomic write: never leaves a half-written .vsave
         let tmp = dir.join(format!("{revision}.tmp"));
         std::fs::write(&tmp, bytes)?;
         std::fs::rename(&tmp, dir.join(format!("{revision}.vsave")))?;
@@ -173,7 +173,7 @@ impl SaveStore {
         Ok(meta)
     }
 
-    /// Lê a revisão pedida, ou a mais recente.
+    /// Reads the requested revision, or the latest.
     pub fn read(&self, slug: &str, slot: &str, revision: Option<u64>) -> Result<Option<SaveData>> {
         let dir = self.slot_dir(slug, slot)?;
         let Some(rev) = revision.or_else(|| Self::revisions(&dir).ok()?.last().copied()) else {
@@ -210,11 +210,11 @@ impl SaveStore {
     pub fn export(&self, slug: &str, slot: &str, revision: Option<u64>) -> Result<Vec<u8>> {
         let d = self
             .read(slug, slot, revision)?
-            .ok_or_else(|| Error::InvalidSave("slot não encontrado".into()))?;
+            .ok_or_else(|| Error::InvalidSave("slot not found".into()))?;
         encode(&d)
     }
 
-    /// Importa um `.vsave` como nova revisão do slot (nunca sobrescreve).
+    /// Imports a `.vsave` as a new slot revision (never overwrites).
     pub fn import(&self, bytes: &[u8], now: u64) -> Result<SaveMeta> {
         let d = decode(bytes)?;
         self.write(
@@ -227,7 +227,7 @@ impl SaveStore {
         )
     }
 
-    /// Apaga todos os saves de um jogo (direito de remoção do jogador).
+    /// Deletes all saves of a game (the player's right to removal).
     pub fn delete_game(&self, slug: &str) -> Result<()> {
         safe_component(slug)?;
         let dir = self.root.join(slug);
