@@ -11,6 +11,7 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 use tauri::http::{header, Method, Request, Response, StatusCode};
 use tauri::{AppHandle, Manager, Url, WebviewUrl, WebviewWindowBuilder, WindowEvent};
+use vapor_core::byo::ByoStore;
 use vapor_core::manifest::GameManifest;
 use vapor_core::saves::SaveStore;
 use vapor_core::{bridge, serve};
@@ -28,6 +29,8 @@ struct Session {
     save_roots: Vec<String>,
     save_version: u32,
     artifact_sha256: String,
+    /// Names of the player-supplied files this game may fetch.
+    byo: Vec<String>,
 }
 
 #[derive(Default)]
@@ -64,6 +67,10 @@ fn store(app: &AppHandle) -> Option<SaveStore> {
     Some(SaveStore::new(app.path().app_data_dir().ok()?.join("saves")))
 }
 
+pub fn byo_store(app: &AppHandle) -> Option<ByoStore> {
+    Some(ByoStore::new(app.path().app_data_dir().ok()?.join("byo")))
+}
+
 fn now() -> u64 {
     SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |d| d.as_secs())
 }
@@ -90,6 +97,9 @@ pub fn handle(app: &AppHandle, req: Request<Vec<u8>>) -> Response<Cow<'static, [
     if rest == "__vapor/saves" {
         return saves(app, &session, &req);
     }
+    if let Some(name) = rest.strip_prefix("__vapor/byo/") {
+        return byo(app, &session, name);
+    }
     if req.method() != Method::GET && req.method() != Method::HEAD {
         return text(StatusCode::METHOD_NOT_ALLOWED, "method not allowed");
     }
@@ -105,6 +115,21 @@ pub fn handle(app: &AppHandle, req: Request<Vec<u8>>) -> Response<Cow<'static, [
             .body(Cow::Owned(bytes))
             .expect("file response"),
         Err(_) => text(StatusCode::NOT_FOUND, "not found"),
+    }
+}
+
+/// Hands a player-supplied file to the window of the game that declared it.
+fn byo(app: &AppHandle, s: &Session, name: &str) -> Response<Cow<'static, [u8]>> {
+    if !s.byo.iter().any(|n| n == name) {
+        return text(StatusCode::NOT_FOUND, "not declared by this game");
+    }
+    match byo_store(app).map(|b| b.read(&s.slug, name)) {
+        Some(Ok(Some(bytes))) => Response::builder()
+            .header(header::CONTENT_TYPE, "application/octet-stream")
+            .header("X-Content-Type-Options", "nosniff")
+            .body(Cow::Owned(bytes))
+            .expect("byo response"),
+        _ => text(StatusCode::NOT_FOUND, "file not provided"),
     }
 }
 
@@ -178,6 +203,14 @@ pub fn open(app: &AppHandle, slug: &str) -> Result<(), String> {
         return Err("entry file is missing; reinstall the game".into());
     }
 
+    if !manifest.byo_files.is_empty() {
+        let store = byo_store(app).ok_or("no data dir")?;
+        let missing = store.missing(slug, &manifest.byo_files).map_err(|e| e.to_string())?;
+        if !missing.is_empty() {
+            return Err(format!("missing files: {}", missing.join(", ")));
+        }
+    }
+
     let token = random_token();
     app.state::<Sessions>().0.lock().expect("sessions lock").insert(
         token.clone(),
@@ -187,13 +220,21 @@ pub fn open(app: &AppHandle, slug: &str) -> Result<(), String> {
             save_roots: manifest.saves.paths.clone(),
             save_version: manifest.saves.version,
             artifact_sha256: manifest.artifact.sha256.clone(),
+            byo: manifest.byo_files.iter().map(|f| f.name.clone()).collect(),
         },
     );
 
     let prefix = format!("{}/{token}/", origin());
     let url: Url = format!("{prefix}{}", manifest.artifact.entry).parse().map_err(|e| format!("{e}"))?;
     let roots = serde_json::to_string(&manifest.saves.paths).map_err(|e| e.to_string())?;
-    let script = BRIDGE_JS.replace("__VAPOR_SAVE_ROOTS__", &roots);
+    let mounts: Vec<_> = manifest
+        .byo_files
+        .iter()
+        .map(|f| serde_json::json!({ "name": f.name, "mount": f.mount }))
+        .collect();
+    let script = BRIDGE_JS
+        .replace("__VAPOR_SAVE_ROOTS__", &roots)
+        .replace("__VAPOR_BYO__", &serde_json::Value::Array(mounts).to_string());
 
     let nav_prefix = prefix.clone();
     let window = WebviewWindowBuilder::new(app, &label, WebviewUrl::External(url))

@@ -34,6 +34,20 @@
         "version": { "type": "integer", "minimum": 1 }
       }
     },
+    "byo_files": {
+      "description": "Files the player supplies (required when assets_policy is bring-your-own). Verified locally, never uploaded.",
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["name", "description", "sha256", "size", "mount"], "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[A-Za-z0-9_-][A-Za-z0-9._-]*$", "maxLength": 64 },
+          "description": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+          "size": { "type": "integer", "minimum": 1 },
+          "mount": { "type": "string", "pattern": "^/" }
+        }
+      }
+    },
     "tags": { "type": "array", "items": { "type": "string" } },
     "contact": { "type": "string" }
   }

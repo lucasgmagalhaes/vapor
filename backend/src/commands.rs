@@ -7,6 +7,7 @@ use serde::Serialize;
 use tauri::{AppHandle, Manager};
 use vapor_core::catalog::Catalog;
 use vapor_core::manifest::{verify_artifact, GameManifest};
+use vapor_core::byo::ByoStatus;
 use vapor_core::saves::{SaveMeta, SaveStore};
 use vapor_core::unpack;
 
@@ -172,4 +173,51 @@ pub fn delete_game_saves(app: AppHandle, slug: String) -> CmdResult<()> {
 #[tauri::command]
 pub async fn play_game(app: AppHandle, slug: String) -> CmdResult<()> {
     crate::game::open(&app, &slug)
+}
+
+fn installed_manifest(app: &AppHandle, slug: &str) -> CmdResult<GameManifest> {
+    if slug.contains(['/', '\\']) || slug.contains("..") {
+        return Err("invalid slug".into());
+    }
+    let bytes = std::fs::read(installed_dir(app)?.join(slug).join("game.json"))
+        .map_err(|_| "game is not installed".to_string())?;
+    serde_json::from_slice(&bytes).map_err(err)
+}
+
+/// Which player-supplied files a bring-your-own game still needs.
+#[tauri::command]
+pub fn byo_status(app: AppHandle, slug: String) -> CmdResult<Vec<ByoStatus>> {
+    let m = installed_manifest(&app, &slug)?;
+    crate::game::byo_store(&app).ok_or("no data dir")?.status(&slug, &m.byo_files).map_err(err)
+}
+
+/// Verifies a file the player picked against the manifest and copies it into the
+/// local store. Nothing leaves the machine; a wrong file is rejected, never stored.
+#[tauri::command]
+pub async fn byo_import(app: AppHandle, slug: String, name: String, src: String) -> CmdResult<()> {
+    let m = installed_manifest(&app, &slug)?;
+    let spec = m
+        .byo_files
+        .iter()
+        .find(|f| f.name == name)
+        .ok_or("this game does not ask for that file")?
+        .clone();
+    let store = crate::game::byo_store(&app).ok_or("no data dir")?;
+    tokio::task::spawn_blocking(move || -> CmdResult<()> {
+        // Check the size first so a wrong, huge file is never read into memory.
+        let len = std::fs::metadata(&src).map_err(err)?.len();
+        if len != spec.size {
+            return Err(format!("{}: size {len} does not match the expected {}", spec.name, spec.size));
+        }
+        let bytes = std::fs::read(&src).map_err(err)?;
+        store.import(&slug, &spec, &bytes).map_err(err)
+    })
+    .await
+    .map_err(err)?
+}
+
+/// Removes the player's stored files for a game (saves are untouched).
+#[tauri::command]
+pub fn byo_clear(app: AppHandle, slug: String) -> CmdResult<()> {
+    crate::game::byo_store(&app).ok_or("no data dir")?.delete_game(&slug).map_err(err)
 }

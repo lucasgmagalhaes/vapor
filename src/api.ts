@@ -7,6 +7,7 @@ export interface Game {
   source: { repo: string; commit: string };
   license: { code: string; assets: string };
   assets_policy: "open" | "bring-your-own";
+  byo_files?: { name: string; description: string; sha256: string; size: number; mount: string }[];
   artifact: { url: string; sha256: string; size: number; entry: string };
   saves: { paths: string[]; version: number };
   tags: string[];
@@ -22,6 +23,13 @@ export interface SaveMeta {
   created_at: number;
 }
 
+export interface ByoStatus {
+  name: string;
+  description: string;
+  size: number;
+  present: boolean;
+}
+
 export interface RefreshResult {
   total: number;
   removed: string[];
@@ -32,6 +40,10 @@ export const api = {
   refreshCatalog: () => invoke<RefreshResult>("refresh_catalog"),
   installGame: (slug: string) => invoke<void>("install_game", { slug }),
   playGame: (slug: string) => invoke<void>("play_game", { slug }),
+  byoStatus: (slug: string) => invoke<ByoStatus[]>("byo_status", { slug }),
+  byoImport: (slug: string, name: string, src: string) =>
+    invoke<void>("byo_import", { slug, name, src }),
+  byoClear: (slug: string) => invoke<void>("byo_clear", { slug }),
   uninstallGame: (slug: string) => invoke<void>("uninstall_game", { slug }),
   installedGames: () => invoke<string[]>("installed_games"),
   listSaves: (slug: string) => invoke<SaveMeta[]>("list_saves", { slug }),
