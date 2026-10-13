@@ -8,6 +8,7 @@ use tauri::{AppHandle, Manager};
 use vapor_core::catalog::Catalog;
 use vapor_core::manifest::{verify_artifact, GameManifest};
 use vapor_core::saves::{SaveMeta, SaveStore};
+use vapor_core::unpack;
 
 /// catalog.json is published by CI on every merge to `main` (branch `catalog`).
 const CATALOG_URL: &str =
@@ -104,7 +105,13 @@ pub async fn install_game(app: AppHandle, slug: String) -> CmdResult<()> {
     verify_artifact(&game.artifact, &bytes).map_err(err)?;
     let dir = installed_dir(&app)?.join(&game.slug);
     tokio::fs::create_dir_all(&dir).await.map_err(err)?;
-    tokio::fs::write(dir.join("artifact.bin"), &bytes).await.map_err(err)?;
+    let files = dir.join("files");
+    tokio::task::spawn_blocking(move || {
+        unpack::extract_zip(&bytes, &files, &unpack::Limits::default())
+    })
+    .await
+    .map_err(err)?
+    .map_err(err)?;
     tokio::fs::write(dir.join("game.json"), serde_json::to_vec(&game).map_err(err)?)
         .await
         .map_err(err)?;
@@ -159,4 +166,10 @@ pub fn import_save(app: AppHandle, src: String) -> CmdResult<SaveMeta> {
 #[tauri::command]
 pub fn delete_game_saves(app: AppHandle, slug: String) -> CmdResult<()> {
     saves(&app)?.delete_game(&slug).map_err(err)
+}
+
+/// Opens an installed game in its own isolated window.
+#[tauri::command]
+pub async fn play_game(app: AppHandle, slug: String) -> CmdResult<()> {
+    crate::game::open(&app, &slug)
 }
