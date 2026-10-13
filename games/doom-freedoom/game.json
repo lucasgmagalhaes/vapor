@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "slug": "doom-freedoom",
+  "title": "Doom (Freedoom)",
+  "authors": ["Chocolate Doom contributors", "Cloudflare", "Freedoom project"],
+  "source": { "repo": "https://github.com/cloudflare/doom-wasm", "commit": "65e0d3ae2ffa604155eebd96ed40da6567bd08f4" },
+  "license": { "code": "GPL-2.0", "assets": "BSD-3-Clause (Freedoom)" },
+  "assets_policy": "open",
+  "artifact": {
+    "url": "https://github.com/lucasgmagalhaes/vapor/releases/download/PENDING/doom-freedoom.zip",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "size": 1,
+    "entry": "doom-freedoom/index.html"
+  },
+  "saves": { "paths": ["/"], "version": 1 },
+  "tags": ["fps", "classic", "freedoom"],
+  "contact": "https://github.com/lucasgmagalhaes/vapor/issues"
+}
