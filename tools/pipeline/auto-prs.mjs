@@ -2,13 +2,13 @@
 // Automatic pull requests: the last step of discovery -> catalog.
 //
 //   node tools/pipeline/auto-prs.mjs --crawl <crawler-data dir> [--only links|releases]
-//        [--links 3] [--max-open 10] [--min-stars 25] [--dry-run]
+//        [--links N] [--max-open N] [--min-stars 25] [--dry-run]
 //
 // links     `external-only` candidates -> a ready-for-review PR adding links/<slug>.json
 // releases  new Releases of vapor-artifacts that are not listed yet -> dispatches pipeline.yml,
 //           which audits, smoke-tests and opens the PR for the game
 //
-// Safety rails: never more than --links PRs per run, never more than --max-open open auto PRs,
+// Safety rails: no cap by default (--links / --max-open set one),
 // never re-proposes something that already has a branch/PR (an old closed PR means "declined"),
 // the link's source must be alive right now, and `vapor validate` (duplicates, blocklist, URL
 // rules) must pass before anything is pushed. A person always reviews and merges.
@@ -189,7 +189,7 @@ async function releasesMode(o) {
 if (process.argv[1] && path.basename(process.argv[1]) === "auto-prs.mjs") {
   const a = process.argv.slice(2);
   const get = (n, d) => { const i = a.indexOf(n); return i >= 0 ? a[i + 1] : d; };
-  const o = { crawl: get("--crawl", "crawl-data"), only: get("--only", "all"), links: Number(get("--links", 3)), maxOpen: Number(get("--max-open", 10)), minStars: Number(get("--min-stars", 25)), dryRun: a.includes("--dry-run") };
+  const o = { crawl: get("--crawl", "crawl-data"), only: get("--only", "all"), links: Number(get("--links", Infinity)), maxOpen: Number(get("--max-open", Infinity)), minStars: Number(get("--min-stars", 25)), dryRun: a.includes("--dry-run") };
   if (!existsSync(o.crawl)) { console.error(`no crawler data at ${o.crawl}`); process.exit(2); }
   if (o.only !== "releases") await linksMode(o);
   if (o.only !== "links") await releasesMode(o);
