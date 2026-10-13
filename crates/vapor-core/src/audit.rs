@@ -404,6 +404,110 @@ fn audit_text(report: &mut Report, abs: &Path, rel: &str, len: u64) -> Result<()
     Ok(())
 }
 
+/// Signed-off result of auditing one artifact, stored as `audits/<slug>.json`. `validate`
+/// refuses to list a game without a record that matches the manifest's artifact.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AuditRecord {
+    pub slug: String,
+    pub artifact_sha256: String,
+    pub artifact_size: u64,
+    pub tool_version: u32,
+    /// `YYYY-MM-DD`.
+    pub audited_at: String,
+    pub files: usize,
+    pub bytes: u64,
+    pub findings: Vec<Finding>,
+    /// Warning rules (`rule` or `rule:detail`) a human reviewed and accepted.
+    #[serde(default)]
+    pub accepted: Vec<String>,
+    /// Why the accepted warnings are fine.
+    #[serde(default)]
+    pub notes: String,
+}
+
+impl AuditRecord {
+    pub fn new(
+        slug: &str,
+        artifact_sha256: &str,
+        artifact_size: u64,
+        date: &str,
+        report: Report,
+        accepted: Vec<String>,
+        notes: &str,
+    ) -> Self {
+        Self {
+            slug: slug.into(),
+            artifact_sha256: artifact_sha256.to_ascii_lowercase(),
+            artifact_size,
+            tool_version: TOOL_VERSION,
+            audited_at: date.into(),
+            files: report.files,
+            bytes: report.bytes,
+            findings: report.findings,
+            accepted,
+            notes: notes.into(),
+        }
+    }
+
+    fn report(&self) -> Report {
+        Report { files: self.files, bytes: self.bytes, findings: self.findings.clone() }
+    }
+
+    /// The record must describe exactly this manifest's artifact, come from the current
+    /// tool, contain no blocking finding and have every warning accepted by a human.
+    pub fn check(&self, m: &crate::manifest::GameManifest) -> Result<()> {
+        let fail = |why: String| crate::Error::AuditFailed(format!("{}: {why}", m.slug));
+        if self.slug != m.slug {
+            return Err(fail("audit record is for another game".into()));
+        }
+        if !self.artifact_sha256.eq_ignore_ascii_case(&m.artifact.sha256) || self.artifact_size != m.artifact.size {
+            return Err(fail("audit record does not match the artifact hash/size in game.json: re-audit".into()));
+        }
+        if self.tool_version < TOOL_VERSION {
+            return Err(fail(format!("audit made by tool v{} < v{TOOL_VERSION}: re-audit", self.tool_version)));
+        }
+        let report = self.report();
+        if report.blocked() {
+            return Err(fail("blocking findings present".into()));
+        }
+        let open = report.unaccepted_warnings(&self.accepted);
+        if !open.is_empty() {
+            let list: Vec<_> = open.iter().map(|f| format!("{} ({})", f.key(), f.path)).collect();
+            return Err(fail(format!("warnings not accepted by a reviewer: {}", list.join(", "))));
+        }
+        Ok(())
+    }
+}
+
+/// Extracts a zip artifact into a scratch directory, audits it and cleans up.
+pub fn audit_zip(bytes: &[u8]) -> Result<Report> {
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos());
+    let dir = std::env::temp_dir().join(format!("vapor-audit-{}-{nanos}", std::process::id()));
+    let result = crate::unpack::extract_zip(bytes, &dir.join("files"), &crate::unpack::Limits::default())
+        .and_then(|_| audit_dir(&dir.join("files")));
+    let _ = fs::remove_dir_all(&dir);
+    result
+}
+
+/// `YYYY-MM-DD` (UTC) without a date dependency.
+pub fn today() -> String {
+    let secs = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_secs() as i64);
+    let z = secs.div_euclid(86_400) + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z.rem_euclid(146_097);
+    let yoe = (doe - doe / 1_460 + doe / 36_524 - doe / 146_096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y = yoe + era * 400 + i64::from(m <= 2);
+    format!("{y:04}-{m:02}-{d:02}")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -525,5 +629,63 @@ mod tests {
         assert!(k.contains(&"extension-mismatch:png".into()));
         assert!(k.contains(&"opaque-archive:7z".into()));
         assert!(!r.blocked());
+    }
+
+    fn manifest(sha: &str, size: u64) -> crate::manifest::GameManifest {
+        serde_json::from_value(serde_json::json!({
+            "schema": 1, "slug": "g", "title": "G", "authors": ["a"],
+            "source": { "repo": "https://github.com/a/g", "commit": "abc" },
+            "license": { "code": "MIT", "assets": "MIT" }, "assets_policy": "open",
+            "artifact": { "url": "https://x", "sha256": sha, "size": size, "entry": "i.html" },
+            "saves": { "paths": [], "version": 1 }, "contact": "a@b.c"
+        }))
+        .unwrap()
+    }
+
+    #[test]
+    fn record_must_match_artifact_and_have_no_open_findings() {
+        let sha = "a".repeat(64);
+        let m = manifest(&sha, 10);
+        let clean = AuditRecord::new("g", &sha, 10, "2026-10-13", Report::default(), vec![], "");
+        assert!(clean.check(&m).is_ok());
+        assert!(clean.check(&manifest(&"b".repeat(64), 10)).is_err(), "other hash");
+        assert!(clean.check(&manifest(&sha, 11)).is_err(), "other size");
+
+        let warn = Report {
+            findings: vec![Finding { severity: Severity::Warn, rule: "capability-websocket".into(), path: "a.js".into(), detail: String::new() }],
+            ..Report::default()
+        };
+        let r = AuditRecord::new("g", &sha, 10, "2026-10-13", warn.clone(), vec![], "");
+        assert!(r.check(&m).is_err(), "unaccepted warning");
+        let r = AuditRecord::new("g", &sha, 10, "2026-10-13", warn, vec!["capability-websocket".into()], "multiplayer");
+        assert!(r.check(&m).is_ok());
+
+        let block = Report {
+            findings: vec![Finding { severity: Severity::Block, rule: "executable-content".into(), path: "x".into(), detail: "elf".into() }],
+            ..Report::default()
+        };
+        let r = AuditRecord::new("g", &sha, 10, "2026-10-13", block, vec!["executable-content".into()], "");
+        assert!(r.check(&m).is_err(), "blocks cannot be accepted away");
+    }
+
+    #[test]
+    fn audit_zip_scans_and_cleans_up() {
+        let mut w = zip::ZipWriter::new(Cursor::new(Vec::new()));
+        let o = zip::write::SimpleFileOptions::default();
+        w.start_file("g/index.html", o).unwrap();
+        w.write_all(b"<html></html>").unwrap();
+        w.start_file("g/payload.exe", o).unwrap();
+        w.write_all(b"MZ").unwrap();
+        let bytes = w.finish().unwrap().into_inner();
+        let r = audit_zip(&bytes).unwrap();
+        assert!(r.blocked());
+        assert_eq!(r.files, 2);
+    }
+
+    #[test]
+    fn today_looks_like_a_date() {
+        let d = today();
+        assert_eq!(d.len(), 10);
+        assert!(d.starts_with("20"));
     }
 }
