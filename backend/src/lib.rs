@@ -9,6 +9,7 @@ pub fn run() {
             std::thread::spawn(move || responder.respond(game::handle(&app, request)));
         })
         .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             commands::get_catalog,
             commands::refresh_catalog,
@@ -20,6 +21,7 @@ pub fn run() {
             commands::import_save,
             commands::delete_game_saves,
             commands::play_game,
+            commands::get_links,
             commands::byo_status,
             commands::byo_import,
             commands::byo_clear,
