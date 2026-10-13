@@ -170,6 +170,6 @@ pub fn delete_game_saves(app: AppHandle, slug: String) -> CmdResult<()> {
 
 /// Opens an installed game in its own isolated window.
 #[tauri::command]
-pub fn play_game(app: AppHandle, slug: String) -> CmdResult<()> {
+pub async fn play_game(app: AppHandle, slug: String) -> CmdResult<()> {
     crate::game::open(&app, &slug)
 }
