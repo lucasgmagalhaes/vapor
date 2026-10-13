@@ -11,5 +11,5 @@
 Delete `games/<slug>/` (and, for a takedown, add it to `takedown/blocklist.json`).
 
 ## Development
-- `pnpm install && pnpm tauri dev` (Linux needs libwebkit2gtk-4.1-dev and libgtk-3-dev)
+- `make dev` (same as `pnpm install && pnpm tauri dev`; Linux needs libwebkit2gtk-4.1-dev and libgtk-3-dev). `make` lists the other targets, `make check` runs what CI runs.
 - `cargo test --workspace` tests the core (`crates/vapor-core`), with no system dependencies.

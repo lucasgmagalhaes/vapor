@@ -11,4 +11,13 @@ Desktop app: **Tauri 2** (Rust) + **React + TypeScript + Vite**.
 - `takedown/` — takedown policy and blocklist
 - Game artifacts (build + Releases): [vapor-artifacts](https://github.com/lucasgmagalhaes/vapor-artifacts)
 
+## Run it
+```sh
+make dev     # opens the desktop app (installs frontend dependencies first)
+make         # list every target: build, bundle, test, check, validate, index, audit-deps, clean
+```
+Needs Rust, Node 22 and the Tauri prerequisites (Linux: `libwebkit2gtk-4.1-dev libgtk-3-dev
+libayatana-appindicator3-dev librsvg2-dev`). If the `pnpm` on your PATH is broken, the Makefile uses
+`npx pnpm@10` by itself.
+
 See `docs/CONTRIBUTING.md` and `takedown/TAKEDOWN.md`.
