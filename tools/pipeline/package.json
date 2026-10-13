@@ -3,6 +3,13 @@
   "private": true,
   "type": "module",
   "description": "Automation around the catalog: browser smoke test, manifest generation, build-workflow generation.",
-  "scripts": { "test": "node --test" },
-  "dependencies": { "playwright-core": "1.49.1" }
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "playwright-core": "1.49.1"
+  },
+  "devDependencies": {
+    "yaml": "^2.6.1"
+  }
 }
