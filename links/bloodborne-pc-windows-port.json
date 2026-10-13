@@ -15,5 +15,18 @@
     "vulkan"
   ],
   "group": "bloodborne",
-  "variant": "Windows port (Mrsuss60)"
+  "variant": "Windows port (Mrsuss60)",
+  "native": [
+    {
+      "platform": "windows",
+      "url": "https://github.com/Mrsuss60/bloodborne_pc_windows_port/releases/download/v0.4.2/bloodborne_pc_windows_port_v0.4.2_release.zip",
+      "sha256": "5289dbd8d4da40ed1e1b77c372d105d13044a28ad5263fba01447464460e1e46",
+      "size": 192598698,
+      "exe": "bloodborne_pc_windows_port_v0.4.2_release/launch_gui.bat",
+      "reviewed_by": "automatic scan (ClamAV 1.5.4) in GitHub Actions run 38444766771",
+      "reviewed_on": "2026-10-13",
+      "trust": "scanned",
+      "notes": "Release v0.4.2. Hash pinned and scanned with ClamAV 1.5.4/28152/Tue Oct 13 06:26:14 2026 in a throwaway CI runner; nobody reviewed the program itself. SHA-256 matches the digest published by GitHub."
+    }
+  ]
 }
