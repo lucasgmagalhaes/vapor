@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "slug": "psp-web-recomp",
+  "title": "Psp Web Recomp",
+  "publisher": "Unknown (see the project's README)",
+  "url": "https://github.com/snuri00/psp-web-recomp",
+  "platforms": [
+    "other"
+  ],
+  "requires": "A copy of the original game that you own (see the project's README)",
+  "summary": "PSP games in the browser without an emulator: static recompilation to WebAssembly, an HLE kernel and a WebGL2 renderer",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": [
+    "recompilation"
+  ]
+}
