@@ -3,6 +3,7 @@
 
 pub mod blocklist;
 pub mod bridge;
+pub mod byo;
 pub mod catalog;
 pub mod manifest;
 pub mod saves;
@@ -25,6 +26,8 @@ pub enum Error {
     Blocked(String),
     #[error("invalid archive: {0}")]
     InvalidArchive(String),
+    #[error("invalid bring-your-own file: {0}")]
+    InvalidByo(String),
     #[error("invalid save: {0}")]
     InvalidSave(String),
 }
