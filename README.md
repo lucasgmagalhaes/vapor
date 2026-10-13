@@ -6,7 +6,7 @@ Desktop app: **Tauri 2** (Rust) + **React + TypeScript + Vite**.
 - `games/` — the catalog (one `game.json` per game; metadata only, never binaries)
 - `crates/vapor-core` — manifests, blocklist, catalog and saves (tested, no Tauri)
 - `crates/vapor-cli` — `vapor validate|index` (CI)
-- `src-tauri/` — Tauri shell (thin commands over the core)
+- `backend/` — Tauri shell (thin commands over the core)
 - `src/` — React UI
 - `takedown/` — takedown policy and blocklist
 - Game artifacts (build + Releases): [vapor-artifacts](https://github.com/lucasgmagalhaes/vapor-artifacts)

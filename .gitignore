@@ -1,6 +1,6 @@
 node_modules
 dist
 target
-src-tauri/target
-src-tauri/gen
+backend/target
+backend/gen
 catalog.json

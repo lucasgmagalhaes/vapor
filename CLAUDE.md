@@ -8,13 +8,13 @@ Desktop app (Tauri 2: Rust + React/TypeScript/Vite): a "Steam" for games decompi
 - `cargo run -p vapor-cli -- index .` — generates `catalog.json` (git-ignored)
 - `pnpm install && pnpm build` — frontend (tsc + vite)
 - `pnpm tauri dev` — full app. Linux needs `libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev`
-- `cargo check --manifest-path src-tauri/Cargo.toml` — `src-tauri` is intentionally outside the workspace (it needs the libs above)
+- `cargo check --manifest-path backend/Cargo.toml` — `backend` is intentionally outside the workspace (it needs the libs above)
 - `node tools/find-decomps/find-decomps.mjs --query "<game>" [--deep]` — discovers decomps on GitHub
 
 ## Layout
 - `crates/vapor-core` — all business logic: manifest, blocklist, catalog, saves. No Tauri.
 - `crates/vapor-cli` — the `vapor` binary (validate/index).
-- `src-tauri/src/commands.rs` — thin layer over the core; do not put business logic here.
+- `backend/src/commands.rs` — thin layer over the core; do not put business logic here.
 - `src/` — React UI; `src/api.ts` mirrors the Tauri commands.
 - `games/<slug>/game.json` — the catalog. `schema/game.schema.json` describes the format (the real validation is `GameManifest::validate`).
 - `takedown/` — policy (`TAKEDOWN.md`) and `blocklist.json`.
@@ -30,7 +30,7 @@ Desktop app (Tauri 2: Rust + React/TypeScript/Vite): a "Steam" for games decompi
 - A takedown = `git rm -r games/<slug>` + an entry in `takedown/blocklist.json` (slug, sha256 and/or domain, date, reference).
 
 ## State and pending work
-- `src-tauri` has not been compiled anywhere yet; expect errors on the first `cargo check` with the libs installed.
+- `backend` (the Tauri shell) compiles and runs on Windows; Linux needs the system libs above.
 - `install_game` only downloads and stores `artifact.bin`: still missing safe unzipping, serving in an isolated webview, and wiring the wasm virtual FS to `SaveStore`.
 - `games/doom-freedoom/game.json` points to the `vapor-artifacts` Release. `games/demo-game` is only an example (fake URL).
 - Goal: Resident Evil 1 via our own decomp, in a separate repository, as `bring-your-own`.

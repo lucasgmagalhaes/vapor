@@ -36,4 +36,4 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile && pnpm build
-      - run: cargo check --manifest-path src-tauri/Cargo.toml
+      - run: cargo check --manifest-path backend/Cargo.toml
