@@ -1,0 +1,19 @@
+{
+  "repo": "SuperTux/supertux",
+  "url": "https://github.com/SuperTux/supertux",
+  "status": "needs-asset-audit",
+  "manual": true,
+  "commit_checked": "b562c6c23edec99f068a920358986b70d90f0623",
+  "license": {
+    "spdx": "GPL-3.0"
+  },
+  "signals": {
+    "wasm": true
+  },
+  "reasons": [
+    "README: 'most' of data/ is CC-BY-SA, so some files are not",
+    "__EMSCRIPTEN__ guards in src/, but no build instructions found",
+    "Repository is ~600 MB: check package size"
+  ],
+  "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
+}

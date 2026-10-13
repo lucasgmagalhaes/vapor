@@ -1,0 +1,19 @@
+{
+  "repo": "opentyrian/opentyrian",
+  "url": "https://github.com/opentyrian/opentyrian",
+  "status": "blocked",
+  "manual": true,
+  "commit_checked": "624e2f242e66c0adec605acb9f9644664b1ea31e",
+  "license": {
+    "spdx": "GPL-2.0"
+  },
+  "signals": {
+    "wasm": false
+  },
+  "reasons": [
+    "Tyrian 2.1 data is described as freeware; no redistribution grant could be read",
+    "Freeware is not an open license",
+    "No Emscripten path upstream"
+  ],
+  "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
+}

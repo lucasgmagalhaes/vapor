@@ -10,6 +10,7 @@ Desktop app (Tauri 2: Rust + React/TypeScript/Vite): a "Steam" for games decompi
 - `pnpm tauri dev` — full app. Linux needs `libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev`
 - `cargo check --manifest-path src-tauri/Cargo.toml` — `src-tauri` is intentionally outside the workspace (it needs the libs above)
 - `node tools/find-decomps/find-decomps.mjs --query "<game>" [--deep]` — discovers decomps on GitHub
+- `node tools/crawler/crawl.mjs --max-new 15` — crawls GitHub for catalog candidates into `crawl-output/` (git-ignored); hand-reviewed records live in `candidates/`
 
 ## Layout
 - `crates/vapor-core` — all business logic: manifest, blocklist, catalog, saves. No Tauri.

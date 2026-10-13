@@ -1,0 +1,18 @@
+{
+  "repo": "luanti-org/luanti",
+  "url": "https://github.com/luanti-org/luanti",
+  "status": "needs-port",
+  "manual": true,
+  "commit_checked": "5bb520ba544536c4c2914bc0a5ad386e758d7036",
+  "license": {
+    "spdx": "LGPL-2.1"
+  },
+  "signals": {
+    "wasm": false
+  },
+  "reasons": [
+    "Assets CC BY-SA 3.0/4.0 with listed exceptions",
+    "No Emscripten path found"
+  ],
+  "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
+}

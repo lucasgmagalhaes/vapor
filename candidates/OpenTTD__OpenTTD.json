@@ -1,0 +1,19 @@
+{
+  "repo": "OpenTTD/OpenTTD",
+  "url": "https://github.com/OpenTTD/OpenTTD",
+  "status": "ready-to-build",
+  "manual": true,
+  "commit_checked": "daa6e1ca1c357eb9e6ae3d69af134205e1be8517",
+  "license": {
+    "spdx": "GPL-2.0"
+  },
+  "signals": {
+    "wasm": true
+  },
+  "reasons": [
+    "Code GPL; assets OpenGFX/OpenMSX GPL-2.0, OpenSFX CC BY-SA 3.0 (all verified in repo files)",
+    "Upstream Emscripten build in os/emscripten; official wasm build does not bundle OpenGFX/OpenSFX/OpenMSX, so the package must add them",
+    "Keep OpenSFX attribution and share-alike notice in the package"
+  ],
+  "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
+}
