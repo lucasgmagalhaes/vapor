@@ -1,13 +1,13 @@
 # From discovery to the catalog
 
 ## The automatic path (no one starts anything)
-Every 4 hours, in this order: `crawl-candidates` (discover + audit) -> `publish-catalog` (liveness of
-links, catalog.json) -> **`auto-prs`**, which opens pull requests, **ready for review**, labelled
-`auto-pr`:
+Every 4 hours, `crawl-candidates` discovers and audits projects, publishes `crawler-data`, then
+opens eligible pull requests labelled `auto-pr`. `publish-catalog` separately refreshes link
+liveness and `catalog.json`:
 
 | Source | What `auto-prs` does | Rails |
 |---|---|---|
-| Crawler records with status `external-only` | PR adding `links/<slug>.json` (link-only entry) | stars >= 25, at most 3 per run, at most 10 open `auto-pr` PRs, source alive right now, `vapor validate` (duplicates, blocklist, URL rules) must pass before anything is pushed, CI started on the branch |
+| Crawler records with status `external-only` | PR adding `links/<slug>.json` (link-only entry) | stars >= 25, source alive right now, `vapor validate` (duplicates, blocklist, URL rules) must pass before anything is pushed, CI started on the branch |
 | New Releases of `vapor-artifacts` not listed yet | dispatches `pipeline-list-game` (audit, browser smoke test, manifest, validate) which opens the PR for the game | needs the generated build workflow's crawler record; hand-made games are skipped |
 
 A person only **reviews and merges**. Closing an auto PR means "declined": the branch/PR already
@@ -18,7 +18,12 @@ Still manual, by design: deciding which `needs-asset-audit` candidates deserve a
 cross-repository step (writing `build-<slug>.yml` into `vapor-artifacts`), which needs a token with
 access to that repository (`gen-build.mjs` generates the file).
 
-Note: PRs opened with the workflow token do not start CI by themselves, so `auto-prs` dispatches
+Run `crawl-candidates` manually to crawl and create PRs in one run. Set `only=releases` to check
+existing `vapor-artifacts` Releases without crawling; `dry_run` reports proposed PRs without opening
+them. Decompilation records marked `byo-only` need a built Release before this workflow can create
+a game PR.
+
+Note: PRs opened with the workflow token do not start CI by themselves, so the workflow dispatches
 `ci.yml` on each branch; results show up as checks on the branch head.
 
 ## Covers
@@ -38,6 +43,7 @@ crawl.yml (every 4 h)                                       tools/crawler
                    duplicates against games/ and candidates/
   3. asset audit   shallow clone + license-audit.mjs: which license covers each asset byte?
                    ready-to-build | needs-asset-audit | blocked        -> crawler-data branch
+                   external-only -> link PR; built artifact Release -> game PR pipeline
                                   |
         [HUMAN 1] read the license files of the candidates you want; reject or approve
                                   |

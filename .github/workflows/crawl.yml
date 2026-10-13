@@ -1,6 +1,6 @@
 name: crawl-candidates
-# Crawl every 4 hours for open-source games that could join the catalog. It never touches games/:
-# results go to the `crawler-data` branch for human review.
+# Crawl for catalog candidates, publish results for review, then open eligible PRs.
+# Game PRs still require a Release in vapor-artifacts; all PRs require human review.
 on:
   schedule:
     - cron: "17 */4 * * *"
@@ -9,57 +9,87 @@ on:
       max_new:
         description: "Max repositories to inspect in this run"
         default: "30"
+      only:
+        description: "PR source: links, releases or all (releases skips the crawl)"
+        default: "all"
+      links:
+        description: "Max link PRs to open (empty = no limit)"
+        default: ""
+      dry_run:
+        description: "Only print which PRs would be opened"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
 
-# One run at a time: every run republishes the crawler-data branch.
+# One run at a time: each crawl republishes crawler-data before opening PRs.
 concurrency:
   group: crawl-candidates
   cancel-in-progress: false
 
 jobs:
-  crawl:
+  crawl-and-prs:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
 
       - name: Restore previous crawler state
         run: |
-          git fetch origin crawler-data --depth 1 || exit 0
           mkdir -p crawl-output
-          git archive FETCH_HEAD | tar -x -C crawl-output
+          if git fetch origin crawler-data --depth 1; then
+            git archive FETCH_HEAD | tar -x -C crawl-output
+          fi
 
       - name: Crawl
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ inputs.only != 'releases' }}
         run: |
           set -o pipefail
-          mkdir -p crawl-output
           node tools/crawler/crawl.mjs --max-new "${{ inputs.max_new || 30 }}" 2>&1 | tee crawl-output/crawl.log
 
       - name: Summary of what needs attention
+        if: ${{ inputs.only != 'releases' }}
         run: node tools/crawler/summary.mjs crawl-output >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publish results to crawler-data
+        if: ${{ inputs.only != 'releases' }}
         run: |
           cd crawl-output
           git init -q && git checkout -q -b crawler-data
-          git config user.name "vapor-bot"; git config user.email "bot@users.noreply.github.com"
+          git config user.name "vapor-bot"
+          git config user.email "bot@users.noreply.github.com"
           git add -A && git commit -q -m "crawl $(date -u +%F)"
-          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" crawler-data
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" crawler-data
 
-      - name: Summary
+      - uses: dtolnay/rust-toolchain@stable
+        if: ${{ inputs.only != 'releases' && !inputs.dry_run }}
+      - uses: Swatinem/rust-cache@v2
+        if: ${{ inputs.only != 'releases' && !inputs.dry_run }}
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Prepare PR creation
         run: |
-          node -e '
-            const i = require("./crawl-output/index.json");
-            const c = {}; for (const r of i) c[r.status] = (c[r.status] || 0) + 1;
-            console.log("### Candidates by status");
-            for (const k in c) console.log("- " + k + ": " + c[k]);
-            const top = i.filter((r) => ["needs-asset-audit", "byo-only"].includes(r.status)).slice(0, 20);
-            console.log("\n### To review (top " + top.length + ")");
-            console.log("| repo | status | license | stars |\n|---|---|---|---|");
-            for (const r of top) console.log("| [" + r.repo + "](https://github.com/" + r.repo + ") | " + r.status + " | " + (r.license ?? "-") + " | " + r.stars + " |");
-          ' >> "$GITHUB_STEP_SUMMARY"
+          git config user.name "vapor-bot"
+          git config user.email "bot@users.noreply.github.com"
+          if [ "${{ inputs.dry_run }}" != "true" ]; then
+            gh label create auto-pr --description "Opened automatically by the pipeline" --color 5319e7 || true
+          fi
+
+      - name: Open the pull requests
+        env:
+          ONLY: ${{ inputs.only || 'all' }}
+          LINKS: ${{ inputs.links }}
+          DRY: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: |
+          set -o pipefail
+          node tools/pipeline/auto-prs.mjs --crawl crawl-output --only "$ONLY" ${LINKS:+--links "$LINKS"} $DRY | tee -a "$GITHUB_STEP_SUMMARY"
