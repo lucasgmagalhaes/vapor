@@ -18,7 +18,7 @@ import { readFileSync, readdirSync, existsSync, mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { classifyResponse } from "../links/check.mjs";
-import { buildLink, slugFor, titleFor } from "./make-link.mjs";
+import { buildLink, isGameSpecificLinkCandidate, slugFor, titleFor } from "./make-link.mjs";
 
 const ARTIFACTS_REPO = "lucasgmagalhaes/vapor-artifacts";
 
@@ -31,7 +31,7 @@ export function repoKey(url) {
 
 export function selectLinkCandidates(records, { existingKeys, existingSlugs, minStars = 25, max = 3 }) {
   return records
-    .filter((r) => r.status === "external-only" && (r.stars ?? 0) >= minStars)
+    .filter((r) => isGameSpecificLinkCandidate(r) && (r.stars ?? 0) >= minStars)
     .filter((r) => !existingKeys.has(repoKey(r.url)) && !existingSlugs.has(slugFor(r.repo)))
     .sort((a, b) => (b.stars ?? 0) - (a.stars ?? 0))
     .slice(0, max);
@@ -72,6 +72,20 @@ function readJsonDir(dir, filter = (f) => f.endsWith(".json")) {
   return existsSync(dir) ? readdirSync(dir).filter(filter).map((f) => JSON.parse(readFileSync(path.join(dir, f), "utf8"))) : [];
 }
 
+// index.json is the crawler's verified set. Old standalone records may still have an obsolete
+// external-only status, so never consider them unless the current index includes them.
+export function indexedLinkRecords(dir) {
+  const indexFile = path.join(dir, "index.json");
+  if (!existsSync(indexFile)) return [];
+  const index = JSON.parse(readFileSync(indexFile, "utf8"));
+  return index.filter((r) => r.status === "external-only" && r.distribution?.status === "verified").flatMap((r) => {
+    const file = path.join(dir, `${r.repo.replace("/", "__")}.json`);
+    if (!existsSync(file)) return [];
+    const record = JSON.parse(readFileSync(file, "utf8"));
+    return record.repo === r.repo ? [record] : [];
+  });
+}
+
 function listedState() {
   const keys = new Set(), slugs = new Set();
   for (const l of readJsonDir("links")) { keys.add(repoKey(l.url)); slugs.add(l.slug); }
@@ -106,6 +120,7 @@ function linkPrBody(entry, candidate) {
     "Opened automatically by `tools/pipeline/auto-prs.mjs` from a crawler record. **Nothing here is hosted, run or verified by Vapor**: the entry only lists the project and links its original source.",
     "",
     `- Original source: ${entry.url}`,
+    `- Verified game: ${candidate.distribution.title} (${candidate.distribution.platform}) — ${candidate.distribution.url}`,
     `- Stars: ${candidate.stars}, code license (authors' code only): ${candidate.license?.spdx ?? "unknown"}`,
     `- Source checked alive right before opening this PR`,
     `- \`vapor validate\` passed (URL rules, duplicates against games and links, takedown blocklist)`,
@@ -124,7 +139,7 @@ function linkPrBody(entry, candidate) {
 }
 
 async function linksMode(o) {
-  const index = readJsonDir(o.crawl, (f) => f.endsWith(".json") && !["state.json", "index.json", "duplicates.json"].includes(f));
+  const index = indexedLinkRecords(o.crawl);
   const { keys, slugs } = listedState();
   const open = (tryJson("gh", ["pr", "list", "--label", "auto-pr", "--state", "open", "--json", "number"]) ?? []).length;
   const room = Math.max(0, o.maxOpen - open);

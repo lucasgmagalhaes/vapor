@@ -23,6 +23,7 @@ import { storeLinks, verifyDistribution } from "./distribution.mjs";
 const run = promisify(execFile);
 
 const API = "https://api.github.com";
+const RECORD_VERSION = 2; // Force one refresh of records written before distribution verification.
 const log = (stage, message) => console.log(`${new Date().toISOString()} [crawler:${stage}] ${message}`);
 const warn = (stage, message) => console.error(`${new Date().toISOString()} [crawler:${stage}] ${message}`);
 const elapsed = (start) => `${((performance.now() - start) / 1000).toFixed(1)}s`;
@@ -386,6 +387,7 @@ async function runOnce(o) {
   const stale = (r) => {
     const s = state.seen[r.full_name];
     if (!s) return true;
+    if (s.record_version !== RECORD_VERSION) return true;
     if (releaseEvidence[r.full_name] && s.release_evidence_url !== releaseEvidence[r.full_name].url) return true;
     if (s.pushed_at !== r.pushed_at) return true;
     return Date.now() - Date.parse(s.crawled_at) > o.refreshDays * 864e5;
@@ -403,7 +405,7 @@ async function runOnce(o) {
       if (await loadJson(path.join(o.curated, fileKey(repo.full_name)), null)) {
         outcomes.curated = (outcomes.curated ?? 0) + 1;
         log("inspect", `${repo.full_name} curated; hand-reviewed record exists (${elapsed(inspectedAt)})`);
-        state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: new Date().toISOString() };
+        state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: new Date().toISOString(), record_version: RECORD_VERSION };
         return;
       }
       let rec = await inspect(repo, releaseEvidence[repo.full_name]);
@@ -415,7 +417,7 @@ async function runOnce(o) {
       rec.duplicate_of = duplicatesOf(rec, known);
       if (rec.duplicate_of.length) rec.reasons.push(`possible duplicate of ${rec.duplicate_of.join(", ")}: decide which one to keep before building`);
       await writeFile(path.join(o.out, fileKey(repo.full_name)), JSON.stringify(rec, null, 2) + "\n");
-      state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: rec.crawled_at, ...(rec.distribution.source === "reviewed-publisher-release" ? { release_evidence_url: rec.distribution.url } : {}) };
+      state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: rec.crawled_at, record_version: RECORD_VERSION, ...(rec.distribution.source === "reviewed-publisher-release" ? { release_evidence_url: rec.distribution.url } : {}) };
       outcomes[rec.status] = (outcomes[rec.status] ?? 0) + 1;
       const evidence = rec.distribution.status === "verified" ? `${rec.distribution.platform}: ${rec.distribution.title}` : rec.distribution.reason;
       log("result", `${repo.full_name} status=${rec.status} license=${rec.license.spdx ?? "none"} evidence=${oneLine(evidence)} duration=${elapsed(inspectedAt)}`);

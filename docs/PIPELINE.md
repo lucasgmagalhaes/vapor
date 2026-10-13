@@ -7,12 +7,14 @@ liveness and `catalog.json`:
 
 | Source | What `auto-prs` does | Rails |
 |---|---|---|
-| Crawler records with status `external-only` | PR adding `links/<slug>.json` (link-only entry) | stars >= 25, source alive right now, `vapor validate` (duplicates, blocklist, URL rules) must pass before anything is pushed, CI started on the branch |
+| Crawler records with status `external-only` | PR adding `links/<slug>.json` (link-only entry) | verified game release and title in the repository name or description, stars >= 25, source alive right now, `vapor validate` (duplicates, blocklist, URL rules) must pass before anything is pushed, CI started on the branch |
 | New Releases of `vapor-artifacts` not listed yet | dispatches `pipeline-list-game` (audit, browser smoke test, manifest, validate) which opens the PR for the game | needs the generated build workflow's crawler record; hand-made games are skipped |
 
 A person only **reviews and merges**. Closing an auto PR means "declined": the branch/PR already
 exists, so the project is never proposed again. Placeholders the pipeline cannot know (the
 publisher of a linked game, its platforms) are listed as tasks in the PR body.
+The link title comes from the verified game release. Generic recompilation toolkits are not
+proposed as game entries, even if their README mentions a released game.
 
 Still manual, by design: deciding which `needs-asset-audit` candidates deserve a build, and the
 cross-repository step (writing `build-<slug>.yml` into `vapor-artifacts`), which needs a token with

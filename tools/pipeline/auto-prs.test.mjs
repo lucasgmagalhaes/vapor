@@ -1,10 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildLink, slugFor, titleFor, platformsFor, PLACEHOLDER_PUBLISHER } from "./make-link.mjs";
-import { repoKey, selectLinkCandidates, selectReleases, parseGeneratedFrom, pickEntry } from "./auto-prs.mjs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { buildLink, isGameSpecificLinkCandidate, slugFor, titleFor, platformsFor, PLACEHOLDER_PUBLISHER } from "./make-link.mjs";
+import { indexedLinkRecords, repoKey, selectLinkCandidates, selectReleases, parseGeneratedFrom, pickEntry } from "./auto-prs.mjs";
 
 const rec = (repo, stars, extra = {}) => ({
-  repo, url: `https://github.com/${repo}`, stars, status: "external-only", description: "Recompilation of Some Game for Windows and Linux", license: { spdx: "MIT" }, ...extra,
+  repo, url: `https://github.com/${repo}`, stars, status: "external-only", description: "Recompilation of Some Game for Windows and Linux", license: { spdx: "MIT" },
+  distribution: { status: "verified", title: "Some Game", platform: "steam", url: "https://store.steampowered.com/app/123/some_game/" },
+  ...extra,
 });
 
 test("slugs and titles are derived from the repository name", () => {
@@ -18,6 +23,7 @@ test("slugs and titles are derived from the repository name", () => {
 test("a link entry only contains facts from the record, with an honest placeholder publisher", () => {
   const e = buildLink(rec("Owner/some-recomp", 100));
   assert.equal(e.publisher, PLACEHOLDER_PUBLISHER);
+  assert.equal(e.title, "Some Game");
   assert.equal(e.url, "https://github.com/Owner/some-recomp");
   assert.deepEqual(e.platforms, ["windows", "linux"]);
   assert.match(e.legal_note, /not hosted, tested, verified or endorsed by Vapor/i);
@@ -25,8 +31,39 @@ test("a link entry only contains facts from the record, with an honest placehold
   assert.deepEqual(platformsFor({ description: "no hints" }), ["other"]);
   assert.throws(() => buildLink({ ...rec("o/r", 1), status: "needs-asset-audit" }), /not external-only/);
   assert.throws(() => buildLink({ ...rec("o/r", 1), url: "https://evil.example/o/r" }), /supported host/);
-  const long = buildLink(rec("o/r", 1, { description: "x".repeat(500) }));
+  const long = buildLink(rec("o/r", 1, { description: `Some Game ${"x".repeat(500)}` }));
   assert.ok(long.summary.length <= 300);
+});
+
+test("automatic links require verified evidence for the specific game", () => {
+  const generic = rec("snuri00/psp-web-recomp", 282, {
+    description: "PSP games in the browser without an emulator: static recompilation to WebAssembly",
+    distribution: { status: "verified", title: "God of War: Chains of Olympus", platform: "playstation", url: "https://store.playstation.com/example" },
+  });
+  assert.equal(isGameSpecificLinkCandidate(generic), false);
+  assert.equal(isGameSpecificLinkCandidate({ ...generic, distribution: undefined }), false, "old crawler records must not bypass the gate");
+  assert.throws(() => buildLink(generic), /game title in repository name or description/);
+  assert.equal(isGameSpecificLinkCandidate(rec("arcanite24/pinyon-shift", 100, {
+    description: "A playable preview of Forza Horizon static recompilation",
+    distribution: { status: "verified", title: "Forza Horizon", platform: "xbox", url: "https://www.xbox.com/example" },
+  })), true);
+  assert.deepEqual(selectLinkCandidates([generic, rec("a/real-game", 100)], {
+    existingKeys: new Set(), existingSlugs: new Set(), minStars: 25, max: 5,
+  }).map((r) => r.repo), ["a/real-game"]);
+});
+
+test("old standalone records outside the verified index cannot create PRs", () => {
+  const dir = mkdtempSync(path.join(tmpdir(), "vapor-link-index-"));
+  try {
+    const legacy = { ...rec("snuri00/psp-web-recomp", 282), distribution: undefined };
+    const valid = rec("a/some-game", 100);
+    writeFileSync(path.join(dir, "snuri00__psp-web-recomp.json"), JSON.stringify(legacy));
+    writeFileSync(path.join(dir, "a__some-game.json"), JSON.stringify(valid));
+    writeFileSync(path.join(dir, "index.json"), JSON.stringify([{ repo: valid.repo, status: "external-only", distribution: valid.distribution }]));
+    assert.deepEqual(indexedLinkRecords(dir).map((r) => r.repo), [valid.repo]);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
 
 test("link candidates: only external-only, popular enough, not listed, best first, capped", () => {

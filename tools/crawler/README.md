@@ -52,6 +52,8 @@ used there: `listed`, `ready-to-build` and `blocked`.
 branch (state included, so runs are incremental), then opens eligible link PRs and dispatches the
 game PR pipeline for new built Releases. A manual run performs both steps; `only=releases` skips the
 crawl and checks existing crawler data.
+Records written before distribution verification are refreshed incrementally; the PR creator
+skips them until they contain verified game evidence.
 
 ## Limits
 The signals are heuristics from text and file names. A storefront match does not prove that the
