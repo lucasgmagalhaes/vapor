@@ -37,6 +37,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node tools/crawler/crawl.mjs --max-new "${{ inputs.max_new || 30 }}"
 
+      - name: Summary of what needs attention
+        run: node tools/crawler/summary.mjs crawl-output >> "$GITHUB_STEP_SUMMARY"
+
       - name: Publish results to crawler-data
         run: |
           cd crawl-output

@@ -25,6 +25,16 @@ jobs:
         run: |
           if find games -type f -size +512k | grep .; then echo "large file in games/"; exit 1; fi
           if find games -type f ! -name game.json ! -name cover.webp | grep .; then echo "only game.json and cover.webp are allowed"; exit 1; fi
+  tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Crawler tests (asset-license audit)
+        run: node --test tools/crawler/license-audit.test.mjs
+      - name: Pipeline tests (smoke helpers, manifest and build-workflow generators)
+        run: cd tools/pipeline && npm ci --no-audit --no-fund && npm test
   frontend:
     runs-on: ubuntu-latest
     steps:

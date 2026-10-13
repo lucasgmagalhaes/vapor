@@ -17,6 +17,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { auditTree } from "./license-audit.mjs";
 
 const run = promisify(execFile);
 
@@ -40,8 +41,106 @@ const SIGNALS = {
   freeware: /freeware|shareware/i,
 };
 
+// Supply-chain signals: things a malicious or careless repository would ship. They never
+// change the license status; they add `security.flags` for the human audit (the audit of the
+// built artifact, `vapor audit`, is the real gate).
+const BINARY_EXT = /\.(exe|dll|so|dylib|jar|apk|msi|scr|bat|cmd|ps1|vbs|dmg|pkg|deb|rpm)$/i;
+const RISKY_SCRIPT = [
+  [/(curl|wget)[^\n|]*\|\s*(sudo\s+)?(ba|z)?sh\b/i, "pipe-to-shell"],
+  [/\beval\s*\$\(|\beval\s+"\$\(/i, "eval-of-command-output"],
+  [/base64\s+(-d|--decode)[^\n]*\|\s*(ba)?sh/i, "decode-and-run"],
+  [/powershell[^\n]*-(enc|encodedcommand)\b/i, "powershell-encoded"],
+  [/"(pre|post)install"\s*:/i, "npm-install-hook"],
+  [/(coinhive|cryptonight|xmrig|stratum\+tcp)/i, "crypto-miner"],
+];
+const SCRIPT_FILES = /(^|\/)(package\.json|Dockerfile[^/]*|install[^/]*\.sh|build[^/]*\.sh|setup[^/]*\.sh|Makefile|CMakeLists\.txt)$/i;
+
+async function securitySignals(work, paths) {
+  const flags = [];
+  const binaries = paths.filter((p) => BINARY_EXT.test(p)).slice(0, 10);
+  if (binaries.length) flags.push(`committed-binaries(${binaries.length}+)`);
+  let submoduleHosts = [];
+  if (paths.includes(".gitmodules")) {
+    const gm = await blob(work, ".gitmodules");
+    submoduleHosts = [...new Set([...gm.matchAll(/url\s*=\s*(\S+)/g)].map((m) => {
+      try { return new URL(m[1].replace(/^git@([^:]+):/, "https://$1/")).host.toLowerCase(); } catch { return m[1]; }
+    }))];
+    const foreign = submoduleHosts.filter((h) => !/(^|\.)(github\.com|gitlab\.com|codeberg\.org)$/.test(h));
+    if (foreign.length) flags.push(`submodule-from-unusual-host(${foreign.join(",")})`);
+  }
+  const risky = [];
+  const scripts = paths.filter((p) => SCRIPT_FILES.test(p) && p.split("/").length <= 3).slice(0, 12);
+  for (const f of scripts) {
+    const text = await blob(work, f);
+    for (const [re, name] of RISKY_SCRIPT) if (re.test(text)) risky.push({ file: f, pattern: name });
+  }
+  if (risky.length) flags.push(...[...new Set(risky.map((r) => r.pattern))].map((n) => `script:${n}`));
+  return { flags, binaries, submodule_hosts: submoduleHosts, risky };
+}
+
+// ---- duplicate detection --------------------------------------------------------------
+// "Several people release the same game": compare normalized names against what is already
+// listed/curated, and against the other crawler records.
+const NAME_NOISE = /(webassembly|emscripten|decompilation|html5|ported|remake|decomp|wasm|games|game|port|web)/g;
+export const coreName = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, "").replace(NAME_NOISE, "");
+const tokens = (t) => new Set((t ?? "").replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2));
+
+async function knownEntries(o) {
+  const out = [];
+  for (const dir of ["games", o.curated]) {
+    let files = [];
+    try { files = await readdir(dir); } catch { continue; }
+    for (const f of files) {
+      if (dir === "games") {
+        const m = await loadJson(path.join(dir, f, "game.json"), null);
+        if (m) out.push({ id: `games/${m.slug}`, repo: (m.source?.repo ?? "").replace(/^https?:\/\/github\.com\//, "").toLowerCase(), title: m.title });
+      } else if (f.endsWith(".json")) {
+        const c = await loadJson(path.join(dir, f), null);
+        if (c) out.push({ id: `${o.curated}/${c.repo}`, repo: (c.repo ?? "").toLowerCase(), title: c.repo?.split("/")[1] ?? "" });
+      }
+    }
+  }
+  return out;
+}
+
+export function duplicatesOf(rec, known) {
+  const base = rec.repo.split("/")[1];
+  const name = coreName(base);
+  const tk = tokens(base);
+  const hits = [];
+  for (const k of known) {
+    if (k.repo === rec.repo.toLowerCase()) continue;
+    const kn = coreName(k.repo.split("/")[1] ?? k.title ?? "");
+    const kt = tokens(k.title);
+    const sameName = name.length >= 4 && kn.length >= 4 && (name === kn || name.includes(kn) || kn.includes(name));
+    const common = [...tk].filter((w) => kt.has(w)).length;
+    if (sameName || (common > 0 && common * 2 >= Math.max(tk.size, kt.size))) hits.push(k.id);
+  }
+  return hits;
+}
+
+// Run `fn` over `items` with at most `n` in flight. Clones do not use API quota, so this is
+// safe; the (rate-limited) search stays serial.
+async function pool(items, n, fn) {
+  const it = items[Symbol.iterator]();
+  await Promise.all(Array.from({ length: Math.max(1, n) }, async () => {
+    for (let r = it.next(); !r.done; r = it.next()) await fn(r.value);
+  }));
+}
+
+// Which repositories to inspect first when the queue is longer than --max-new: open code
+// license, wasm/emscripten topics, then popularity.
+export function priority(repo) {
+  const topics = (repo.topics ?? []).join(" ");
+  let p = Math.log10((repo.stargazers_count ?? 0) + 1);
+  if (repo.license?.spdx_id && OPEN_CODE.test(repo.license.spdx_id)) p += 3;
+  if (/emscripten|webassembly|wasm/i.test(topics)) p += 2;
+  if (/decomp/i.test(topics)) p -= 1; // bring-your-own: slower to turn into a listing
+  return p;
+}
+
 function parseArgs(argv) {
-  const o = { out: "crawl-output", curated: "candidates", maxNew: 15, minStars: 30, watch: false, interval: 3600, refreshDays: 30 };
+  const o = { out: "crawl-output", curated: "candidates", maxNew: 15, minStars: 30, watch: false, interval: 3600, refreshDays: 30, concurrency: 4, assetAudit: true };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], next = () => argv[++i];
     if (a === "--out") o.out = next();
@@ -50,10 +149,12 @@ function parseArgs(argv) {
     else if (a === "--min-stars") o.minStars = Number(next());
     else if (a === "--interval") o.interval = Number(next());
     else if (a === "--refresh-days") o.refreshDays = Number(next());
+    else if (a === "--concurrency") o.concurrency = Number(next());
+    else if (a === "--no-asset-audit") o.assetAudit = false;
     else if (a === "--watch") o.watch = true;
     else { console.error(`unknown option: ${a}`); process.exit(2); }
   }
-  for (const k of ["maxNew", "minStars", "interval", "refreshDays"]) {
+  for (const k of ["maxNew", "minStars", "interval", "refreshDays", "concurrency"]) {
     if (!Number.isFinite(o[k]) || o[k] < 0) { console.error(`invalid value for ${k}`); process.exit(2); }
   }
   return o;
@@ -174,10 +275,51 @@ async function inspect(repo) {
       crawled_at: new Date().toISOString(),
     };
     rec.decomp = /decomp|reverse[- ]engineer|recompil/i.test(`${repo.description ?? ""} ${(repo.topics ?? []).join(" ")}`);
-    return { ...rec, ...classify(rec) };
+    rec.security = await securitySignals(work, paths);
+    const out = { ...rec, ...classify(rec) };
+    if (rec.security.flags.length) out.reasons.push(`supply-chain flags: ${rec.security.flags.join(", ")} (read those files before building)`);
+    return out;
   } finally {
     await rm(work, { recursive: true, force: true });
   }
+}
+
+const MAX_AUDIT_CLONE_KB = 200 * 1024;
+
+// Second stage for candidates that look worth it: a shallow clone with the real files, scanned
+// by license-audit.mjs. Moves the record to `ready-to-build` only when every asset byte is
+// covered by an open license; `blocked` when incompatible terms are found.
+async function assetAudit(repo, rec) {
+  if (rec.status !== "needs-asset-audit") return rec;
+  if ((repo.size ?? 0) > MAX_AUDIT_CLONE_KB) {
+    rec.reasons.push(`repository is ${Math.round(repo.size / 1024)} MB: too large for the automatic asset audit`);
+    return rec;
+  }
+  const work = await mkdtemp(path.join(tmpdir(), "vapor-assets-"));
+  try {
+    await run("git", ["clone", "-q", "--depth", "1", repo.clone_url, work], {
+      timeout: 300_000, env: { ...process.env, GIT_LFS_SKIP_SMUDGE: "1", GIT_TERMINAL_PROMPT: "0" },
+    });
+    const a = auditTree(work);
+    rec.asset_audit = { ...a, audited_at: new Date().toISOString(), commit: rec.commit_checked };
+    const pct = (x) => `${Math.round(x * 100)}%`;
+    if (a.verdict === "blocked") {
+      rec.status = "blocked";
+      rec.reasons.push(`asset license terms incompatible with redistribution: ${a.bad_hits.map((h) => `${h.reason} in ${h.file}`).join("; ")}`);
+    } else if (a.verdict === "auto-open") {
+      rec.status = rec.signals.wasm ? "ready-to-build" : "needs-port";
+      rec.reasons.push(`automatic asset-license audit passed (${pct(a.coverage.strong)} of ${a.assets.files} asset files covered by ${a.licenses_seen.join(", ")}); a person must still read the license files before listing`);
+    } else if (a.verdict === "no-assets") {
+      rec.reasons.push("no asset files in the repository: check what the build downloads or generates");
+    } else {
+      rec.reasons.push(`asset licenses not proven: strong ${pct(a.coverage.strong)}, root-only ${pct(a.coverage.weak)}, none ${pct(a.coverage.none)}; largest uncovered: ${a.uncovered.slice(0, 3).map((u) => u.dir).join(", ")}`);
+    }
+  } catch (e) {
+    rec.reasons.push(`asset audit failed: ${e.message.split("\n")[0]}`);
+  } finally {
+    await rm(work, { recursive: true, force: true });
+  }
+  return rec;
 }
 
 async function runOnce(o) {
@@ -195,38 +337,56 @@ async function runOnce(o) {
     if (s.pushed_at !== r.pushed_at) return true;
     return Date.now() - Date.parse(s.crawled_at) > o.refreshDays * 864e5;
   };
-  const queue = repos.filter(stale).sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, o.maxNew);
+  const known = await knownEntries(o);
+  const queue = repos.filter(stale).sort((a, b) => priority(b) - priority(a)).slice(0, o.maxNew);
   console.log(`inspecting ${queue.length} new or changed (limit ${o.maxNew})`);
 
-  for (const repo of queue) {
+  const handle = async (repo) => {
     try {
       if (await loadJson(path.join(o.curated, fileKey(repo.full_name)), null)) {
         console.log(`  curated            ${repo.full_name} (skipped: hand-reviewed record exists)`);
         state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: new Date().toISOString() };
-        continue;
+        return;
       }
-      const rec = await inspect(repo);
+      let rec = await inspect(repo);
+      if (o.assetAudit) rec = await assetAudit(repo, rec);
+      rec.duplicate_of = duplicatesOf(rec, known);
+      if (rec.duplicate_of.length) rec.reasons.push(`possible duplicate of ${rec.duplicate_of.join(", ")}: decide which one to keep before building`);
       await writeFile(path.join(o.out, fileKey(repo.full_name)), JSON.stringify(rec, null, 2) + "\n");
       state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: rec.crawled_at };
       console.log(`  ${rec.status.padEnd(18)} ${repo.full_name} (${rec.license.spdx ?? "no license"})`);
     } catch (e) {
       console.error(`  stopped at ${repo.full_name}: ${e.message}`);
     }
-  }
+  };
+  await pool(queue, o.concurrency, handle);
   await writeFile(statePath, JSON.stringify(state, null, 2) + "\n");
 
-  const files = (await readdir(o.out)).filter((f) => f.endsWith(".json") && !["state.json", "index.json"].includes(f));
+  const files = (await readdir(o.out)).filter((f) => f.endsWith(".json") && !["state.json", "index.json", "duplicates.json"].includes(f));
   const all = await Promise.all(files.map((f) => loadJson(path.join(o.out, f), null)));
   const rank = { listed: -1, "ready-to-build": 0, "needs-asset-audit": 1, "byo-only": 2, "needs-port": 3, blocked: 4, rejected: 5 };
   const index = all.filter(Boolean)
     .sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9) || b.stars - a.stars)
-    .map((r) => ({ repo: r.repo, status: r.status, stars: r.stars, license: r.license.spdx, wasm: r.signals.wasm, reasons: r.reasons }));
+    .map((r) => ({ repo: r.repo, status: r.status, stars: r.stars, license: r.license.spdx, wasm: r.signals.wasm, security: r.security?.flags ?? [], duplicate_of: r.duplicate_of ?? [], reasons: r.reasons }));
   await writeFile(path.join(o.out, "index.json"), JSON.stringify(index, null, 2) + "\n");
+
+  // Probable duplicates among the records themselves.
+  const groups = new Map();
+  for (const r of index) {
+    const key = coreName(r.repo.split("/")[1]);
+    if (key.length >= 4) groups.set(key, [...(groups.get(key) ?? []), r.repo]);
+  }
+  const dupGroups = [...groups.entries()].filter(([, v]) => v.length > 1).map(([name, repos]) => ({ name, repos }));
+  await writeFile(path.join(o.out, "duplicates.json"), JSON.stringify(dupGroups, null, 2) + "\n");
+  if (dupGroups.length) console.log(`possible duplicate groups: ${dupGroups.map((g) => g.repos.join(" ~ ")).join(" | ")}`);
   console.log(`index: ${index.length} candidate record(s) in ${o.out}/index.json`);
 }
 
-const opts = parseArgs(process.argv.slice(2));
-do {
-  await runOnce(opts);
-  if (opts.watch) { console.log(`sleeping ${opts.interval}s`); await sleep(opts.interval * 1000); }
-} while (opts.watch);
+// Only run when executed directly, so the helpers above can be imported by tests.
+if (process.argv[1] && path.basename(process.argv[1]) === "crawl.mjs") {
+  const opts = parseArgs(process.argv.slice(2));
+  do {
+    await runOnce(opts);
+    if (opts.watch) { console.log(`sleeping ${opts.interval}s`); await sleep(opts.interval * 1000); }
+  } while (opts.watch);
+}
