@@ -83,6 +83,10 @@ pub struct GameManifest {
     #[serde(default)]
     pub tags: Vec<String>,
     pub contact: String,
+    /// Public URL of `covers/<slug>.webp`. Filled in by `vapor index` for the catalog; a hand-written
+    /// `game.json` must not set it.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub cover: Option<String>,
 }
 
 fn valid_slug(s: &str) -> bool {
@@ -118,6 +122,9 @@ impl GameManifest {
         }
         if !self.source.repo.starts_with("https://") || self.source.repo.contains(char::is_whitespace) {
             return Err(bad("source.repo must be an https URL"));
+        }
+        if self.cover.is_some() {
+            return Err(bad("cover is set by `vapor index`; add covers/<slug>.webp instead"));
         }
         if let Some(v) = &self.variant_of {
             if !valid_slug(v) || *v == self.slug {
@@ -223,6 +230,7 @@ mod tests {
             variant_of: None,
             tags: vec![],
             contact: "a@b.c".into(),
+            cover: None,
         }
     }
 

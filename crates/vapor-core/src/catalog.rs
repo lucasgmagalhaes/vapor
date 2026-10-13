@@ -3,6 +3,7 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 
 use crate::blocklist::Blocklist;
+use crate::covers;
 use crate::links::{self, ExternalEntry};
 use crate::manifest::GameManifest;
 use crate::{Error, Result};
@@ -145,29 +146,60 @@ impl Catalog {
     /// The app calls this on every download and every read: it never trusts the catalog branch.
     pub fn sanitized(self) -> (Self, Vec<String>) {
         let mut dropped = Vec::new();
+        // A cover is the only field `vapor index` adds: keep it only if it is exactly one of our
+        // own cover URLs, then validate the rest as authored data.
         let games: Vec<_> = self
             .games
             .into_iter()
-            .filter(|g| match g.validate(&g.slug) {
-                Ok(()) => true,
-                Err(e) => {
-                    dropped.push(format!("game {}: {e}", g.slug));
-                    false
+            .filter_map(|mut g| {
+                let cover = g.cover.take().filter(|c| covers::valid_cover_url(c));
+                match g.validate(&g.slug) {
+                    Ok(()) => {
+                        g.cover = cover;
+                        Some(g)
+                    }
+                    Err(e) => {
+                        dropped.push(format!("game {}: {e}", g.slug));
+                        None
+                    }
                 }
             })
             .collect();
         let links: Vec<_> = self
             .links
             .into_iter()
-            .filter(|l| match l.validate(&l.slug) {
-                Ok(()) => true,
-                Err(e) => {
-                    dropped.push(format!("link {}: {e}", l.slug));
-                    false
+            .filter_map(|mut l| {
+                let cover = l.cover.take().filter(|c| covers::valid_cover_url(c));
+                match l.validate(&l.slug) {
+                    Ok(()) => {
+                        l.cover = cover;
+                        Some(l)
+                    }
+                    Err(e) => {
+                        dropped.push(format!("link {}: {e}", l.slug));
+                        None
+                    }
                 }
             })
             .collect();
         (Self { games, links, warnings: self.warnings }, dropped)
+    }
+
+    /// Names a cover file may have: every game slug and every link group (or slug).
+    pub fn cover_keys(&self) -> std::collections::BTreeSet<String> {
+        self.games.iter().map(|g| g.slug.clone()).chain(self.links.iter().map(|l| l.cover_key().to_string())).collect()
+    }
+
+    /// Sets `cover` to the public URL of every entry that has a file in `dir` (used by `vapor index`).
+    pub fn attach_covers(&mut self, dir: &Path) -> Result<()> {
+        let have = covers::check_dir(dir, &self.cover_keys())?;
+        for g in &mut self.games {
+            g.cover = have.contains(&g.slug).then(|| covers::cover_url(&g.slug));
+        }
+        for l in &mut self.links {
+            l.cover = have.contains(l.cover_key()).then(|| covers::cover_url(l.cover_key()));
+        }
+        Ok(())
     }
 
     pub fn search(&self, query: &str) -> Vec<&GameManifest> {
@@ -258,6 +290,42 @@ mod tests {
         assert_eq!(clean.games.iter().map(|g| g.slug.as_str()).collect::<Vec<_>>(), ["ok-game"]);
         assert_eq!(clean.links.iter().map(|l| l.slug.as_str()).collect::<Vec<_>>(), ["good-link"]);
         assert_eq!(dropped.len(), 3, "{dropped:?}");
+    }
+
+    #[test]
+    fn covers_are_attached_by_key_and_only_our_urls_survive_sanitizing() {
+        let mut ok = game("ok-game", "Ok", "https://github.com/a/ok", 'a');
+        ok.artifact.url = format!("{}t-1/ok-game.zip", crate::manifest::ARTIFACT_URL_PREFIX);
+        let mut a = link("port-win", "https://github.com/b/win");
+        a.group = Some("shared".into());
+        a.variant = Some("Windows".into());
+        let mut b = link("port-lin", "https://github.com/b/lin");
+        b.group = Some("shared".into());
+        b.variant = Some("Linux".into());
+        let mut cat = Catalog { games: vec![ok], links: vec![a, b], warnings: vec![] };
+        assert_eq!(cat.cover_keys().into_iter().collect::<Vec<_>>(), ["ok-game", "shared"]);
+
+        let d = tempfile::tempdir().unwrap();
+        let mut webp = b"RIFF\x10\0\0\0WEBPVP8 ".to_vec();
+        webp.extend([0u8; 16]);
+        std::fs::write(d.path().join("shared.webp"), &webp).unwrap();
+        cat.attach_covers(d.path()).unwrap();
+        assert!(cat.games[0].cover.is_none());
+        assert_eq!(cat.links[0].cover, cat.links[1].cover, "both variants share the group's cover");
+        assert!(cat.links[0].cover.is_some());
+
+        let (clean, dropped) = cat.clone().sanitized();
+        assert!(dropped.is_empty(), "{dropped:?}");
+        assert!(clean.links[0].cover.is_some(), "our own URL is kept");
+        let mut evil = cat;
+        evil.links[0].cover = Some("https://evil.example/x.webp".into());
+        let (clean, dropped) = evil.sanitized();
+        assert!(dropped.is_empty(), "a bad cover URL is cleared, the entry stays");
+        assert!(clean.links[0].cover.is_none());
+
+        let mut hand_written = game("ok-game", "Ok", "https://github.com/a/ok", 'a');
+        hand_written.cover = Some(covers::cover_url("ok-game"));
+        assert!(hand_written.validate("ok-game").is_err(), "authors must not set cover by hand");
     }
 
     #[test]
