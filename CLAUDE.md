@@ -33,7 +33,7 @@ Desktop app (Tauri 2: Rust + React/TypeScript/Vite): a "Steam" for games decompi
 ## State and pending work
 - `backend` (the Tauri shell) compiles and runs on Windows; Linux needs the system libs above.
 - `install_game` only downloads and stores `artifact.bin`: still missing safe unzipping, serving in an isolated webview, and wiring the wasm virtual FS to `SaveStore`.
-- `games/doom-freedoom/game.json` points to the `vapor-artifacts` Release. `games/demo-game` is only an example (fake URL).
+- `games/doom-freedoom/game.json` points to the `vapor-artifacts` Release. `docs/examples/game.example.json` is the manifest template.
 - Goal: Resident Evil 1 via our own decomp, in a separate repository, as `bring-your-own`.
 
 ## Conventions

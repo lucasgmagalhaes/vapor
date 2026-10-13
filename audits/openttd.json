@@ -1,0 +1,33 @@
+{
+  "slug": "openttd",
+  "artifact_sha256": "d0ca3010a799a223f72b74a7701af5ea3d27ad7babf1fbf523f09bd77133c998",
+  "artifact_size": 19702076,
+  "tool_version": 1,
+  "audited_at": "2026-10-13",
+  "files": 7,
+  "bytes": 32632690,
+  "findings": [
+    {
+      "severity": "warn",
+      "rule": "capability-camera-mic",
+      "path": "openttd/openttd.js"
+    },
+    {
+      "severity": "warn",
+      "rule": "capability-popup",
+      "path": "openttd/openttd.js"
+    },
+    {
+      "severity": "warn",
+      "rule": "external-host",
+      "path": "openttd/openttd.js",
+      "detail": "bananas-server.openttd.org"
+    }
+  ],
+  "accepted": [
+    "capability-camera-mic",
+    "capability-popup",
+    "external-host:bananas-server.openttd.org"
+  ],
+  "notes": "Reviewed 2026-10-13. capability-camera-mic and capability-popup: standard Emscripten/SDL2 runtime glue; bananas-server.openttd.org: OpenTTD's online content (BaNaNaS) host, a user-initiated feature. The game window CSP (connect-src 'self') blocks network access. No executables, wasm imports only from env."
+}

@@ -4,6 +4,12 @@ use crate::{Error, Result};
 
 pub const SCHEMA_VERSION: u32 = 1;
 
+/// Artifacts are only accepted from Vapor's own build repository: every one of them comes
+/// from a pinned, audited workflow (`vapor-artifacts/.github/workflows/build-<slug>.yml`).
+/// A manifest pointing anywhere else is rejected, whatever its hash says.
+pub const ARTIFACT_URL_PREFIX: &str =
+    "https://github.com/lucasgmagalhaes/vapor-artifacts/releases/download/";
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub enum AssetsPolicy {
@@ -69,6 +75,11 @@ pub struct GameManifest {
     /// Required for `bring-your-own` games, empty otherwise.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub byo_files: Vec<ByoFile>,
+    /// Declares this entry a deliberate variant (fork, port, different engine) of another
+    /// game, which lets two entries share a title. Without it, same-title entries are
+    /// rejected as duplicates.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub variant_of: Option<String>,
     #[serde(default)]
     pub tags: Vec<String>,
     pub contact: String,
@@ -102,8 +113,13 @@ impl GameManifest {
         if self.title.trim().is_empty() || self.authors.is_empty() {
             return Err(bad("title and authors are required"));
         }
-        if !self.artifact.url.starts_with("https://") {
-            return Err(bad("artifact.url must be https"));
+        if !self.artifact.url.starts_with(ARTIFACT_URL_PREFIX) {
+            return Err(bad("artifact.url must point to a Release of lucasgmagalhaes/vapor-artifacts"));
+        }
+        if let Some(v) = &self.variant_of {
+            if !valid_slug(v) || *v == self.slug {
+                return Err(bad("variant_of must be the slug of another game"));
+            }
         }
         if self.artifact.sha256.len() != 64
             || !self.artifact.sha256.chars().all(|c| c.is_ascii_hexdigit())
@@ -194,13 +210,14 @@ mod tests {
             license: License { code: "MIT".into(), assets: "MIT".into() },
             assets_policy: AssetsPolicy::Open,
             artifact: Artifact {
-                url: "https://example.com/g.wasm".into(),
+                url: format!("{ARTIFACT_URL_PREFIX}demo-game-1/demo-game.zip"),
                 sha256: "a".repeat(64),
                 size: 3,
                 entry: "index.html".into(),
             },
             saves: SaveConfig { paths: vec!["/saves".into()], version: 1 },
             byo_files: vec![],
+            variant_of: None,
             tags: vec![],
             contact: "a@b.c".into(),
         }
@@ -213,6 +230,12 @@ mod tests {
         let mut m = sample();
         m.artifact.url = "http://x".into();
         assert!(m.validate("demo-game").is_err());
+        let mut m = sample();
+        m.artifact.url = "https://evil.example/vapor-artifacts/releases/download/x.zip".into();
+        assert!(m.validate("demo-game").is_err(), "only our artifacts repository is accepted");
+        let mut m = sample();
+        m.variant_of = Some("demo-game".into());
+        assert!(m.validate("demo-game").is_err(), "a game cannot be a variant of itself");
         let mut m = sample();
         m.saves.paths = vec!["/a/../b".into()];
         assert!(m.validate("demo-game").is_err());
@@ -283,8 +306,8 @@ mod tests {
         let m = sample();
         assert!(e(Some("demo-game"), None, None).check(&m).is_some());
         assert!(e(None, Some("A".repeat(64)), None).check(&m).is_some());
-        assert!(e(None, None, Some("example.com")).check(&m).is_some());
-        assert!(e(None, None, Some("ample.com")).check(&m).is_none());
+        assert!(e(None, None, Some("github.com")).check(&m).is_some());
+        assert!(e(None, None, Some("ithub.com")).check(&m).is_none());
         assert!(e(Some("other"), None, None).check(&m).is_none());
     }
 }

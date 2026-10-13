@@ -21,7 +21,7 @@
     "artifact": {
       "type": "object", "required": ["url", "sha256", "size", "entry"], "additionalProperties": false,
       "properties": {
-        "url": { "type": "string", "pattern": "^https://" },
+        "url": { "type": "string", "pattern": "^https://github\\.com/lucasgmagalhaes/vapor-artifacts/releases/download/" },
         "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
         "size": { "type": "integer", "minimum": 1 },
         "entry": { "type": "string" }
@@ -48,6 +48,7 @@
         }
       }
     },
+    "variant_of": { "description": "Slug of the game this entry is a deliberate variant of (allows a shared title).", "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
     "tags": { "type": "array", "items": { "type": "string" } },
     "contact": { "type": "string" }
   }

@@ -1,0 +1,33 @@
+{
+  "slug": "doom-freedoom",
+  "artifact_sha256": "fa58ba6aaee04cb3a2fd2829d66f3791c7f86051613701d26373edb613e00748",
+  "artifact_size": 11130175,
+  "tool_version": 1,
+  "audited_at": "2026-10-13",
+  "files": 9,
+  "bytes": 31393331,
+  "findings": [
+    {
+      "severity": "warn",
+      "rule": "external-host",
+      "path": "doom-freedoom/index.html",
+      "detail": "fonts.gstatic.com"
+    },
+    {
+      "severity": "warn",
+      "rule": "capability-camera-mic",
+      "path": "doom-freedoom/websockets-doom.js"
+    },
+    {
+      "severity": "warn",
+      "rule": "capability-websocket",
+      "path": "doom-freedoom/websockets-doom.js"
+    }
+  ],
+  "accepted": [
+    "external-host:fonts.gstatic.com",
+    "capability-camera-mic",
+    "capability-websocket"
+  ],
+  "notes": "Reviewed 2026-10-13. fonts.gstatic.com: decorative web font in index.html; capability-camera-mic: SDL2 audio-capture glue in the Emscripten runtime, never invoked by the game; capability-websocket: doom-wasm's multiplayer relay code. At runtime the game window CSP has connect-src 'self', so none of these can reach the network. No executables, wasm imports only from env."
+}

@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "slug": "example-game",
+  "title": "Example Game",
+  "authors": ["Author Name"],
+  "source": { "repo": "https://github.com/owner/repo", "commit": "<full commit sha>" },
+  "license": { "code": "GPL-2.0-or-later", "assets": "CC-BY-SA-4.0" },
+  "assets_policy": "open",
+  "artifact": {
+    "url": "https://github.com/lucasgmagalhaes/vapor-artifacts/releases/download/example-game-1/example-game.zip",
+    "sha256": "<64 hex chars of the Release zip>",
+    "size": 0,
+    "entry": "example-game/index.html"
+  },
+  "saves": { "paths": ["/home/web_user/.example"], "version": 1 },
+  "tags": ["example"],
+  "contact": "https://github.com/owner/repo/issues"
+}

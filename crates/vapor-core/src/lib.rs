@@ -2,6 +2,7 @@
 //! No Tauri dependency, so it is testable and reusable by the CLI.
 
 pub mod blocklist;
+pub mod audit;
 pub mod bridge;
 pub mod byo;
 pub mod catalog;
@@ -24,6 +25,8 @@ pub enum Error {
     InvalidManifest { path: String, reason: String },
     #[error("game blocked by blocklist: {0}")]
     Blocked(String),
+    #[error("audit failed: {0}")]
+    AuditFailed(String),
     #[error("invalid archive: {0}")]
     InvalidArchive(String),
     #[error("invalid bring-your-own file: {0}")]
