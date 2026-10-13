@@ -147,7 +147,21 @@ fn main() -> ExitCode {
             println!("ok: {} valid, audited game(s)", c.games.len());
             ExitCode::SUCCESS
         }
-        ("index", Ok(c)) => {
+        ("index", Ok(mut c)) => {
+            // Liveness of the link-only entries (written by tools/links/check.mjs): merge it,
+            // then drop entries whose original source is gone or blocked.
+            let status_path = root.join("links-status.json");
+            if let Some(statuses) = std::fs::read(&status_path)
+                .ok()
+                .and_then(|b| serde_json::from_slice::<std::collections::HashMap<String, vapor_core::links::LinkStatus>>(&b).ok())
+            {
+                vapor_core::links::apply_status(&mut c.links, &statuses);
+            }
+            let before = c.links.len();
+            c.links.retain(|l| l.visible());
+            if c.links.len() != before {
+                println!("hid {} link(s) whose source is unreachable", before - c.links.len());
+            }
             let out = root.join("catalog.json");
             std::fs::write(&out, serde_json::to_vec_pretty(&c).unwrap()).expect("write catalog.json");
             println!("generated {} ({} games)", out.display(), c.games.len());
