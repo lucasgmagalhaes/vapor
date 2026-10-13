@@ -2,6 +2,7 @@
 //! No Tauri dependency, so it is testable and reusable by the CLI.
 
 pub mod blocklist;
+pub mod audit;
 pub mod bridge;
 pub mod byo;
 pub mod catalog;
