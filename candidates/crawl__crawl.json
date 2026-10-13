@@ -1,0 +1,18 @@
+{
+  "repo": "crawl/crawl",
+  "url": "https://github.com/crawl/crawl",
+  "status": "needs-port",
+  "manual": true,
+  "commit_checked": "d7385f506d36cc4455c1b3a3aaf4703ba7622c79",
+  "license": {
+    "spdx": "GPL-2.0"
+  },
+  "signals": {
+    "wasm": false
+  },
+  "reasons": [
+    "Most tiles CC0, older pieces may differ (see github.com/crawl/tiles)",
+    "No Emscripten path found; the project uses a web server frontend"
+  ],
+  "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
+}

@@ -1,0 +1,19 @@
+{
+  "repo": "Neverball/neverball",
+  "url": "https://github.com/Neverball/neverball",
+  "status": "needs-asset-audit",
+  "manual": true,
+  "commit_checked": "82883833043725b21a65fe45416524cb77412e39",
+  "license": {
+    "spdx": "GPL-2.0"
+  },
+  "signals": {
+    "wasm": true
+  },
+  "reasons": [
+    "Code GPL-2.0-or-later; LICENSE.md does not state the license of data/",
+    "Octocat ball is used with GitHub's permission, not an open license: exclude it",
+    "Upstream emscripten/ folder with Dockerfile exists"
+  ],
+  "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
+}

@@ -1,0 +1,18 @@
+{
+  "repo": "freeserf/freeserf",
+  "url": "https://github.com/freeserf/freeserf",
+  "status": "byo-only",
+  "manual": true,
+  "commit_checked": "bb64ea2877c1fc7f1cf76826eded09b276c0a1f6",
+  "license": {
+    "spdx": "GPL-3.0"
+  },
+  "signals": {
+    "wasm": false
+  },
+  "reasons": [
+    "Needs the original Settlers data files (bring-your-own)",
+    "No Emscripten path upstream"
+  ],
+  "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
+}
