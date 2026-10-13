@@ -11,6 +11,16 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo test --workspace
       - run: cargo run -q -p vapor-cli -- validate .
+      - name: Re-audit every listed artifact against its record
+        # Downloads each Release zip named in games/*/game.json, re-runs the security scan
+        # and fails if the zip no longer matches audits/<slug>.json (hash, size or findings).
+        run: |
+          set -euo pipefail
+          for f in games/*/game.json; do
+            slug=$(jq -r .slug "$f"); url=$(jq -r .artifact.url "$f")
+            curl -fsSL --retry 3 -o "/tmp/$slug.zip" "$url"
+            cargo run -q -p vapor-cli -- audit "/tmp/$slug.zip" --slug "$slug"
+          done
       - name: Reject binaries/large files in games/
         run: |
           if find games -type f -size +512k | grep .; then echo "large file in games/"; exit 1; fi

@@ -6,7 +6,8 @@
 //! * `vapor audit <artifact.zip> --slug <slug> [--accept r1,r2] [--notes "why"] [--write]
 //!   [--root <repo>]`: audits a built artifact; with `--write` stores `audits/<slug>.json`.
 //!   Without `--write` it compares against the existing record (CI uses this to catch a
-//!   record that no longer matches the artifact).
+//!   record that no longer matches the artifact). `--scan-only` just fails on blocking
+//!   findings (used by the artifact build workflows, before any record exists).
 
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
@@ -85,6 +86,11 @@ fn cmd_audit(args: &[String]) -> ExitCode {
     if report.blocked() {
         eprintln!("\nFAIL: blocking findings. This artifact must not be listed or installed.");
         return ExitCode::FAILURE;
+    }
+    if args.iter().any(|a| a == "--scan-only") {
+        println!("
+ok: no blocking findings (scan only; no record checked)");
+        return ExitCode::SUCCESS;
     }
     let open = report.unaccepted_warnings(&accepted).len();
     let record = AuditRecord::new(&slug, &sha, bytes.len() as u64, &audit::today(), report, accepted, &notes);
