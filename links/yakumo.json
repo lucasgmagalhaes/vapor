@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "slug": "yakumo",
+  "title": "Yakumo",
+  "publisher": "Unknown (see the project's README)",
+  "url": "https://github.com/TeamGDB/Yakumo",
+  "platforms": [
+    "other"
+  ],
+  "requires": "A copy of the original game that you own (see the project's README)",
+  "summary": "Static recompilation of a PSP game into a native executable. Vulkan and SDL3. Bring your own copy of the game.",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": [
+    "recompilation"
+  ]
+}
