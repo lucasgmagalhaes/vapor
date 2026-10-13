@@ -1,0 +1,14 @@
+{
+  "repo": "almost-there-games/azimuth",
+  "url": "https://almost-there-games.itch.io/azimuth",
+  "status": "rejected",
+  "manual": true,
+  "license": { "spdx": null },
+  "signals": { "wasm": false },
+  "reasons": [
+    "Not a source repository: an itch.io page with a direct download of an unknown binary. Not opened or downloaded.",
+    "No source, no license and no verifiable link to Forza Horizon 2: nothing here can be audited, built or hashed from a pinned commit",
+    "Unknown prebuilt executables from an unverified publisher are exactly what the security audit exists to refuse"
+  ],
+  "source": "link supplied by the maintainer on 2026-10-13; not fetched"
+}
