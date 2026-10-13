@@ -53,7 +53,10 @@ const ALL_RIGHTS = /all rights reserved/i;
 /** Classifies license text: which open licenses it mentions and which bad terms it has. */
 export function classify(text) {
   const ok = OK_SIGNS.filter(([re]) => re.test(text)).map(([, id]) => id);
-  const bad = BAD_SIGNS.filter(([re]) => re.test(text)).map(([, id]) => id);
+  // GPL-3 section 6c ("allowed only occasionally and noncommercially") is license boilerplate,
+  // not a restriction on the licensed work.
+  const scan = text.replace(/occasionally\s+and\s+noncommercially/gi, "");
+  const bad = BAD_SIGNS.filter(([re]) => re.test(scan)).map(([, id]) => id);
   // "Copyright (c) X. All rights reserved." is part of BSD/MIT boilerplate: only bad on its own.
   if (ALL_RIGHTS.test(text) && ok.length === 0) bad.push("all-rights-reserved");
   return { ok, bad };
