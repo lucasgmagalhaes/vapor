@@ -1,8 +1,8 @@
 name: pipeline-list-game
 # Turns an approved candidate whose artifact is already built (a Release of vapor-artifacts) into
-# a DRAFT pull request that adds games/<slug>/game.json + audits/<slug>.json:
+# a pull request (ready for review) that adds games/<slug>/game.json + audits/<slug>.json:
 #   download -> hash -> security audit (blocks stop the run) -> browser smoke test (infers
-#   saves.paths) -> manifest -> `vapor validate` -> draft PR with a reviewer checklist.
+#   saves.paths) -> manifest -> `vapor validate` -> pull request (ready for review) with a reviewer checklist.
 # A person reviews the license files and merges. Nothing is merged or published automatically.
 on:
   workflow_dispatch:
@@ -69,7 +69,7 @@ jobs:
         continue-on-error: true
         run: cargo run -q -p vapor-cli -- validate .
 
-      - name: Open a draft pull request
+      - name: open a pull request (ready for review)
         run: |
           set -euo pipefail
           test -f pr-body.md
@@ -84,6 +84,6 @@ jobs:
           git add games audits
           git commit -m "feat(catalog): add $TITLE"
           git push -f origin "$branch"
-          gh pr create --draft --base main --head "$branch" \
+          gh pr create --base main --head "$branch" \
             --title "Add $TITLE" --body-file pr-body.md \
             || gh pr edit "$branch" --body-file pr-body.md

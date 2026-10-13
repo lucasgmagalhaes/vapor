@@ -22,7 +22,7 @@ pipeline.yml (manual dispatch with the Release tag)         tools/pipeline
   6. smoke test    real browser under the game window's CSP: loads? errors? what does it write
                    (infers saves.paths)?
   7. manifest      games/<slug>/game.json + audits/<slug>.json from verified values only
-  8. draft PR      with the audit output and a reviewer checklist
+  8. pull request  (ready for review) with the audit output and a reviewer checklist
                                   |
         [HUMAN 2] read the PR, merge
                                   |
