@@ -2,9 +2,11 @@
 //! No Tauri dependency, so it is testable and reusable by the CLI.
 
 pub mod blocklist;
+pub mod bridge;
 pub mod catalog;
 pub mod manifest;
 pub mod saves;
+pub mod serve;
 pub mod unpack;
 
 use thiserror::Error;
