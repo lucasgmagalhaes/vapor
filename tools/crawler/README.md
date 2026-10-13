@@ -32,6 +32,10 @@ limit; an invalid token silently falls back to anonymous mode.
 5. **Write** one JSON record per repo plus `index.json` and `review.json` to `crawl-output/`. State for incremental
    runs is kept in `state.json`.
 
+Each run logs search counts and timings, queue decisions, per-repository classification and
+distribution evidence, asset audits, errors and final totals. The scheduled workflow also saves
+the console output as `crawl-output/crawl.log` on the `crawler-data` branch.
+
 The crawler currently searches GitHub repositories. A standalone itch.io release such as
 Azimuth requires a separate source adapter and is outside this crawler's discovery scope.
 

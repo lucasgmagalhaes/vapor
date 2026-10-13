@@ -23,6 +23,10 @@ import { storeLinks, verifyDistribution } from "./distribution.mjs";
 const run = promisify(execFile);
 
 const API = "https://api.github.com";
+const log = (stage, message) => console.log(`${new Date().toISOString()} [crawler:${stage}] ${message}`);
+const warn = (stage, message) => console.error(`${new Date().toISOString()} [crawler:${stage}] ${message}`);
+const elapsed = (start) => `${((performance.now() - start) / 1000).toFixed(1)}s`;
+const oneLine = (value) => String(value ?? "").replace(/\s+/g, " ").trim();
 const QUERIES = [
   "topic:decompilation topic:game",
   "topic:reverse-engineering topic:game",
@@ -193,14 +197,14 @@ async function gh(p, { allow404 = true } = {}) {
     const res = await fetch(`${API}${p}`, { headers: hdrs() });
     if (res.ok) return res.json();
     if (res.status === 401 && useToken) {
-      console.error("warning: GITHUB_TOKEN rejected (401); continuing anonymously (lower rate limit)");
+      warn("github", "GITHUB_TOKEN rejected (401); continuing anonymously (lower rate limit)");
       useToken = false;
       continue;
     }
     if ((res.status === 403 || res.status === 429) && res.headers.get("x-ratelimit-remaining") === "0") {
       const reset = Number(res.headers.get("x-ratelimit-reset")) * 1000;
       const wait = reset - Date.now() + 1000;
-      if (wait > 0 && wait <= 65_000) { await sleep(wait); continue; }
+      if (wait > 0 && wait <= 65_000) { log("github", `rate limit reached; waiting ${Math.ceil(wait / 1000)}s`); await sleep(wait); continue; }
       throw new RateLimited(`rate limit exhausted until ${new Date(reset).toISOString()}`);
     }
     if (allow404 && [404, 409, 451].includes(res.status)) return null;
@@ -218,21 +222,29 @@ async function loadJson(file, fallback) {
 async function discover(minStars) {
   const found = new Map();
   for (const q of QUERIES) {
+    const started = performance.now();
     const pushed = new Date(Date.now() - 2 * 365 * 864e5).toISOString().slice(0, 10);
     const full = `${q} stars:>=${minStars} archived:false fork:true pushed:>=${pushed}`;
     const r = await gh(`/search/repositories?q=${encodeURIComponent(full)}&sort=stars&order=desc&per_page=30`);
+    let eligible = 0, added = 0;
     for (const it of r?.items ?? []) {
       if (!isSearchCandidate(it)) continue;
+      eligible++;
+      if (!found.has(it.full_name)) added++;
       found.set(it.full_name, it);
     }
+    log("search", `${q}: returned=${r?.items?.length ?? 0} eligible=${eligible} new=${added} duration=${elapsed(started)}`);
     // Eight queries fit the anonymous search limit of ten requests per minute.
   }
   const seeds = await loadJson(new URL("./seeds.json", import.meta.url), []);
   const seeded = await Promise.allSettled(seeds.map((name) => gh(`/repos/${name}`)));
-  for (const result of seeded) {
-    if (result.status === "fulfilled" && result.value && !result.value.archived) found.set(result.value.full_name, { ...result.value, seeded: true });
-    else if (result.status === "rejected") console.error(`warning: seed lookup failed: ${result.reason.message}`);
+  let loadedSeeds = 0;
+  for (const [i, result] of seeded.entries()) {
+    if (result.status === "fulfilled" && result.value && !result.value.archived) { found.set(result.value.full_name, { ...result.value, seeded: true }); loadedSeeds++; }
+    else if (result.status === "rejected") warn("seed", `${seeds[i]} lookup failed: ${result.reason.message}`);
+    else warn("seed", `${seeds[i]} unavailable or archived`);
   }
+  log("seed", `loaded=${loadedSeeds}/${seeds.length} unique_total=${found.size}`);
   return [...found.values()];
 }
 
@@ -361,13 +373,14 @@ async function assetAudit(repo, rec) {
 }
 
 async function runOnce(o) {
+  const started = performance.now();
   await mkdir(o.out, { recursive: true });
+  log("start", `max_new=${o.maxNew} min_stars=${o.minStars} concurrency=${o.concurrency} asset_audit=${o.assetAudit} out=${o.out}`);
   const statePath = path.join(o.out, "state.json");
   const state = await loadJson(statePath, { seen: {} });
   let repos;
   try { repos = await discover(o.minStars); }
-  catch (e) { console.error(`discovery stopped: ${e.message}`); return; }
-  console.log(`discovered ${repos.length} repositories`);
+  catch (e) { warn("search", `discovery stopped: ${e.message}`); return; }
 
   const stale = (r) => {
     const s = state.seen[r.full_name];
@@ -376,25 +389,37 @@ async function runOnce(o) {
     return Date.now() - Date.parse(s.crawled_at) > o.refreshDays * 864e5;
   };
   const known = await knownEntries(o);
-  const queue = repos.filter(stale).sort((a, b) => priority(b) - priority(a)).slice(0, o.maxNew);
-  console.log(`inspecting ${queue.length} new or changed (limit ${o.maxNew})`);
+  const pending = repos.filter(stale);
+  const queue = pending.sort((a, b) => priority(b) - priority(a)).slice(0, o.maxNew);
+  log("queue", `discovered=${repos.length} unchanged=${repos.length - pending.length} selected=${queue.length} deferred=${pending.length - queue.length}`);
 
+  const outcomes = {};
   const handle = async (repo) => {
+    const inspectedAt = performance.now();
+    log("inspect", `${repo.full_name} started`);
     try {
       if (await loadJson(path.join(o.curated, fileKey(repo.full_name)), null)) {
-        console.log(`  curated            ${repo.full_name} (skipped: hand-reviewed record exists)`);
+        outcomes.curated = (outcomes.curated ?? 0) + 1;
+        log("inspect", `${repo.full_name} curated; hand-reviewed record exists (${elapsed(inspectedAt)})`);
         state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: new Date().toISOString() };
         return;
       }
       let rec = await inspect(repo);
+      log("inspect", `${repo.full_name} classified=${rec.status} kind=${rec.project_kind ?? "none"} distribution=${rec.distribution.status} (${elapsed(inspectedAt)})`);
+      if (o.assetAudit && rec.status === "needs-asset-audit") log("audit", `${repo.full_name} started`);
       if (o.assetAudit) rec = await assetAudit(repo, rec);
+      if (rec.asset_audit) log("audit", `${repo.full_name} verdict=${rec.asset_audit.verdict} status=${rec.status} (${elapsed(inspectedAt)})`);
+      else if (o.assetAudit && rec.status === "needs-asset-audit") log("audit", `${repo.full_name} ${oneLine(rec.reasons.at(-1))} (${elapsed(inspectedAt)})`);
       rec.duplicate_of = duplicatesOf(rec, known);
       if (rec.duplicate_of.length) rec.reasons.push(`possible duplicate of ${rec.duplicate_of.join(", ")}: decide which one to keep before building`);
       await writeFile(path.join(o.out, fileKey(repo.full_name)), JSON.stringify(rec, null, 2) + "\n");
       state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: rec.crawled_at };
-      console.log(`  ${rec.status.padEnd(18)} ${repo.full_name} (${rec.license.spdx ?? "no license"})`);
+      outcomes[rec.status] = (outcomes[rec.status] ?? 0) + 1;
+      const evidence = rec.distribution.status === "verified" ? `${rec.distribution.platform}: ${rec.distribution.title}` : rec.distribution.reason;
+      log("result", `${repo.full_name} status=${rec.status} license=${rec.license.spdx ?? "none"} evidence=${oneLine(evidence)} duration=${elapsed(inspectedAt)}`);
     } catch (e) {
-      console.error(`  stopped at ${repo.full_name}: ${e.message}`);
+      outcomes.error = (outcomes.error ?? 0) + 1;
+      warn("inspect", `${repo.full_name} failed after ${elapsed(inspectedAt)}: ${oneLine(e.message)}`);
     }
   };
   await pool(queue, o.concurrency, handle);
@@ -419,8 +444,8 @@ async function runOnce(o) {
   }
   const dupGroups = [...groups.entries()].filter(([, v]) => v.length > 1).map(([name, repos]) => ({ name, repos }));
   await writeFile(path.join(o.out, "duplicates.json"), JSON.stringify(dupGroups, null, 2) + "\n");
-  if (dupGroups.length) console.log(`possible duplicate groups: ${dupGroups.map((g) => g.repos.join(" ~ ")).join(" | ")}`);
-  console.log(`index: ${index.length} candidate record(s) in ${o.out}/index.json`);
+  if (dupGroups.length) log("duplicates", dupGroups.map((g) => g.repos.join(" ~ ")).join(" | "));
+  log("done", `inspected=${queue.length} outcomes=${JSON.stringify(outcomes)} candidates=${index.length} review=${review.length} duration=${elapsed(started)}`);
 }
 
 // Only run when executed directly, so the helpers above can be imported by tests.
