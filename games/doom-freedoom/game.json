@@ -24,7 +24,7 @@
   },
   "saves": {
     "paths": [
-      "/"
+      "/libsdl/doom-ws-wasm"
     ],
     "version": 1
   },
