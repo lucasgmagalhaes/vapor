@@ -336,6 +336,18 @@ function ExternalProjects(props: {
                 <>
                   {shown.variant && <p><em>Version:</em> {shown.variant}</p>}
                   <p><em>Needs:</em> {shown.requires}</p>
+                  {/dump|disc image/i.test(shown.requires) && (
+                    <details className="dump-help">
+                      <summary>What is a game dump?</summary>
+                      <p>
+                        This port is only the game engine, rewritten to run on a PC. It does not include
+                        the game itself: the models, textures, sound and levels. Those come from your own
+                        copy, which you copy (dump) from the disc or console you bought. Vapor never
+                        downloads, hosts or uploads game files, and your dump stays on this computer.
+                      </p>
+                      <p>The exact files needed are listed above. Without them the port cannot start.</p>
+                    </details>
+                  )}
                   <p className="legal">{shown.legal_note}</p>
                   {shown.status && (
                     <small>

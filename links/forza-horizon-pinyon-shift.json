@@ -9,7 +9,7 @@
     "linux",
     "macos"
   ],
-  "requires": "A copy of the original game that you own (see the project's README for what is needed)",
+  "requires": "Your own Forza Horizon disc image (a \"dump\": an ISO file made from your original USA retail disc) and a GPU with a Vulkan 1.3 driver.",
   "summary": "Playable preview of a static recompilation of Forza Horizon, built from the player's own disc. Unofficial.",
   "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
   "tags": [

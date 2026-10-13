@@ -7,7 +7,7 @@
   "platforms": [
     "linux"
   ],
-  "requires": "A copy of the original game that you own (see the project's README for what is needed)",
+  "requires": "Your own Bloodborne game files (a \"dump\": the PS4 game folder, CUSA03173 v1.09, copied from your console) and a GPU with a Vulkan 1.3 driver.",
   "summary": "Native Linux port of the PS4 game (AppImage). Unofficial.",
   "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
   "tags": [

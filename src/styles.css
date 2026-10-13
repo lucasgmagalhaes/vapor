@@ -19,3 +19,5 @@ main { display: flex; flex: 1; min-height: 0; }
 .credit { font-size: 11px; opacity: .6; margin: 0 0 8px; }
 aside { width: 340px; padding: 16px; background: #1b1e27; overflow: auto; }
 aside ul { padding-left: 16px; }
+.dump-help { font-size: 13px; opacity: .85; margin: 6px 0; }
+.dump-help summary { cursor: pointer; }
