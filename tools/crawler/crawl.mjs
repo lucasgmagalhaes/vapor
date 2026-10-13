@@ -217,7 +217,7 @@ async function runOnce(o) {
 
   const files = (await readdir(o.out)).filter((f) => f.endsWith(".json") && !["state.json", "index.json"].includes(f));
   const all = await Promise.all(files.map((f) => loadJson(path.join(o.out, f), null)));
-  const rank = { "ready-to-build": 0, "needs-asset-audit": 1, "byo-only": 2, "needs-port": 3, blocked: 4, rejected: 5 };
+  const rank = { listed: -1, "ready-to-build": 0, "needs-asset-audit": 1, "byo-only": 2, "needs-port": 3, blocked: 4, rejected: 5 };
   const index = all.filter(Boolean)
     .sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9) || b.stars - a.stars)
     .map((r) => ({ repo: r.repo, status: r.status, stars: r.stars, license: r.license.spdx, wasm: r.signals.wasm, reasons: r.reasons }));

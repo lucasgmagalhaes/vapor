@@ -1,7 +1,7 @@
 {
   "repo": "OpenTTD/OpenTTD",
   "url": "https://github.com/OpenTTD/OpenTTD",
-  "status": "ready-to-build",
+  "status": "listed",
   "manual": true,
   "commit_checked": "daa6e1ca1c357eb9e6ae3d69af134205e1be8517",
   "license": {
@@ -13,7 +13,8 @@
   "reasons": [
     "Code GPL; assets OpenGFX/OpenMSX GPL-2.0, OpenSFX CC BY-SA 3.0 (all verified in repo files)",
     "Upstream Emscripten build in os/emscripten; official wasm build does not bundle OpenGFX/OpenSFX/OpenMSX, so the package must add them",
-    "Keep OpenSFX attribution and share-alike notice in the package"
+    "Keep OpenSFX attribution and share-alike notice in the package",
+    "Listed as games/openttd (branch feat/openttd); artifact built by vapor-artifacts build-openttd run #2 (Release openttd-2). Base sets verified inside the package: each tar ships its own license.txt and readme.txt."
   ],
   "source": "docs/CANDIDATES.md (2026-10-13), license files read at the commit shown"
 }

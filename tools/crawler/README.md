@@ -25,7 +25,7 @@ limit; an invalid token silently falls back to anonymous mode.
 ## Curated records
 `candidates/` holds hand-reviewed records (`"manual": true`, with the license files read at a
 pinned commit; see `docs/CANDIDATES.md`). The crawler skips any repo that has one. Extra statuses
-used there: `ready-to-build` and `blocked`.
+used there: `listed`, `ready-to-build` and `blocked`.
 
 ## Scheduled run
 `.github/workflows/crawl.yml` runs weekly and publishes `crawl-output/` to the `crawler-data`
