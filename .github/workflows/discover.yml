@@ -1,0 +1,47 @@
+name: discover-decomps
+# Weekly search for public game decompilation / port repositories (candidates only).
+# Results go to a single issue labelled `discovery`; a human reviews license and asset rights.
+# It never searches for ROMs or other copyrighted assets.
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Extra search term (default: the watchlist)"
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build report
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          QUERY: ${{ inputs.query }}
+        run: |
+          if [ -n "$QUERY" ]; then
+            node tools/find-decomps/report.mjs --query "$QUERY" > report.md
+          else
+            node tools/find-decomps/report.mjs > report.md
+          fi
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish to the discovery issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create discovery --description "Decomp discovery report" --color 0e8a16 || true
+          n=$(gh issue list --label discovery --state open --json number --jq '.[0].number')
+          if [ -n "$n" ]; then
+            gh issue edit "$n" --body-file report.md
+          else
+            gh issue create --title "Decomp discovery report" --label discovery --body-file report.md
+          fi
