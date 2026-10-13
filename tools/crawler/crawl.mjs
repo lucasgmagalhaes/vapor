@@ -118,8 +118,28 @@ export function duplicatesOf(rec, known) {
   return hits;
 }
 
+// Run `fn` over `items` with at most `n` in flight. Clones do not use API quota, so this is
+// safe; the (rate-limited) search stays serial.
+async function pool(items, n, fn) {
+  const it = items[Symbol.iterator]();
+  await Promise.all(Array.from({ length: Math.max(1, n) }, async () => {
+    for (let r = it.next(); !r.done; r = it.next()) await fn(r.value);
+  }));
+}
+
+// Which repositories to inspect first when the queue is longer than --max-new: open code
+// license, wasm/emscripten topics, then popularity.
+export function priority(repo) {
+  const topics = (repo.topics ?? []).join(" ");
+  let p = Math.log10((repo.stargazers_count ?? 0) + 1);
+  if (repo.license?.spdx_id && OPEN_CODE.test(repo.license.spdx_id)) p += 3;
+  if (/emscripten|webassembly|wasm/i.test(topics)) p += 2;
+  if (/decomp/i.test(topics)) p -= 1; // bring-your-own: slower to turn into a listing
+  return p;
+}
+
 function parseArgs(argv) {
-  const o = { out: "crawl-output", curated: "candidates", maxNew: 15, minStars: 30, watch: false, interval: 3600, refreshDays: 30 };
+  const o = { out: "crawl-output", curated: "candidates", maxNew: 15, minStars: 30, watch: false, interval: 3600, refreshDays: 30, concurrency: 4 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], next = () => argv[++i];
     if (a === "--out") o.out = next();
@@ -128,10 +148,11 @@ function parseArgs(argv) {
     else if (a === "--min-stars") o.minStars = Number(next());
     else if (a === "--interval") o.interval = Number(next());
     else if (a === "--refresh-days") o.refreshDays = Number(next());
+    else if (a === "--concurrency") o.concurrency = Number(next());
     else if (a === "--watch") o.watch = true;
     else { console.error(`unknown option: ${a}`); process.exit(2); }
   }
-  for (const k of ["maxNew", "minStars", "interval", "refreshDays"]) {
+  for (const k of ["maxNew", "minStars", "interval", "refreshDays", "concurrency"]) {
     if (!Number.isFinite(o[k]) || o[k] < 0) { console.error(`invalid value for ${k}`); process.exit(2); }
   }
   return o;
@@ -277,15 +298,15 @@ async function runOnce(o) {
     return Date.now() - Date.parse(s.crawled_at) > o.refreshDays * 864e5;
   };
   const known = await knownEntries(o);
-  const queue = repos.filter(stale).sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, o.maxNew);
+  const queue = repos.filter(stale).sort((a, b) => priority(b) - priority(a)).slice(0, o.maxNew);
   console.log(`inspecting ${queue.length} new or changed (limit ${o.maxNew})`);
 
-  for (const repo of queue) {
+  const handle = async (repo) => {
     try {
       if (await loadJson(path.join(o.curated, fileKey(repo.full_name)), null)) {
         console.log(`  curated            ${repo.full_name} (skipped: hand-reviewed record exists)`);
         state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: new Date().toISOString() };
-        continue;
+        return;
       }
       const rec = await inspect(repo);
       rec.duplicate_of = duplicatesOf(rec, known);
@@ -296,7 +317,8 @@ async function runOnce(o) {
     } catch (e) {
       console.error(`  stopped at ${repo.full_name}: ${e.message}`);
     }
-  }
+  };
+  await pool(queue, o.concurrency, handle);
   await writeFile(statePath, JSON.stringify(state, null, 2) + "\n");
 
   const files = (await readdir(o.out)).filter((f) => f.endsWith(".json") && !["state.json", "index.json", "duplicates.json"].includes(f));

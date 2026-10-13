@@ -8,7 +8,7 @@ node tools/crawler/crawl.mjs --max-new 15          # one pass
 node tools/crawler/crawl.mjs --watch --interval 3600   # keeps running
 ```
 
-Options: `--out` (default `crawl-output`), `--curated` (default `candidates`), `--max-new`,
+Options: `--out` (default `crawl-output`), `--curated` (default `candidates`), `--max-new`, `--concurrency` (parallel clones, default 4),
 `--min-stars`, `--refresh-days`, `--watch`, `--interval`. A `GITHUB_TOKEN` raises the search rate
 limit; an invalid token silently falls back to anonymous mode.
 
