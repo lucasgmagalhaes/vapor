@@ -37,3 +37,19 @@ test("console product pages require release review", async () => {
   assert.equal(evidence.status, "review");
   assert.equal(evidence.platform, "playstation");
 });
+
+test("reviewed publisher release evidence verifies a historical console game without a store link", async () => {
+  const evidence = {
+    title: "Halo 2",
+    platform: "xbox",
+    released_at: "2004-11-09",
+    url: "https://www.halowaypoint.com/news/halo-2-twentieth-anniversary",
+  };
+  const noFetch = () => { throw new Error("store request was unnecessary"); };
+  const result = await verifyDistribution("Halo 2 decompilation of the original Xbox retail game", noFetch, evidence);
+  assert.equal(result.status, "verified");
+  assert.equal(result.source, "reviewed-publisher-release");
+  assert.equal((await verifyDistribution("Halo 3 decompilation", noFetch, evidence)).status, "unverified");
+  assert.equal((await verifyDistribution("Halo 2 decompilation", noFetch, { ...evidence, url: "https://example.com/halo-2" })).status, "unverified");
+  assert.equal((await verifyDistribution("Halo 2 decompilation", noFetch, { ...evidence, released_at: "2099-11-09" })).status, "unverified");
+});

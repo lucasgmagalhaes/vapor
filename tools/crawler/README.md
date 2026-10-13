@@ -20,17 +20,24 @@ limit; an invalid token silently falls back to anonymous mode.
    are forks. `seeds.json` names specific GitHub repositories worth inspecting even when their
    GitHub description and topics are empty.
 2. **Inspect** each new or changed repo with a blobless shallow `git clone` (no REST quota): file
-   tree, README, LICENSE. The code license comes from GitHub's detection. Its README or GitHub
-   homepage must link to an official Steam, Epic, PlayStation, Xbox or Nintendo product page.
-3. **Verify distribution** against the live store. Steam requires a released `game` product and
+   tree, README, LICENSE. The code license comes from GitHub's detection. Distribution evidence
+   can be a supported store link in the README or homepage, or a reviewed publisher source in
+   `release-evidence.json` for historical console games whose repositories have no store link.
+3. **Verify distribution** against the live store or reviewed publisher release evidence. Steam requires a released `game` product and
    a matching title in the repository text. Epic and console product pages with matching titles
    are marked `review`: a person must confirm the release and project identity. Missing evidence
    gets `distribution-unverified`. Both are omitted from `index.json` and appear in `review.json`.
+   Reviewed evidence is tied to an exact repository and official source, and the claimed title
+   must appear in that repository's text. Adding evidence requires a person to check the source.
 4. **Classify** verified decompilations into `needs-asset-audit`, `byo-only`, `needs-port` or
    `rejected` with reasons. Decompilation projects are treated as bring-your-own. Native ports
    are `external-only`: they cannot run in Vapor's WebAssembly player or be mirrored.
 5. **Write** one JSON record per repo plus `index.json` and `review.json` to `crawl-output/`. State for incremental
    runs is kept in `state.json`.
+
+Each run logs search counts and timings, queue decisions, per-repository classification and
+distribution evidence, asset audits, errors and final totals. The scheduled workflow also saves
+the console output as `crawl-output/crawl.log` on the `crawler-data` branch.
 
 The crawler currently searches GitHub repositories. A standalone itch.io release such as
 Azimuth requires a separate source adapter and is outside this crawler's discovery scope.
