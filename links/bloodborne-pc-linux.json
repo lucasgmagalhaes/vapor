@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "slug": "bloodborne-pc-linux",
+  "title": "Bloodborne PC port (Linux)",
+  "publisher": "Sony Interactive Entertainment / FromSoftware",
+  "url": "https://github.com/deadinside28/bloodborne_pc",
+  "platforms": ["linux"],
+  "requires": "A copy of the original game that you own (see the project's README for what is needed)",
+  "summary": "Native Linux port of the PS4 game (AppImage). Unofficial.",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": ["native-port","vulkan"]
+}
