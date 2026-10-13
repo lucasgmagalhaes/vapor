@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Continuous crawler: finds open-source games on GitHub that could be ported/packaged for the
+// Continuous crawler: finds decompilations of released games and native ports of console games on GitHub that could be ported/packaged for the
 // Vapor catalog, classifies license and wasm signals, and writes automated review records to crawl-output/.
 // Hand-reviewed records live in candidates/ (committed); repos that have one there are skipped.
 //
@@ -18,27 +18,32 @@ import { promisify } from "node:util";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { auditTree } from "./license-audit.mjs";
+import { storeLinks, verifyDistribution } from "./distribution.mjs";
 
 const run = promisify(execFile);
 
 const API = "https://api.github.com";
 const QUERIES = [
-  "topic:emscripten topic:game",
-  "topic:webassembly topic:game",
-  "topic:emscripten-port",
   "topic:decompilation topic:game",
-  "topic:game-engine topic:remake",
-  // Projects that cannot run in Vapor but can be listed as link-only entries (status
-  // `external-only`): static recompilations and native ports of commercial games.
+  "topic:reverse-engineering topic:game",
   "topic:recompilation topic:game",
   "topic:static-recompilation",
   "topic:game-recompilation",
-  "topic:native-port topic:game",
-  "static recompilation game port in:description",
+  "decompilation game in:description",
+  "topic:pc-port topic:ps4",
+  "running natively in:description",
 ];
 // Drop curated lists and other non-game noise from search results.
-const NOISE = /(^|[-_/])awesome([-_]|$)|beginners|tutorial|boilerplate|template|\bcourse\b/i;
-const GAMEISH = /game|engine|remake|port|decomp|clone|emulat|doom|quake|tycoon|rogue/i;
+const NOISE = /(^|[-_/])awesome([-_]|$)|beginners|tutorial|boilerplate|template|\bcourse\b|\b(?:game|aurora) engine\b|\b(framework|sdk|library|asset[- ]?pack|collection)\b/i;
+const GAMEISH = /game|remake|port|decomp|recomp|clone|emulat|native|doom|quake|tycoon|rogue/i;
+const DECOMP = /\bdecompil(?:ation|ed|ing|e)\b|\breverse[- ]engineer(?:ed|ing)?\b|\bstatic[- ]recompil(?:ation|ed|ing|e)\b|\brecompil(?:ation|ed|ing|e)\b/i;
+const NATIVE_PORT = /\b(?:native (?:linux |windows |pc )?|pc |windows |linux )port\b|\b(?:runs?|running) natively\b|\boriginal (?:game )?(?:x86[- ]64 )?(?:code|executable) runs?\b/i;
+export const isDecompilation = (text) => DECOMP.test(text);
+export const projectKind = (text) => NATIVE_PORT.test(text) ? "native-port" : isDecompilation(text) ? "decompilation" : null;
+export function isSearchCandidate(repo) {
+  const summary = `${repo.name} ${repo.description ?? ""} ${(repo.topics ?? []).join(" ")}`;
+  return !NOISE.test(repo.full_name) && !NOISE.test(repo.description ?? "") && GAMEISH.test(summary) && projectKind(summary) !== null;
+}
 const OPEN_CODE = /^(GPL|LGPL|AGPL|MIT|BSD|Zlib|Apache|MPL|CC0|Unlicense|ISC|BSL)/i;
 const SIGNALS = {
   wasmPaths: /(^|\/)(emscripten|wasm|web)\/|emscripten|\.wasm$/i,
@@ -145,7 +150,9 @@ export function priority(repo) {
   let p = Math.log10((repo.stargazers_count ?? 0) + 1);
   if (repo.license?.spdx_id && OPEN_CODE.test(repo.license.spdx_id)) p += 3;
   if (/emscripten|webassembly|wasm/i.test(topics)) p += 2;
+  if (storeLinks(`${repo.homepage ?? ""} ${repo.description ?? ""}`).length) p += 4;
   if (/decomp/i.test(topics)) p -= 1; // bring-your-own: slower to turn into a listing
+  if (repo.seeded) p += 10;
   return p;
 }
 
@@ -212,25 +219,35 @@ async function discover(minStars) {
   const found = new Map();
   for (const q of QUERIES) {
     const pushed = new Date(Date.now() - 2 * 365 * 864e5).toISOString().slice(0, 10);
-    const full = `${q} stars:>=${minStars} archived:false fork:false pushed:>=${pushed}`;
+    const full = `${q} stars:>=${minStars} archived:false fork:true pushed:>=${pushed}`;
     const r = await gh(`/search/repositories?q=${encodeURIComponent(full)}&sort=stars&order=desc&per_page=30`);
     for (const it of r?.items ?? []) {
-      if (NOISE.test(it.full_name) || !GAMEISH.test(`${it.name} ${it.description ?? ""} ${(it.topics ?? []).join(" ")}`)) continue;
+      if (!isSearchCandidate(it)) continue;
       found.set(it.full_name, it);
     }
-    await sleep(6500); // search API: 10 requests/min
+    // Eight queries fit the anonymous search limit of ten requests per minute.
+  }
+  const seeds = await loadJson(new URL("./seeds.json", import.meta.url), []);
+  const seeded = await Promise.allSettled(seeds.map((name) => gh(`/repos/${name}`)));
+  for (const result of seeded) {
+    if (result.status === "fulfilled" && result.value && !result.value.archived) found.set(result.value.full_name, { ...result.value, seeded: true });
+    else if (result.status === "rejected") console.error(`warning: seed lookup failed: ${result.reason.message}`);
   }
   return [...found.values()];
 }
 
-function classify(rec) {
+export function classify(rec) {
   const reasons = [];
+  if (!rec.project_kind) return { status: "not-target-project", reasons: ["no decompilation, recompilation, or game-specific native port evidence"] };
+  if (rec.distribution.status !== "verified") {
+    return { status: "distribution-unverified", reasons: [rec.distribution.reason] };
+  }
   const codeOpen = rec.license.spdx && OPEN_CODE.test(rec.license.spdx);
   if (!rec.license.spdx || rec.license.spdx === "NOASSERTION") reasons.push("code license missing or not recognized");
   else if (!codeOpen) reasons.push(`code license ${rec.license.spdx} is not a known open license`);
   if (!rec.signals.wasm) reasons.push("no wasm/emscripten signal found");
   let status;
-  if (rec.signals.consolePort) {
+  if (rec.project_kind === "native-port" || rec.signals.consolePort) {
     // Not wasm and not hostable, but it can be listed as a link to the original source (never
     // run, never mirrored). Needs a person: legal_note, requirements and a liveness check.
     reasons.push("native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)");
@@ -270,7 +287,8 @@ async function inspect(repo) {
     const licenseFile = top.find((p) => /^(license|licence|copying)(\.(md|txt))?$/i.test(p)) ?? null;
     const readme = readmeFile ? await blob(work, readmeFile) : "";
     const licenseText = licenseFile ? await blob(work, licenseFile) : "";
-    const text = [repo.description ?? "", readme, ...(repo.topics ?? [])].join("\n");
+    const text = [repo.name, repo.description ?? "", readme, ...(repo.topics ?? [])].join("\n");
+    const distribution = await verifyDistribution(`${repo.homepage ?? ""}\n${text}`);
     const wasmPaths = paths.filter((p) => SIGNALS.wasmPaths.test(p)).slice(0, 5);
     const rec = {
       repo: repo.full_name,
@@ -281,6 +299,7 @@ async function inspect(repo) {
       default_branch: repo.default_branch,
       commit_checked: (await git(work, "rev-parse", "HEAD")).trim(),
       license: { spdx: repo.license?.spdx_id ?? null, file: licenseFile },
+      distribution,
       signals: {
         wasm: wasmPaths.length > 0 || SIGNALS.wasmText.test(text),
         wasm_paths: wasmPaths,
@@ -291,8 +310,10 @@ async function inspect(repo) {
       },
       crawled_at: new Date().toISOString(),
     };
-    rec.decomp = /decomp|reverse[- ]engineer|recompil/i.test(`${repo.description ?? ""} ${(repo.topics ?? []).join(" ")}`);
-    rec.security = await securitySignals(work, paths);
+    const summary = `${repo.name} ${repo.description ?? ""} ${(repo.topics ?? []).join(" ")}`;
+    rec.project_kind = projectKind(summary) ?? projectKind(text);
+    rec.decomp = rec.project_kind === "decompilation";
+    rec.security = distribution.status === "verified" ? await securitySignals(work, paths) : { flags: [], binaries: [], submodule_hosts: [], risky: [] };
     const out = { ...rec, ...classify(rec) };
     if (rec.security.flags.length) out.reasons.push(`supply-chain flags: ${rec.security.flags.join(", ")} (read those files before building)`);
     return out;
@@ -379,13 +400,16 @@ async function runOnce(o) {
   await pool(queue, o.concurrency, handle);
   await writeFile(statePath, JSON.stringify(state, null, 2) + "\n");
 
-  const files = (await readdir(o.out)).filter((f) => f.endsWith(".json") && !["state.json", "index.json", "duplicates.json"].includes(f));
+  const files = (await readdir(o.out)).filter((f) => f.endsWith(".json") && !["state.json", "index.json", "review.json", "duplicates.json"].includes(f));
   const all = await Promise.all(files.map((f) => loadJson(path.join(o.out, f), null)));
   const rank = { listed: -1, "ready-to-build": 0, "needs-asset-audit": 1, "byo-only": 2, "external-only": 2.5, "needs-port": 3, blocked: 4, rejected: 5 };
-  const index = all.filter(Boolean)
+  const index = all.filter((r) => r?.distribution?.status === "verified")
     .sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9) || b.stars - a.stars)
-    .map((r) => ({ repo: r.repo, status: r.status, stars: r.stars, license: r.license.spdx, wasm: r.signals.wasm, security: r.security?.flags ?? [], duplicate_of: r.duplicate_of ?? [], reasons: r.reasons }));
+    .map((r) => ({ repo: r.repo, status: r.status, stars: r.stars, license: r.license.spdx, distribution: r.distribution, wasm: r.signals.wasm, security: r.security?.flags ?? [], duplicate_of: r.duplicate_of ?? [], reasons: r.reasons }));
   await writeFile(path.join(o.out, "index.json"), JSON.stringify(index, null, 2) + "\n");
+  const review = all.filter((r) => r?.project_kind && r?.distribution?.status !== "verified")
+    .map((r) => ({ repo: r.repo, project_kind: r.project_kind, distribution: r.distribution, stars: r.stars, reasons: r.reasons }));
+  await writeFile(path.join(o.out, "review.json"), JSON.stringify(review, null, 2) + "\n");
 
   // Probable duplicates among the records themselves.
   const groups = new Map();
