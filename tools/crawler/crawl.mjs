@@ -287,7 +287,7 @@ async function blob(dir, file) {
 
 // Inspection uses a blobless shallow clone (no REST quota): file tree comes from the clone,
 // and only the README/LICENSE blobs are fetched.
-async function inspect(repo) {
+async function inspect(repo, reviewedRelease = null) {
   const work = await mkdtemp(path.join(tmpdir(), "vapor-crawl-"));
   try {
     await run("git", ["clone", "-q", "--depth", "1", "--filter=blob:none", "--no-checkout", repo.clone_url, work], {
@@ -300,7 +300,7 @@ async function inspect(repo) {
     const readme = readmeFile ? await blob(work, readmeFile) : "";
     const licenseText = licenseFile ? await blob(work, licenseFile) : "";
     const text = [repo.name, repo.description ?? "", readme, ...(repo.topics ?? [])].join("\n");
-    const distribution = await verifyDistribution(`${repo.homepage ?? ""}\n${text}`);
+    const distribution = await verifyDistribution(`${repo.homepage ?? ""}\n${text}`, fetch, reviewedRelease);
     const wasmPaths = paths.filter((p) => SIGNALS.wasmPaths.test(p)).slice(0, 5);
     const rec = {
       repo: repo.full_name,
@@ -378,6 +378,7 @@ async function runOnce(o) {
   log("start", `max_new=${o.maxNew} min_stars=${o.minStars} concurrency=${o.concurrency} asset_audit=${o.assetAudit} out=${o.out}`);
   const statePath = path.join(o.out, "state.json");
   const state = await loadJson(statePath, { seen: {} });
+  const releaseEvidence = await loadJson(new URL("./release-evidence.json", import.meta.url), {});
   let repos;
   try { repos = await discover(o.minStars); }
   catch (e) { warn("search", `discovery stopped: ${e.message}`); return; }
@@ -385,12 +386,13 @@ async function runOnce(o) {
   const stale = (r) => {
     const s = state.seen[r.full_name];
     if (!s) return true;
+    if (releaseEvidence[r.full_name] && s.release_evidence_url !== releaseEvidence[r.full_name].url) return true;
     if (s.pushed_at !== r.pushed_at) return true;
     return Date.now() - Date.parse(s.crawled_at) > o.refreshDays * 864e5;
   };
   const known = await knownEntries(o);
   const pending = repos.filter(stale);
-  const queue = pending.sort((a, b) => priority(b) - priority(a)).slice(0, o.maxNew);
+  const queue = pending.sort((a, b) => Number(Boolean(releaseEvidence[b.full_name])) - Number(Boolean(releaseEvidence[a.full_name])) || priority(b) - priority(a)).slice(0, o.maxNew);
   log("queue", `discovered=${repos.length} unchanged=${repos.length - pending.length} selected=${queue.length} deferred=${pending.length - queue.length}`);
 
   const outcomes = {};
@@ -404,7 +406,7 @@ async function runOnce(o) {
         state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: new Date().toISOString() };
         return;
       }
-      let rec = await inspect(repo);
+      let rec = await inspect(repo, releaseEvidence[repo.full_name]);
       log("inspect", `${repo.full_name} classified=${rec.status} kind=${rec.project_kind ?? "none"} distribution=${rec.distribution.status} (${elapsed(inspectedAt)})`);
       if (o.assetAudit && rec.status === "needs-asset-audit") log("audit", `${repo.full_name} started`);
       if (o.assetAudit) rec = await assetAudit(repo, rec);
@@ -413,7 +415,7 @@ async function runOnce(o) {
       rec.duplicate_of = duplicatesOf(rec, known);
       if (rec.duplicate_of.length) rec.reasons.push(`possible duplicate of ${rec.duplicate_of.join(", ")}: decide which one to keep before building`);
       await writeFile(path.join(o.out, fileKey(repo.full_name)), JSON.stringify(rec, null, 2) + "\n");
-      state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: rec.crawled_at };
+      state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: rec.crawled_at, ...(rec.distribution.source === "reviewed-publisher-release" ? { release_evidence_url: rec.distribution.url } : {}) };
       outcomes[rec.status] = (outcomes[rec.status] ?? 0) + 1;
       const evidence = rec.distribution.status === "verified" ? `${rec.distribution.platform}: ${rec.distribution.title}` : rec.distribution.reason;
       log("result", `${repo.full_name} status=${rec.status} license=${rec.license.spdx ?? "none"} evidence=${oneLine(evidence)} duration=${elapsed(inspectedAt)}`);
