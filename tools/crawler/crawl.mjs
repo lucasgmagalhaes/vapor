@@ -39,6 +39,9 @@ const SIGNALS = {
   openAssets: /cc[- ]?by(-sa)?|cc0|creative commons|public domain|open ?gfx|freedoom|free (art|assets|graphics|content)/i,
   byo: /bring your own|original (game )?(data|assets|files)|own copy|requires? (the )?(original|retail|commercial)|game data (is )?not included|\.(pak|wad|iso|rom)\b/i,
   freeware: /freeware|shareware/i,
+  // Ports that run a commercial console game's own binary from the player's dump/disc: native
+  // executables derived from proprietary code, never a wasm build. Rejected up front.
+  consolePort: /CUSA\d{4,}|PPSA\d{4,}|your own (game )?dump|bring your own dump|shadPS4|PS4 (port|emulat)|PS5 (port|emulat)|static recompilation of|jailbr[eo]ken console|decrypted (eboot|elf|dump)/i,
 };
 
 // Supply-chain signals: things a malicious or careless repository would ship. They never
@@ -220,6 +223,10 @@ function classify(rec) {
   else if (!codeOpen) reasons.push(`code license ${rec.license.spdx} is not a known open license`);
   if (!rec.signals.wasm) reasons.push("no wasm/emscripten signal found");
   let status;
+  if (rec.signals.consolePort) {
+    reasons.push("console port that runs a commercial game's own binary from the player's dump/disc: native, proprietary-derived, not wasm; rejected (recommend legal review before ever listing anything like it)");
+    return { status: "rejected", reasons };
+  }
   if (!codeOpen) status = "rejected";
   else if (rec.signals.byo || rec.decomp) status = "byo-only"; // conservative: assume proprietary assets
   else if (rec.signals.wasm) status = "needs-asset-audit";
@@ -271,6 +278,7 @@ async function inspect(repo) {
         openAssets: SIGNALS.openAssets.test(text) || SIGNALS.openAssets.test(licenseText),
         byo: SIGNALS.byo.test(text),
         freeware: SIGNALS.freeware.test(text),
+        consolePort: SIGNALS.consolePort.test(`${repo.name} ${text}`),
       },
       crawled_at: new Date().toISOString(),
     };
