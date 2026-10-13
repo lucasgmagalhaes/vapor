@@ -94,9 +94,12 @@ function GameDetail(props: {
         <a href={game.source.repo} target="_blank" rel="noreferrer">source code</a> · contact: {game.contact}
       </p>
       {installed ? (
-        <button onClick={() => run("Uninstalling", () => api.uninstallGame(game.slug))}>
-          Uninstall
-        </button>
+        <>
+          <button onClick={() => run("Starting", () => api.playGame(game.slug))}>Play</button>
+          <button onClick={() => run("Uninstalling", () => api.uninstallGame(game.slug))}>
+            Uninstall
+          </button>
+        </>
       ) : (
         <button onClick={() => run("Downloading and verifying", () => api.installGame(game.slug))}>
           Install

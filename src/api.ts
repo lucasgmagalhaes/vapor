@@ -31,6 +31,7 @@ export const api = {
   getCatalog: (query?: string) => invoke<Game[]>("get_catalog", { query }),
   refreshCatalog: () => invoke<RefreshResult>("refresh_catalog"),
   installGame: (slug: string) => invoke<void>("install_game", { slug }),
+  playGame: (slug: string) => invoke<void>("play_game", { slug }),
   uninstallGame: (slug: string) => invoke<void>("uninstall_game", { slug }),
   installedGames: () => invoke<string[]>("installed_games"),
   listSaves: (slug: string) => invoke<SaveMeta[]>("list_saves", { slug }),
