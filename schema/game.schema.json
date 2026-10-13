@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vapor game manifest",
+  "type": "object",
+  "required": ["schema", "slug", "title", "authors", "source", "license", "assets_policy", "artifact", "saves", "contact"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 64 },
+    "title": { "type": "string", "minLength": 1 },
+    "authors": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "source": {
+      "type": "object", "required": ["repo", "commit"], "additionalProperties": false,
+      "properties": { "repo": { "type": "string", "format": "uri" }, "commit": { "type": "string" } }
+    },
+    "license": {
+      "type": "object", "required": ["code", "assets"], "additionalProperties": false,
+      "properties": { "code": { "type": "string" }, "assets": { "type": "string" } }
+    },
+    "assets_policy": { "enum": ["open", "bring-your-own"] },
+    "artifact": {
+      "type": "object", "required": ["url", "sha256", "size", "entry"], "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "pattern": "^https://" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+        "size": { "type": "integer", "minimum": 1 },
+        "entry": { "type": "string" }
+      }
+    },
+    "saves": {
+      "type": "object", "required": ["paths", "version"], "additionalProperties": false,
+      "properties": {
+        "paths": { "type": "array", "items": { "type": "string", "pattern": "^/" } },
+        "version": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "contact": { "type": "string" }
+  }
+}

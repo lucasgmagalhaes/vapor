@@ -1,0 +1,19 @@
+name: publish-catalog
+# Gera catalog.json e publica na branch `catalog`; o app baixa dali.
+on:
+  push:
+    branches: [main]
+    paths: ["games/**", "takedown/**"]
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo run -q -p vapor-cli -- index .
+      - run: |
+          git config user.name "vapor-bot"; git config user.email "bot@users.noreply.github.com"
+          git checkout --orphan catalog && git rm -rf --cached . >/dev/null
+          git add -f catalog.json && git commit -m "catalog" && git push -f origin catalog
