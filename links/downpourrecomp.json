@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "slug": "downpourrecomp",
-  "title": "Downpour Recomp",
+  "title": "Silent Hill: Downpour",
   "publisher": "Unknown (see the project's README)",
   "url": "https://github.com/LittleBitUA/DownpourRecomp",
   "platforms": [
@@ -10,6 +10,7 @@
   "requires": "A copy of the original game that you own (see the project's README)",
   "summary": "Silent Hill: Downpour — native Windows PC port via static recompilation of the Xbox 360 binary. v1.0 stable: 60 FPS unlocked, ROV warm-cache, standalone launcher, DualSense adaptive triggers, portable saves. Tested on USA + Europe X360 dumps.",
   "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "cover": "https://upload.wikimedia.org/wikipedia/en/e/e2/Silent_Hill_Downpour_box_art.jpg",
   "tags": [
     "recompilation"
   ]

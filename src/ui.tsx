@@ -68,7 +68,7 @@ export function IconButton(props: { icon: IconName; label: string; onClick: () =
 }
 
 /** Store-style cover: the official image when the catalog has one, a titled placeholder otherwise. */
-export function Cover({ src, title, className = "" }: { src?: string; title: string; className?: string }) {
+export function Cover({ src, title, className = "", showPlaceholderTitle = false }: { src?: string; title: string; className?: string; showPlaceholderTitle?: boolean }) {
   const [broken, setBroken] = useState(false);
   useEffect(() => setBroken(false), [src]);
   if (src && !broken) {
@@ -85,7 +85,7 @@ export function Cover({ src, title, className = "" }: { src?: string; title: str
   }
   return (
     <div className={`cover placeholder ${className}`} role="img" aria-label={`No cover for ${title}`}>
-      {title.slice(0, 2).toUpperCase()}
+      {showPlaceholderTitle ? title : title.slice(0, 2).toUpperCase()}
     </div>
   );
 }
@@ -103,7 +103,7 @@ export function Chips({ tags, max = 2 }: { tags: string[]; max?: number }) {
 export function GameCard({ item, onOpen }: { item: Item; onOpen: () => void }) {
   return (
     <button className={`card${item.unavailable ? " unavailable" : ""}`} onClick={onOpen}>
-      <Cover src={item.cover} title={item.title} />
+      <Cover src={item.cover} title={item.title} showPlaceholderTitle />
       <span className="card-body">
         <strong className="card-title">{item.title}</strong>
         <span className="card-meta">
