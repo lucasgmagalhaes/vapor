@@ -1,0 +1,89 @@
+name: pipeline-list-game
+# Turns an approved candidate whose artifact is already built (a Release of vapor-artifacts) into
+# a DRAFT pull request that adds games/<slug>/game.json + audits/<slug>.json:
+#   download -> hash -> security audit (blocks stop the run) -> browser smoke test (infers
+#   saves.paths) -> manifest -> `vapor validate` -> draft PR with a reviewer checklist.
+# A person reviews the license files and merges. Nothing is merged or published automatically.
+on:
+  workflow_dispatch:
+    inputs:
+      candidate:
+        description: "Crawler record file name on the crawler-data branch, e.g. Owner__repo.json"
+        required: true
+      slug:
+        description: "Game slug (also the Release zip name: <slug>.zip)"
+        required: true
+      title:
+        description: "Display title"
+        required: true
+      entry:
+        description: "Entry file inside the zip, e.g. my-game/index.html"
+        required: true
+      tag:
+        description: "Release tag in vapor-artifacts, e.g. my-game-1"
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pipeline-${{ inputs.slug }}
+  cancel-in-progress: false
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SLUG: ${{ inputs.slug }}
+      TITLE: ${{ inputs.title }}
+      ENTRY: ${{ inputs.entry }}
+      TAG: ${{ inputs.tag }}
+      CANDIDATE: ${{ inputs.candidate }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+
+      - name: Install pipeline tools and a browser
+        run: |
+          cd tools/pipeline && npm ci --no-audit --no-fund
+          npx playwright-core install --with-deps chromium
+
+      - name: Fetch the candidate record
+        run: |
+          git fetch origin crawler-data --depth 1
+          git show FETCH_HEAD:"$CANDIDATE" > candidate.json
+
+      - name: Build the listing
+        id: make
+        continue-on-error: true
+        run: |
+          node tools/pipeline/make-manifest.mjs --candidate candidate.json \
+            --slug "$SLUG" --title "$TITLE" --entry "$ENTRY" --tag "$TAG" --channel chromium
+
+      - name: Validate the whole catalog
+        id: validate
+        continue-on-error: true
+        run: cargo run -q -p vapor-cli -- validate .
+
+      - name: Open a draft pull request
+        run: |
+          set -euo pipefail
+          test -f pr-body.md
+          {
+            echo
+            echo "- make-manifest: ${{ steps.make.outcome }}"
+            echo "- vapor validate: ${{ steps.validate.outcome }}"
+          } >> pr-body.md
+          branch="pipeline/$SLUG"
+          git config user.name "vapor-bot"; git config user.email "bot@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add games audits
+          git commit -m "feat(catalog): add $TITLE"
+          git push -f origin "$branch"
+          gh pr create --draft --base main --head "$branch" \
+            --title "Add $TITLE" --body-file pr-body.md \
+            || gh pr edit "$branch" --body-file pr-body.md
