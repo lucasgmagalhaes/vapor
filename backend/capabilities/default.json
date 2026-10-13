@@ -2,5 +2,5 @@
   "$schema": "../gen/schema/desktop-schema.json",
   "identifier": "default",
   "windows": ["main"],
-  "permissions": ["core:default", "dialog:allow-open", "dialog:allow-save"]
+  "permissions": ["core:default", "dialog:allow-open", "dialog:allow-save", "opener:default"]
 }

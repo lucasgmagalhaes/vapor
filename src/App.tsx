@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { open, save } from "@tauri-apps/plugin-dialog";
-import { api, ByoStatus, Game, SaveMeta } from "./api";
+import { openUrl } from "@tauri-apps/plugin-opener";
+import { api, ByoStatus, ExternalEntry, Game, SaveMeta } from "./api";
 
 export function App() {
   const [games, setGames] = useState<Game[]>([]);
@@ -8,10 +9,12 @@ export function App() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Game | null>(null);
   const [status, setStatus] = useState("");
+  const [links, setLinks] = useState<ExternalEntry[]>([]);
 
   const load = useCallback(async () => {
     setGames(await api.getCatalog(query));
     setInstalled(await api.installedGames());
+    setLinks(await api.getLinks());
   }, [query]);
 
   useEffect(() => {
@@ -58,6 +61,7 @@ export function App() {
           ))}
           {games.length === 0 && <li className="empty">Catalog is empty. Click “Refresh catalog”.</li>}
         </ul>
+        {links.length > 0 && <ExternalProjects links={links} />}
         {selected && (
           <GameDetail
             game={selected}
@@ -193,5 +197,35 @@ function GameDetail(props: {
         Delete all saves
       </button>
     </aside>
+  );
+}
+
+/** Projects Vapor does not host or run: the original source is always shown and opened in the browser. */
+function ExternalProjects({ links }: { links: ExternalEntry[] }) {
+  return (
+    <section className="external">
+      <h2>External projects (link only)</h2>
+      <p>
+        Not hosted, tested or endorsed by Vapor, and they do not run inside it. Vapor only lists them and
+        links the original source, which is checked every few hours.
+      </p>
+      <ul>
+        {links.map((l) => (
+          <li key={l.slug}>
+            <strong>{l.title}</strong> <small>({l.publisher}; {l.platforms.join(", ")})</small>
+            {l.status && (
+              <span className="badge">
+                {l.status.state}
+                {l.status.latest_release ? ` · ${l.status.latest_release}` : ""}
+              </span>
+            )}
+            <p>{l.summary}</p>
+            <p><em>Needs:</em> {l.requires}</p>
+            <p className="legal">{l.legal_note}</p>
+            <button onClick={() => openUrl(l.url)}>Open original source</button>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
