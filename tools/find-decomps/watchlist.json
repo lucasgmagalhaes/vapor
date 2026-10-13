@@ -1,0 +1,6 @@
+{
+  "minStars": 5,
+  "limit": 10,
+  "queries": ["resident evil", "doom", "quake", "super mario 64", "zelda"],
+  "reviewed": ["cloudflare/doom-wasm"]
+}
