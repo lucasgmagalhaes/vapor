@@ -42,7 +42,13 @@ jobs:
 
       - name: Summary
         run: |
-          {
-            echo "### Candidates by status"
-            node -e 'const i=require("./crawl-output/index.json");const c={};for(const r of i)c[r.status]=(c[r.status]||0)+1;for(const k in c)console.log("- "+k+": "+c[k])'
-          } >> "$GITHUB_STEP_SUMMARY"
+          node -e '
+            const i = require("./crawl-output/index.json");
+            const c = {}; for (const r of i) c[r.status] = (c[r.status] || 0) + 1;
+            console.log("### Candidates by status");
+            for (const k in c) console.log("- " + k + ": " + c[k]);
+            const top = i.filter((r) => ["needs-asset-audit", "byo-only"].includes(r.status)).slice(0, 20);
+            console.log("\n### To review (top " + top.length + ")");
+            console.log("| repo | status | license | stars |\n|---|---|---|---|");
+            for (const r of top) console.log("| [" + r.repo + "](https://github.com/" + r.repo + ") | " + r.status + " | " + (r.license ?? "-") + " | " + r.stars + " |");
+          ' >> "$GITHUB_STEP_SUMMARY"
