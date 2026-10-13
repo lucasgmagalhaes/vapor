@@ -1,0 +1,87 @@
+name: build-doom-freedoom
+# Compila cloudflare/doom-wasm (GPL-2.0) + Freedoom (BSD-3) e publica um pacote
+# em um GitHub Release. O sha256/tamanho impressos no resumo vão para games/doom-freedoom/game.json.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  DOOM_WASM_REPO: https://github.com/cloudflare/doom-wasm
+  DOOM_WASM_COMMIT: 65e0d3ae2ffa604155eebd96ed40da6567bd08f4
+  FREEDOOM_URL: https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip
+  FREEDOOM_SHA256: 3f9b264f3e3ce503b4fb7f6bdcb1f419d93c7b546f4df3e874dd878db9688f59
+  EMSDK_VERSION: 3.1.74
+  TAG: doom-freedoom-${{ github.run_number }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: ${{ env.EMSDK_VERSION }}
+
+      - name: Dependências de build
+        run: sudo apt-get update && sudo apt-get install -y autoconf automake libtool pkg-config
+
+      - name: Baixar doom-wasm no commit fixado
+        run: |
+          git init doom-wasm && cd doom-wasm
+          git remote add origin "$DOOM_WASM_REPO"
+          git fetch --depth 1 origin "$DOOM_WASM_COMMIT"
+          git checkout FETCH_HEAD
+
+      - name: Baixar e verificar Freedoom
+        run: |
+          curl -fsSL -o freedoom.zip "$FREEDOOM_URL"
+          echo "$FREEDOOM_SHA256  freedoom.zip" | sha256sum -c -
+          unzip -q freedoom.zip
+
+      - name: Compilar
+        working-directory: doom-wasm
+        run: ./scripts/build.sh
+
+      - name: Empacotar
+        run: |
+          set -euo pipefail
+          out=pkg/doom-freedoom
+          mkdir -p "$out"
+          src=doom-wasm/src
+          cp "$src"/index.html "$src"/websockets-doom.js "$src"/websockets-doom.wasm "$out"/
+          cp "$src"/default.cfg "$out"/ 2>/dev/null || : > "$out"/default.cfg
+          # o index.html espera doom1.wad; Freedoom Phase 1 ocupa esse lugar
+          cp freedoom-0.13.0/freedoom1.wad "$out"/doom1.wad
+          cp doom-wasm/COPYING.md "$out"/LICENSE-doom-wasm.md
+          cp freedoom-0.13.0/COPYING.txt "$out"/LICENSE-freedoom.txt
+          cp freedoom-0.13.0/CREDITS.txt "$out"/CREDITS-freedoom.txt
+          cat > "$out"/SOURCE.txt <<EOT
+          Código: $DOOM_WASM_REPO @ $DOOM_WASM_COMMIT (GPL-2.0)
+          Assets: Freedoom 0.13.0 (BSD-3-Clause) - https://freedoom.github.io
+          Empacotado por https://github.com/${{ github.repository }}
+          EOT
+          (cd pkg && zip -qr -X ../doom-freedoom.zip doom-freedoom)
+
+      - name: Hash e tamanho
+        id: hash
+        run: |
+          echo "sha256=$(sha256sum doom-freedoom.zip | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+          echo "size=$(stat -c %s doom-freedoom.zip)" >> "$GITHUB_OUTPUT"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: Doom (Freedoom) ${{ env.TAG }}
+          files: doom-freedoom.zip
+
+      - name: Resumo
+        run: |
+          {
+            echo "### Artefato publicado"
+            echo "- url: https://github.com/${{ github.repository }}/releases/download/${{ env.TAG }}/doom-freedoom.zip"
+            echo "- sha256: ${{ steps.hash.outputs.sha256 }}"
+            echo "- size: ${{ steps.hash.outputs.size }}"
+          } >> "$GITHUB_STEP_SUMMARY"
