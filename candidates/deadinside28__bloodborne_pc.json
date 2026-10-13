@@ -1,0 +1,17 @@
+{
+  "repo": "deadinside28/bloodborne_pc",
+  "url": "https://github.com/deadinside28/bloodborne_pc",
+  "status": "rejected",
+  "manual": true,
+  "commit_checked": "3c57da4198ad62039f63f33bfd205b9916518acf",
+  "license": { "spdx": "GPL-2.0" },
+  "signals": { "wasm": false, "byo": true },
+  "reasons": [
+    "Bloodborne (PS4, Sony/FromSoftware) port for Linux (AppImage); needs the player's own dump of the game",
+    "Native desktop port (Windows/Linux executables, Vulkan, console binaries run on the CPU or statically recompiled): there is no WebAssembly build and no realistic path to one",
+    "Needs the player's own copy of a current commercial console/PC game and is derived from its proprietary binary: high takedown risk (same concern as any Capcom/Sony/Microsoft-derived code); recommend legal review before anything like it is ever listed",
+    "Distributed as large prebuilt executables (AppImage/zip/launcher): the Vapor security audit blocks native executables by design",
+    "The GPL/BSD label only covers the authors' own code, not the game"
+  ],
+  "source": "metadata and README read via the GitHub API on 2026-10-13; nothing was downloaded"
+}
