@@ -101,7 +101,10 @@ async function main() {
     sh("unzip", ["-q", downloaded, "-d", scanTarget]);
   }
   const exe = get("--exe") ?? pickExe(names, asset.name);
-  if (!exe) throw new Error("could not tell which program to start; pass --exe");
+  if (!exe) {
+    const exes = names.filter((n) => /\.exe$/i.test(n)).slice(0, 25);
+    throw new Error(`could not tell which program to start; pass --exe. Executables in the zip: ${exes.join(", ") || "(none)"}`);
+  }
   if (names.length && !names.includes(exe)) throw new Error(`${exe} is not inside the zip`);
 
   const clamVersion = sh("clamscan", ["--version"]).trim();
