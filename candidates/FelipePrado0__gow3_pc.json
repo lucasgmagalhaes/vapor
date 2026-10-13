@@ -1,0 +1,17 @@
+{
+  "repo": "FelipePrado0/gow3_pc",
+  "url": "https://github.com/FelipePrado0/gow3_pc",
+  "status": "external-only",
+  "manual": true,
+  "commit_checked": "0cefb44bef20a1b899ebbc42fe24820ca12b81a2",
+  "license": { "spdx": "GPL-2.0" },
+  "signals": { "wasm": false, "byo": true },
+  "reasons": [
+    "God of War III Remastered (PS4, Sony) port: original x86-64 code runs directly on the CPU; needs the player's own dump",
+    "Native desktop port (Windows/Linux executables, Vulkan, console binaries run on the CPU or statically recompiled): there is no WebAssembly build and no realistic path to one",
+    "Needs the player's own copy of a current commercial console/PC game and is derived from its proprietary binary: high takedown risk (same concern as any Capcom/Sony/Microsoft-derived code); recommend legal review before anything like it is ever listed",
+    "Distributed as large prebuilt executables (AppImage/zip/launcher): the Vapor security audit blocks native executables by design",
+    "The GPL/BSD label only covers the authors' own code, not the game"
+  ],
+  "source": "metadata and README read via the GitHub API on 2026-10-13; nothing was downloaded"
+}
