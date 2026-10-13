@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// Busca no GitHub projetos de decompilação de jogos que sirvam de base para portar a wasm.
-// Uso: node tools/find-decomps/find-decomps.mjs [opções]
-//   --query "resident evil"   termo livre (opcional; sem ele lista por tópicos)
-//   --min-stars 20            mínimo de estrelas (padrão 10)
-//   --limit 30                máximo de resultados (padrão 30)
-//   --deep                    inspeciona a árvore de arquivos atrás de sinais de wasm/emscripten/SDL
-//   --json                    saída em JSON (padrão: tabela)
-// Defina GITHUB_TOKEN para evitar o rate limit baixo da API anônima.
-// Este script só DESCOBRE candidatos. Licença e direitos dos assets exigem revisão humana.
+// Searches GitHub for game decompilation projects that can serve as a base for a wasm port.
+// Usage: node tools/find-decomps/find-decomps.mjs [options]
+//   --query "resident evil"   free-text term (optional; without it, lists by topic)
+//   --min-stars 20            minimum stars (default 10)
+//   --limit 30                maximum results (default 30)
+//   --deep                    inspects the file tree for wasm/emscripten/SDL signals
+//   --json                    JSON output (default: table)
+// Set GITHUB_TOKEN to avoid the low rate limit of the anonymous API.
+// This script only DISCOVERS candidates. License and asset rights require human review.
 
 const API = "https://api.github.com";
 const TOPICS = ["decompilation", "matching-decompilation", "game-decompilation", "decomp"];
@@ -23,10 +23,10 @@ function parseArgs(argv) {
     else if (a === "--limit") o.limit = Number(argv[++i]);
     else if (a === "--deep") o.deep = true;
     else if (a === "--json") o.json = true;
-    else if (a === "-h" || a === "--help") { console.log("veja o cabeçalho do arquivo"); process.exit(0); }
-    else { console.error(`opção desconhecida: ${a}`); process.exit(2); }
+    else if (a === "-h" || a === "--help") { console.log("see the header of this file"); process.exit(0); }
+    else { console.error(`unknown option: ${a}`); process.exit(2); }
   }
-  if (!Number.isFinite(o.minStars) || !Number.isFinite(o.limit)) { console.error("valores numéricos inválidos"); process.exit(2); }
+  if (!Number.isFinite(o.minStars) || !Number.isFinite(o.limit)) { console.error("invalid numeric values"); process.exit(2); }
   return o;
 }
 
@@ -42,7 +42,7 @@ async function gh(path) {
   for (let attempt = 0; attempt < 3; attempt++) {
     const res = await fetch(`${API}${path}`, { headers: authHeaders() });
     if (res.status === 401 && useToken) {
-      console.error("aviso: GITHUB_TOKEN rejeitado (401); seguindo sem autenticação (limite de requisições menor)");
+      console.error("warning: GITHUB_TOKEN rejected (401); continuing unauthenticated (lower rate limit)");
       useToken = false;
       continue;
     }
@@ -50,14 +50,14 @@ async function gh(path) {
     const reset = Number(res.headers.get("x-ratelimit-reset"));
     if ((res.status === 403 || res.status === 429) && res.headers.get("x-ratelimit-remaining") === "0" && reset) {
       const wait = Math.max(0, reset * 1000 - Date.now()) + 1000;
-      if (wait > 90_000) throw new Error(`rate limit da API; tente após ${new Date(reset * 1000).toISOString()} ou defina GITHUB_TOKEN`);
+      if (wait > 90_000) throw new Error(`API rate limit; retry after ${new Date(reset * 1000).toISOString()} or set GITHUB_TOKEN`);
       await new Promise((r) => setTimeout(r, wait));
       continue;
     }
-    if (res.status === 409 || res.status === 404) return null; // repo vazio / sem árvore
-    throw new Error(`GitHub ${res.status} em ${path}: ${(await res.text()).slice(0, 200)}`);
+    if (res.status === 409 || res.status === 404) return null; // empty repo / no tree
+    throw new Error(`GitHub ${res.status} at ${path}: ${(await res.text()).slice(0, 200)}`);
   }
-  throw new Error(`falhou após tentativas: ${path}`);
+  throw new Error(`failed after retries: ${path}`);
 }
 
 async function search(opts) {
@@ -84,7 +84,7 @@ function score(repo, signals) {
   if (signals.byo) s += 10;
   if (/c\+\+|^c$|rust/i.test(repo.language ?? "")) s += 5;
   const months = (Date.now() - Date.parse(repo.pushed_at)) / 2.6e9;
-  s -= Math.min(months * 2, 20); // projetos parados perdem pontos
+  s -= Math.min(months * 2, 20); // stale projects lose points
   return Math.round(s);
 }
 
@@ -95,7 +95,7 @@ async function inspect(repo, deep) {
   if (deep) {
     const tree = await gh(`/repos/${repo.full_name}/git/trees/${repo.default_branch}?recursive=1`);
     const paths = (tree?.tree ?? []).map((n) => n.path.toLowerCase());
-    if (paths.some((p) => /emscripten|\.wasm$|wasm/.test(p))) wasm.push("arquivos wasm/emscripten");
+    if (paths.some((p) => /emscripten|\.wasm$|wasm/.test(p))) wasm.push("wasm/emscripten files");
     if (paths.some((p) => /cmakelists\.txt$/.test(p))) wasm.push("cmake");
     const readme = await fetch(`https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/README.md`, { headers: { "User-Agent": headers["User-Agent"] } })
       .then((r) => (r.ok ? r.text() : "")).catch(() => "");
@@ -120,7 +120,7 @@ for (const r of repos) {
     results.push(await inspect(r, deep));
   } catch (e) {
     if (!deep) throw e;
-    console.error(`aviso: --deep desativado (${e.message}); usando só metadados`);
+    console.error(`warning: --deep disabled (${e.message}); using metadata only`);
     deep = false;
     results.push(await inspect(r, false));
   }
@@ -131,11 +131,11 @@ const top = results.slice(0, opts.limit);
 if (opts.json) {
   console.log(JSON.stringify(top, null, 2));
 } else {
-  console.log(`${top.length} candidato(s) de ${results.length} encontrados${opts.deep ? "" : " (use --deep para sinais de wasm/BYO)"}\n`);
+  console.log(`${top.length} candidate(s) of ${results.length} found${opts.deep ? "" : " (use --deep for wasm/BYO signals)"}\n`);
   for (const t of top) {
-    const flags = [t.signals.wasm.length ? "wasm?" : "", t.signals.byo ? "BYO?" : "", t.license ? "" : "SEM-LICENÇA"].filter(Boolean).join(" ");
+    const flags = [t.signals.wasm.length ? "wasm?" : "", t.signals.byo ? "BYO?" : "", t.license ? "" : "NO-LICENSE"].filter(Boolean).join(" ");
     console.log(`${String(t.score).padStart(3)}  ★${String(t.stars).padEnd(6)} ${t.repo.padEnd(45)} ${(t.license ?? "-").padEnd(12)} ${flags}`);
     if (t.description) console.log(`       ${t.description.slice(0, 110)}`);
   }
-  console.log("\nAtenção: isto só lista candidatos. Revise licença e direitos dos assets antes de criar um manifesto.");
+  console.log("\nNote: this only lists candidates. Review license and asset rights before creating a manifest.");
 }

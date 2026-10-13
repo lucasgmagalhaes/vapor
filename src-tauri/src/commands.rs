@@ -1,4 +1,4 @@
-//! Camada fina entre a UI e `vapor-core`. Toda regra de negócio vive no core.
+//! Thin layer between the UI and `vapor-core`. All business logic lives in the core.
 
 use std::path::PathBuf;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -9,7 +9,7 @@ use vapor_core::catalog::Catalog;
 use vapor_core::manifest::{verify_artifact, GameManifest};
 use vapor_core::saves::{SaveMeta, SaveStore};
 
-/// catalog.json é publicado pela CI a cada merge em `main` (branch `catalog`).
+/// catalog.json is published by CI on every merge to `main` (branch `catalog`).
 const CATALOG_URL: &str =
     "https://raw.githubusercontent.com/lucasgmagalhaes/vapor/catalog/catalog.json";
 
@@ -52,12 +52,12 @@ pub fn get_catalog(app: AppHandle, query: Option<String>) -> CmdResult<Vec<GameM
 #[derive(Serialize)]
 pub struct RefreshResult {
     pub total: usize,
-    /// Jogos instalados que saíram do catálogo (ex.: takedown) e foram removidos.
+    /// Installed games that left the catalog (e.g. takedown) and were removed.
     pub removed: Vec<String>,
 }
 
-/// Baixa o catálogo e aplica remoções: o que saiu do índice é apagado
-/// do disco (os saves do jogador são preservados).
+/// Downloads the catalog and applies removals: whatever left the index is deleted
+/// from disk (the player's saves are preserved).
 #[tauri::command]
 pub async fn refresh_catalog(app: AppHandle) -> CmdResult<RefreshResult> {
     let bytes = reqwest::get(CATALOG_URL)
@@ -86,14 +86,14 @@ pub async fn refresh_catalog(app: AppHandle) -> CmdResult<RefreshResult> {
     Ok(RefreshResult { total: catalog.games.len(), removed })
 }
 
-/// Baixa o artefato do manifesto e só grava se tamanho e SHA-256 conferirem.
+/// Downloads the manifest's artifact and only writes it if size and SHA-256 match.
 #[tauri::command]
 pub async fn install_game(app: AppHandle, slug: String) -> CmdResult<()> {
     let game = read_cached(&app)?
         .games
         .into_iter()
         .find(|g| g.slug == slug)
-        .ok_or("jogo não está no catálogo")?;
+        .ok_or("game is not in the catalog")?;
     let bytes = reqwest::get(&game.artifact.url)
         .await
         .and_then(|r| r.error_for_status())
@@ -114,7 +114,7 @@ pub async fn install_game(app: AppHandle, slug: String) -> CmdResult<()> {
 #[tauri::command]
 pub fn uninstall_game(app: AppHandle, slug: String) -> CmdResult<()> {
     if slug.contains(['/', '\\']) || slug.contains("..") {
-        return Err("slug inválido".into());
+        return Err("invalid slug".into());
     }
     let dir = installed_dir(&app)?.join(slug);
     if dir.exists() {
@@ -143,7 +143,7 @@ pub fn list_saves(app: AppHandle, slug: String) -> CmdResult<Vec<SaveMeta>> {
     saves(&app)?.list_slots(&slug).map_err(err)
 }
 
-/// Exporta o slot para `dest` (caminho escolhido pelo usuário no diálogo).
+/// Exports the slot to `dest` (path chosen by the user in the dialog).
 #[tauri::command]
 pub fn export_save(app: AppHandle, slug: String, slot: String, dest: String) -> CmdResult<()> {
     let bytes = saves(&app)?.export(&slug, &slot, None).map_err(err)?;

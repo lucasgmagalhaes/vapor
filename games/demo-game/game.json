@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "slug": "demo-game",
-  "title": "Demo Game (exemplo)",
+  "title": "Demo Game (example)",
   "authors": ["vapor-contributors"],
   "source": { "repo": "https://github.com/lucasgmagalhaes/vapor", "commit": "0000000" },
   "license": { "code": "MIT", "assets": "MIT" },
@@ -13,6 +13,6 @@
     "entry": "index.html"
   },
   "saves": { "paths": ["/saves"], "version": 1 },
-  "tags": ["exemplo"],
+  "tags": ["example"],
   "contact": "maintainers@example.com"
 }

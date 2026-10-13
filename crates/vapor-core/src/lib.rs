@@ -1,5 +1,5 @@
-//! Núcleo do Vapor: manifestos, catálogo, blocklist e saves.
-//! Sem dependência de Tauri, para ser testável e reutilizável pela CLI.
+//! Vapor core: manifests, catalog, blocklist and saves.
+//! No Tauri dependency, so it is testable and reusable by the CLI.
 
 pub mod blocklist;
 pub mod catalog;
@@ -16,11 +16,11 @@ pub enum Error {
     Json(#[from] serde_json::Error),
     #[error("zip: {0}")]
     Zip(#[from] zip::result::ZipError),
-    #[error("manifesto inválido ({path}): {reason}")]
+    #[error("invalid manifest ({path}): {reason}")]
     InvalidManifest { path: String, reason: String },
-    #[error("jogo bloqueado pela blocklist: {0}")]
+    #[error("game blocked by blocklist: {0}")]
     Blocked(String),
-    #[error("save inválido: {0}")]
+    #[error("invalid save: {0}")]
     InvalidSave(String),
 }
 

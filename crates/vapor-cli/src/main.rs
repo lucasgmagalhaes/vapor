@@ -1,4 +1,4 @@
-//! `vapor validate` / `vapor index`: usados pela CI e por contribuidores.
+//! `vapor validate` / `vapor index`: used by CI and contributors.
 
 use std::path::PathBuf;
 use std::process::ExitCode;
@@ -16,21 +16,21 @@ fn main() -> ExitCode {
     })();
     match (cmd.as_str(), result) {
         ("validate", Ok(c)) => {
-            println!("ok: {} jogo(s) válido(s)", c.games.len());
+            println!("ok: {} valid game(s)", c.games.len());
             ExitCode::SUCCESS
         }
         ("index", Ok(c)) => {
             let out = root.join("catalog.json");
-            std::fs::write(&out, serde_json::to_vec_pretty(&c).unwrap()).expect("escrever catalog.json");
-            println!("gerado {} ({} jogos)", out.display(), c.games.len());
+            std::fs::write(&out, serde_json::to_vec_pretty(&c).unwrap()).expect("write catalog.json");
+            println!("generated {} ({} games)", out.display(), c.games.len());
             ExitCode::SUCCESS
         }
         ("validate" | "index", Err(e)) => {
-            eprintln!("erro: {e}");
+            eprintln!("error: {e}");
             ExitCode::FAILURE
         }
         _ => {
-            eprintln!("uso: vapor <validate|index> [raiz-do-repo]");
+            eprintln!("usage: vapor <validate|index> [repo-root]");
             ExitCode::from(2)
         }
     }

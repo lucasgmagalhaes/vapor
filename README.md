@@ -1,14 +1,14 @@
 # Vapor
 
-Biblioteca de jogos decompilados para WebAssembly, com catálogo aberto e gerenciamento de saves do jogador.
-App desktop: **Tauri 2** (Rust) + **React + TypeScript + Vite**.
+A library of games decompiled to WebAssembly, with an open catalog and player save management.
+Desktop app: **Tauri 2** (Rust) + **React + TypeScript + Vite**.
 
-- `games/` catálogo (um `game.json` por jogo; só metadados, nunca binários)
-- `crates/vapor-core` manifestos, blocklist, catálogo e saves (testado, sem Tauri)
-- `crates/vapor-cli` `vapor validate|index` (CI)
-- `src-tauri/` shell Tauri (comandos finos sobre o core)
-- `src/` interface React
-- `takedown/` política e blocklist de remoção
+- `games/` — the catalog (one `game.json` per game; metadata only, never binaries)
+- `crates/vapor-core` — manifests, blocklist, catalog and saves (tested, no Tauri)
+- `crates/vapor-cli` — `vapor validate|index` (CI)
+- `src-tauri/` — Tauri shell (thin commands over the core)
+- `src/` — React UI
+- `takedown/` — takedown policy and blocklist
+- Game artifacts (build + Releases): [vapor-artifacts](https://github.com/lucasgmagalhaes/vapor-artifacts)
 
-Veja `docs/CONTRIBUTING.md` e `takedown/TAKEDOWN.md`.
-- Artefatos dos jogos (build + Releases): [vapor-artifacts](https://github.com/lucasgmagalhaes/vapor-artifacts)
+See `docs/CONTRIBUTING.md` and `takedown/TAKEDOWN.md`.

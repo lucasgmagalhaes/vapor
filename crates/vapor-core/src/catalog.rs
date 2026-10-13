@@ -6,15 +6,15 @@ use crate::blocklist::Blocklist;
 use crate::manifest::GameManifest;
 use crate::{Error, Result};
 
-/// Índice gerado a partir de `games/*/game.json`.
+/// Index built from `games/*/game.json`.
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct Catalog {
     pub games: Vec<GameManifest>,
 }
 
 impl Catalog {
-    /// Lê, valida e filtra pela blocklist. Qualquer manifesto inválido ou
-    /// bloqueado faz o build falhar (a CI recusa o PR).
+    /// Reads, validates and filters against the blocklist. Any invalid or
+    /// blocked manifest fails the build (CI rejects the PR).
     pub fn build(games_dir: &Path, blocklist: &Blocklist) -> Result<Self> {
         let mut games = Vec::new();
         for entry in std::fs::read_dir(games_dir)? {

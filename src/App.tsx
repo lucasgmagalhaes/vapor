@@ -25,14 +25,14 @@ export function App() {
       setStatus("");
       await load();
     } catch (e) {
-      setStatus(`Erro: ${e}`);
+      setStatus(`Error: ${e}`);
     }
   };
 
   const refresh = () =>
-    run("Atualizando catálogo", async () => {
+    run("Refreshing catalog", async () => {
       const r = await api.refreshCatalog();
-      setStatus(r.removed.length ? `Removidos do catálogo: ${r.removed.join(", ")}` : "");
+      setStatus(r.removed.length ? `Removed from catalog: ${r.removed.join(", ")}` : "");
     });
 
   return (
@@ -40,11 +40,11 @@ export function App() {
       <header>
         <h1>Vapor</h1>
         <input
-          placeholder="Buscar jogos…"
+          placeholder="Search games…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button onClick={refresh}>Atualizar catálogo</button>
+        <button onClick={refresh}>Refresh catalog</button>
       </header>
       {status && <p className="status">{status}</p>}
       <main>
@@ -53,10 +53,10 @@ export function App() {
             <li key={g.slug} onClick={() => setSelected(g)}>
               <strong>{g.title}</strong>
               <small>{g.authors.join(", ")}</small>
-              {installed.includes(g.slug) && <span className="badge">instalado</span>}
+              {installed.includes(g.slug) && <span className="badge">installed</span>}
             </li>
           ))}
-          {games.length === 0 && <li className="empty">Catálogo vazio. Clique em “Atualizar catálogo”.</li>}
+          {games.length === 0 && <li className="empty">Catalog is empty. Click “Refresh catalog”.</li>}
         </ul>
         {selected && (
           <GameDetail
@@ -87,19 +87,19 @@ function GameDetail(props: {
     <aside>
       <h2>{game.title}</h2>
       <p>
-        Licença: {game.license.code} · Assets:{" "}
-        {game.assets_policy === "bring-your-own" ? "traga os seus (BYO)" : "abertos"}
+        License: {game.license.code} · Assets:{" "}
+        {game.assets_policy === "bring-your-own" ? "bring your own (BYO)" : "open"}
       </p>
       <p>
-        <a href={game.source.repo} target="_blank" rel="noreferrer">código-fonte</a> · contato: {game.contact}
+        <a href={game.source.repo} target="_blank" rel="noreferrer">source code</a> · contact: {game.contact}
       </p>
       {installed ? (
-        <button onClick={() => run("Desinstalando", () => api.uninstallGame(game.slug))}>
-          Desinstalar
+        <button onClick={() => run("Uninstalling", () => api.uninstallGame(game.slug))}>
+          Uninstall
         </button>
       ) : (
-        <button onClick={() => run("Baixando e verificando", () => api.installGame(game.slug))}>
-          Instalar
+        <button onClick={() => run("Downloading and verifying", () => api.installGame(game.slug))}>
+          Install
         </button>
       )}
 
@@ -111,33 +111,33 @@ function GameDetail(props: {
             <button
               onClick={async () => {
                 const dest = await save({ defaultPath: `${s.slug}-${s.slot}.vsave` });
-                if (dest) await run("Exportando", () => api.exportSave(s.slug, s.slot, dest));
+                if (dest) await run("Exporting", () => api.exportSave(s.slug, s.slot, dest));
               }}
             >
-              Exportar
+              Export
             </button>
           </li>
         ))}
-        {saves.length === 0 && <li>Nenhum save.</li>}
+        {saves.length === 0 && <li>No saves.</li>}
       </ul>
       <button
         onClick={async () => {
           const src = await open({ filters: [{ name: "Vapor save", extensions: ["vsave"] }] });
           if (typeof src === "string") {
-            await run("Importando", () => api.importSave(src));
+            await run("Importing", () => api.importSave(src));
             reload();
           }
         }}
       >
-        Importar .vsave
+        Import .vsave
       </button>
       <button
         onClick={async () => {
-          await run("Apagando saves", () => api.deleteGameSaves(game.slug));
+          await run("Deleting saves", () => api.deleteGameSaves(game.slug));
           reload();
         }}
       >
-        Apagar todos os saves
+        Delete all saves
       </button>
     </aside>
   );

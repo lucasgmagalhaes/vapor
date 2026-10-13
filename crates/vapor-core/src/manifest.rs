@@ -7,9 +7,9 @@ pub const SCHEMA_VERSION: u32 = 1;
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "kebab-case")]
 pub enum AssetsPolicy {
-    /// Jogo inteiro com licença aberta.
+    /// Whole game under an open license.
     Open,
-    /// Código aberto; assets (ROM etc.) fornecidos pelo jogador, nunca enviados ao Vapor.
+    /// Open-source code; assets (ROM etc.) are supplied by the player and never sent to Vapor.
     BringYourOwn,
 }
 
@@ -35,9 +35,9 @@ pub struct License {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct SaveConfig {
-    /// Diretórios do FS virtual do wasm que persistem.
+    /// Directories of the wasm virtual FS that persist.
     pub paths: Vec<String>,
-    /// Versão do formato de save do jogo.
+    /// Save format version of the game.
     pub version: u32,
 }
 
@@ -66,60 +66,60 @@ fn valid_slug(s: &str) -> bool {
 }
 
 impl GameManifest {
-    /// Valida regras que o JSON Schema sozinho não cobre.
-    /// `dir_slug` é o nome da pasta onde o manifesto vive.
+    /// Validates rules the JSON Schema alone does not cover.
+    /// `dir_slug` is the name of the folder the manifest lives in.
     pub fn validate(&self, dir_slug: &str) -> Result<()> {
         let bad = |reason: &str| Error::InvalidManifest {
             path: dir_slug.to_string(),
             reason: reason.to_string(),
         };
         if self.schema != SCHEMA_VERSION {
-            return Err(bad("schema não suportado"));
+            return Err(bad("unsupported schema"));
         }
         if !valid_slug(&self.slug) {
-            return Err(bad("slug deve ser [a-z0-9-], até 64 chars"));
+            return Err(bad("slug must be [a-z0-9-], up to 64 chars"));
         }
         if self.slug != dir_slug {
-            return Err(bad("slug diferente do nome da pasta"));
+            return Err(bad("slug differs from folder name"));
         }
         if self.title.trim().is_empty() || self.authors.is_empty() {
-            return Err(bad("title e authors são obrigatórios"));
+            return Err(bad("title and authors are required"));
         }
         if !self.artifact.url.starts_with("https://") {
-            return Err(bad("artifact.url deve ser https"));
+            return Err(bad("artifact.url must be https"));
         }
         if self.artifact.sha256.len() != 64
             || !self.artifact.sha256.chars().all(|c| c.is_ascii_hexdigit())
         {
-            return Err(bad("artifact.sha256 deve ter 64 hex"));
+            return Err(bad("artifact.sha256 must be 64 hex chars"));
         }
         if self.artifact.size == 0 {
-            return Err(bad("artifact.size deve ser > 0"));
+            return Err(bad("artifact.size must be > 0"));
         }
         if self.saves.paths.iter().any(|p| !p.starts_with('/') || p.contains("..")) {
-            return Err(bad("saves.paths devem ser absolutos e sem '..'"));
+            return Err(bad("saves.paths must be absolute and contain no '..'"));
         }
         if !self.contact.contains('@') && !self.contact.starts_with("https://") {
-            return Err(bad("contact deve ser e-mail ou URL https"));
+            return Err(bad("contact must be an e-mail or https URL"));
         }
         Ok(())
     }
 }
 
-/// Confere tamanho e SHA-256 de um artefato baixado antes de qualquer execução.
+/// Checks size and SHA-256 of a downloaded artifact before any execution.
 pub fn verify_artifact(a: &Artifact, bytes: &[u8]) -> Result<()> {
     use sha2::{Digest, Sha256};
     if bytes.len() as u64 != a.size {
         return Err(Error::InvalidManifest {
             path: a.url.clone(),
-            reason: format!("tamanho {} != esperado {}", bytes.len(), a.size),
+            reason: format!("size {} != expected {}", bytes.len(), a.size),
         });
     }
     let got = hex::encode(Sha256::digest(bytes));
     if !got.eq_ignore_ascii_case(&a.sha256) {
         return Err(Error::InvalidManifest {
             path: a.url.clone(),
-            reason: "sha256 diverge do manifesto".into(),
+            reason: "sha256 does not match manifest".into(),
         });
     }
     Ok(())
