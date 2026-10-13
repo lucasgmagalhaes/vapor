@@ -33,6 +33,8 @@ jobs:
         with: { node-version: 22 }
       - name: Crawler tests (asset-license audit)
         run: node --test tools/crawler/license-audit.test.mjs
+      - name: Link checker tests
+        run: node --test tools/links/check.test.mjs
       - name: Pipeline tests (smoke helpers, manifest and build-workflow generators)
         run: cd tools/pipeline && npm ci --no-audit --no-fund && npm test
   frontend:
