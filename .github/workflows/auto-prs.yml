@@ -6,7 +6,7 @@ name: auto-prs
 #             which audits, smoke-tests and opens the PR for the game
 # PRs are opened ready for review and labelled `auto-pr`. A person reviews and merges; closing a
 # PR means "declined" and the project is never proposed again. See tools/pipeline/auto-prs.mjs for
-# the safety rails (per-run cap, open-PR cap, liveness, `vapor validate` before any push).
+# the safety rails (no PR cap by default, liveness, `vapor validate` before any push).
 on:
   schedule:
     - cron: "52 */4 * * *"
@@ -16,8 +16,8 @@ on:
         description: "links, releases or all"
         default: "all"
       links:
-        description: "Max link PRs to open in this run"
-        default: "3"
+        description: "Max link PRs to open in this run (empty = no limit)"
+        default: ""
       dry_run:
         description: "Only print what would be opened"
         type: boolean
@@ -63,6 +63,6 @@ jobs:
       - name: Open the pull requests
         env:
           ONLY: ${{ inputs.only || 'all' }}
-          LINKS: ${{ inputs.links || '3' }}
+          LINKS: ${{ inputs.links }}
           DRY: ${{ inputs.dry_run && '--dry-run' || '' }}
-        run: node tools/pipeline/auto-prs.mjs --crawl crawl-data --only "$ONLY" --links "$LINKS" $DRY | tee -a "$GITHUB_STEP_SUMMARY"
+        run: node tools/pipeline/auto-prs.mjs --crawl crawl-data --only "$ONLY" ${LINKS:+--links "$LINKS"} $DRY | tee -a "$GITHUB_STEP_SUMMARY"
