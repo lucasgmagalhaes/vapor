@@ -11,6 +11,6 @@ Scoring: stars, license present, wasm/emscripten/SDL signals, hints of "bring yo
 The signals are heuristic. **Every candidate needs human review** (code license, asset policy and takedown risk) before it becomes `games/<slug>/game.json`.
 
 ## Weekly report (`report.mjs`)
-`node tools/find-decomps/report.mjs [--query "term"]` runs the search for every entry of `watchlist.json` and prints a Markdown report, skipping repositories listed under `reviewed`. The `discover-decomps` workflow runs it every Monday (or on demand) and keeps the result in one open issue labelled `discovery`.
+`node tools/find-decomps/report.mjs [--query "term"]` runs the search for every entry of `watchlist.json` and prints a Markdown report, skipping repositories listed under `reviewed`. It is run by hand; scheduled discovery is done by the candidate crawler (`tools/crawler`, workflow `crawl.yml`).
 
 It only lists public source repositories. It does not look for ROMs, disc images or any other copyrighted assets: the player supplies those (`bring-your-own`), and their hashes come from the manifest.
