@@ -1,0 +1,65 @@
+name: auto-prs
+# The last automatic step of discovery -> catalog. Every 4 hours, after the crawl and the catalog
+# publication:
+#   links     external-only crawler candidates -> PR adding links/<slug>.json
+#   releases  new Releases of vapor-artifacts not listed yet -> dispatches pipeline-list-game,
+#             which audits, smoke-tests and opens the PR for the game
+# PRs are opened ready for review and labelled `auto-pr`. A person reviews and merges; closing a
+# PR means "declined" and the project is never proposed again. See tools/pipeline/auto-prs.mjs for
+# the safety rails (per-run cap, open-PR cap, liveness, `vapor validate` before any push).
+on:
+  schedule:
+    - cron: "52 */4 * * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "links, releases or all"
+        default: "all"
+      links:
+        description: "Max link PRs to open in this run"
+        default: "3"
+      dry_run:
+        description: "Only print what would be opened"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: auto-prs
+  cancel-in-progress: false
+
+jobs:
+  prs:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+
+      - name: Latest crawler results
+        run: |
+          mkdir -p crawl-data
+          git fetch origin crawler-data --depth 1
+          git archive FETCH_HEAD | tar -x -C crawl-data
+
+      - name: Prepare
+        run: |
+          git config user.name "vapor-bot"; git config user.email "bot@users.noreply.github.com"
+          gh label create auto-pr --description "Opened automatically by the pipeline" --color 5319e7 || true
+
+      - name: Open the pull requests
+        env:
+          ONLY: ${{ inputs.only || 'all' }}
+          LINKS: ${{ inputs.links || '3' }}
+          DRY: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: node tools/pipeline/auto-prs.mjs --crawl crawl-data --only "$ONLY" --links "$LINKS" $DRY | tee -a "$GITHUB_STEP_SUMMARY"

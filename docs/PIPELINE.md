@@ -1,5 +1,28 @@
 # From discovery to the catalog
 
+## The automatic path (no one starts anything)
+Every 4 hours, in this order: `crawl-candidates` (discover + audit) -> `publish-catalog` (liveness of
+links, catalog.json) -> **`auto-prs`**, which opens pull requests, **ready for review**, labelled
+`auto-pr`:
+
+| Source | What `auto-prs` does | Rails |
+|---|---|---|
+| Crawler records with status `external-only` | PR adding `links/<slug>.json` (link-only entry) | stars >= 25, at most 3 per run, at most 10 open `auto-pr` PRs, source alive right now, `vapor validate` (duplicates, blocklist, URL rules) must pass before anything is pushed, CI started on the branch |
+| New Releases of `vapor-artifacts` not listed yet | dispatches `pipeline-list-game` (audit, browser smoke test, manifest, validate) which opens the PR for the game | needs the generated build workflow's crawler record; hand-made games are skipped |
+
+A person only **reviews and merges**. Closing an auto PR means "declined": the branch/PR already
+exists, so the project is never proposed again. Placeholders the pipeline cannot know (the
+publisher of a linked game, its platforms) are listed as tasks in the PR body.
+
+Still manual, by design: deciding which `needs-asset-audit` candidates deserve a build, and the
+cross-repository step (writing `build-<slug>.yml` into `vapor-artifacts`), which needs a token with
+access to that repository (`gen-build.mjs` generates the file).
+
+Note: PRs opened with the workflow token do not start CI by themselves, so `auto-prs` dispatches
+`ci.yml` on each branch; results show up as checks on the branch head.
+
+## The pieces
+
 Everything runs in GitHub Actions; a person only decides at the two marked points.
 
 ```
