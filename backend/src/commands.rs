@@ -9,7 +9,7 @@ use vapor_core::catalog::Catalog;
 use vapor_core::manifest::{verify_artifact, GameManifest};
 use vapor_core::byo::ByoStatus;
 use vapor_core::saves::{SaveMeta, SaveStore};
-use vapor_core::unpack;
+use vapor_core::{audit, unpack};
 
 /// catalog.json is published by CI on every merge to `main` (branch `catalog`).
 const CATALOG_URL: &str =
@@ -113,6 +113,23 @@ pub async fn install_game(app: AppHandle, slug: String) -> CmdResult<()> {
     .await
     .map_err(err)?
     .map_err(err)?;
+    // Defense in depth: scan what was just extracted, whatever the catalog says. A blocking
+    // finding (native executable, malformed wasm, miner...) removes the install again.
+    let scanned = dir.join("files");
+    let report = tokio::task::spawn_blocking(move || audit::audit_dir(&scanned))
+        .await
+        .map_err(err)?
+        .map_err(err)?;
+    if report.blocked() {
+        let why: Vec<String> = report
+            .findings
+            .iter()
+            .filter(|f| f.severity == audit::Severity::Block)
+            .map(|f| format!("{} ({})", f.key(), f.path))
+            .collect();
+        let _ = tokio::fs::remove_dir_all(&dir).await;
+        return Err(format!("install blocked by the security scan: {}", why.join(", ")));
+    }
     tokio::fs::write(dir.join("game.json"), serde_json::to_vec(&game).map_err(err)?)
         .await
         .map_err(err)?;
