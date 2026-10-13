@@ -28,7 +28,7 @@ pinned commit; see `docs/CANDIDATES.md`). The crawler skips any repo that has on
 used there: `listed`, `ready-to-build` and `blocked`.
 
 ## Scheduled run
-`.github/workflows/crawl.yml` runs weekly and publishes `crawl-output/` to the `crawler-data`
+`.github/workflows/crawl.yml` runs every 4 hours and publishes `crawl-output/` to the `crawler-data`
 branch (state included, so runs are incremental).
 
 ## Limits
