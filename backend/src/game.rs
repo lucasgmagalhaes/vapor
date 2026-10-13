@@ -2,9 +2,7 @@
 //! Tauri IPC, and the save bridge. Path/size/format validation lives in `vapor-core`.
 
 use std::borrow::Cow;
-use std::collections::hash_map::RandomState;
 use std::collections::HashMap;
-use std::hash::{BuildHasher, Hasher};
 use std::path::PathBuf;
 use std::sync::Mutex;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -44,14 +42,12 @@ fn origin() -> &'static str {
     }
 }
 
+/// 128 bits from the operating system's RNG: the token is the only thing separating one game
+/// window from another game's files and saves.
 fn random_token() -> String {
-    let h = |salt: u64| {
-        let mut x = RandomState::new().build_hasher();
-        x.write_u64(salt);
-        x.finish()
-    };
-    let t = SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |d| d.as_nanos() as u64);
-    format!("{:016x}{:016x}", h(t), h(t.rotate_left(17)))
+    let mut b = [0u8; 16];
+    getrandom::getrandom(&mut b).expect("the OS random number generator is unavailable");
+    b.iter().map(|x| format!("{x:02x}")).collect()
 }
 
 fn text(status: StatusCode, msg: &str) -> Response<Cow<'static, [u8]>> {
@@ -110,6 +106,9 @@ pub fn handle(app: &AppHandle, req: Request<Vec<u8>>) -> Response<Cow<'static, [
         Ok(bytes) => Response::builder()
             .header(header::CONTENT_TYPE, serve::mime_for(&file))
             .header(header::CONTENT_SECURITY_POLICY, serve::GAME_CSP)
+            .header("Permissions-Policy", serve::PERMISSIONS_POLICY)
+            .header("Referrer-Policy", "no-referrer")
+            .header("Cross-Origin-Resource-Policy", "same-origin")
             .header("X-Content-Type-Options", "nosniff")
             .header(header::CACHE_CONTROL, "no-store")
             .body(Cow::Owned(bytes))
@@ -243,6 +242,8 @@ pub fn open(app: &AppHandle, slug: &str) -> Result<(), String> {
         .data_directory(data_dir.join("webview").join(slug))
         .initialization_script(script)
         .on_navigation(move |u| u.as_str().starts_with(&nav_prefix))
+        // A game may not open other windows (pop-ups, ad pages): the CSP cannot stop `window.open`.
+        .on_new_window(|_url, _features| tauri::webview::NewWindowResponse::Deny)
         .build()
         .map_err(|e| e.to_string());
     let window = match window {

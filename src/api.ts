@@ -53,6 +53,7 @@ export interface ByoStatus {
 export interface RefreshResult {
   total: number;
   removed: string[];
+  rejected: string[];
 }
 
 export const api = {
