@@ -10,7 +10,7 @@ const STORES = [
 ];
 
 const normalized = (s) => s.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
-const matchesTitle = (title, text) => {
+export const matchesTitle = (title, text) => {
   const words = normalized(title).split(" ").filter((w) => (w.length > 2 || /^\d+$/.test(w)) && !/^(game|edition|standard|digital|steam|epic)$/.test(w));
   const haystack = ` ${normalized(text)} `;
   return words.length > 0 && words.join("").length >= 4 && words.every((w) => haystack.includes(` ${w} `));

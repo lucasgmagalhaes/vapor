@@ -8,6 +8,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
+import { matchesTitle } from "../crawler/distribution.mjs";
 
 export const PLACEHOLDER_PUBLISHER = "Unknown (see the project's README)";
 
@@ -38,8 +39,20 @@ export function platformsFor(candidate) {
   return found.length ? found : ["other"];
 }
 
+// Store evidence from a README can describe a sample game in a generic toolkit. Require the
+// verified game's title in the repository's own name or short description before proposing it.
+export function isGameSpecificLinkCandidate(candidate) {
+  const title = candidate?.distribution?.title;
+  const name = candidate?.repo?.split("/")[1] ?? "";
+  return candidate?.status === "external-only"
+    && candidate.distribution?.status === "verified"
+    && typeof title === "string"
+    && matchesTitle(title, `${name} ${candidate.description ?? ""}`);
+}
+
 export function buildLink(candidate, slug = slugFor(candidate.repo)) {
   if (candidate.status !== "external-only") throw new Error(`status is "${candidate.status}", not external-only`);
+  if (!isGameSpecificLinkCandidate(candidate)) throw new Error("verified release and game title in repository name or description required");
   if (!/^https:\/\/(github\.com|gitlab\.com|codeberg\.org)\/[^/]+\/[^/]+$/.test(candidate.url ?? "")) {
     throw new Error("candidate url is not a repository page on a supported host");
   }
@@ -48,7 +61,7 @@ export function buildLink(candidate, slug = slugFor(candidate.repo)) {
   return {
     schema: 1,
     slug,
-    title: titleFor(candidate.repo),
+    title: candidate.distribution.title,
     publisher: PLACEHOLDER_PUBLISHER,
     url: candidate.url,
     platforms: platformsFor(candidate),
