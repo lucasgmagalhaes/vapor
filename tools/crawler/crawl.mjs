@@ -17,6 +17,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { auditTree } from "./license-audit.mjs";
 
 const run = promisify(execFile);
 
@@ -139,7 +140,7 @@ export function priority(repo) {
 }
 
 function parseArgs(argv) {
-  const o = { out: "crawl-output", curated: "candidates", maxNew: 15, minStars: 30, watch: false, interval: 3600, refreshDays: 30, concurrency: 4 };
+  const o = { out: "crawl-output", curated: "candidates", maxNew: 15, minStars: 30, watch: false, interval: 3600, refreshDays: 30, concurrency: 4, assetAudit: true };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], next = () => argv[++i];
     if (a === "--out") o.out = next();
@@ -149,6 +150,7 @@ function parseArgs(argv) {
     else if (a === "--interval") o.interval = Number(next());
     else if (a === "--refresh-days") o.refreshDays = Number(next());
     else if (a === "--concurrency") o.concurrency = Number(next());
+    else if (a === "--no-asset-audit") o.assetAudit = false;
     else if (a === "--watch") o.watch = true;
     else { console.error(`unknown option: ${a}`); process.exit(2); }
   }
@@ -282,6 +284,44 @@ async function inspect(repo) {
   }
 }
 
+const MAX_AUDIT_CLONE_KB = 200 * 1024;
+
+// Second stage for candidates that look worth it: a shallow clone with the real files, scanned
+// by license-audit.mjs. Moves the record to `ready-to-build` only when every asset byte is
+// covered by an open license; `blocked` when incompatible terms are found.
+async function assetAudit(repo, rec) {
+  if (rec.status !== "needs-asset-audit") return rec;
+  if ((repo.size ?? 0) > MAX_AUDIT_CLONE_KB) {
+    rec.reasons.push(`repository is ${Math.round(repo.size / 1024)} MB: too large for the automatic asset audit`);
+    return rec;
+  }
+  const work = await mkdtemp(path.join(tmpdir(), "vapor-assets-"));
+  try {
+    await run("git", ["clone", "-q", "--depth", "1", repo.clone_url, work], {
+      timeout: 300_000, env: { ...process.env, GIT_LFS_SKIP_SMUDGE: "1", GIT_TERMINAL_PROMPT: "0" },
+    });
+    const a = auditTree(work);
+    rec.asset_audit = { ...a, audited_at: new Date().toISOString(), commit: rec.commit_checked };
+    const pct = (x) => `${Math.round(x * 100)}%`;
+    if (a.verdict === "blocked") {
+      rec.status = "blocked";
+      rec.reasons.push(`asset license terms incompatible with redistribution: ${a.bad_hits.map((h) => `${h.reason} in ${h.file}`).join("; ")}`);
+    } else if (a.verdict === "auto-open") {
+      rec.status = rec.signals.wasm ? "ready-to-build" : "needs-port";
+      rec.reasons.push(`automatic asset-license audit passed (${pct(a.coverage.strong)} of ${a.assets.files} asset files covered by ${a.licenses_seen.join(", ")}); a person must still read the license files before listing`);
+    } else if (a.verdict === "no-assets") {
+      rec.reasons.push("no asset files in the repository: check what the build downloads or generates");
+    } else {
+      rec.reasons.push(`asset licenses not proven: strong ${pct(a.coverage.strong)}, root-only ${pct(a.coverage.weak)}, none ${pct(a.coverage.none)}; largest uncovered: ${a.uncovered.slice(0, 3).map((u) => u.dir).join(", ")}`);
+    }
+  } catch (e) {
+    rec.reasons.push(`asset audit failed: ${e.message.split("\n")[0]}`);
+  } finally {
+    await rm(work, { recursive: true, force: true });
+  }
+  return rec;
+}
+
 async function runOnce(o) {
   await mkdir(o.out, { recursive: true });
   const statePath = path.join(o.out, "state.json");
@@ -308,7 +348,8 @@ async function runOnce(o) {
         state.seen[repo.full_name] = { pushed_at: repo.pushed_at, crawled_at: new Date().toISOString() };
         return;
       }
-      const rec = await inspect(repo);
+      let rec = await inspect(repo);
+      if (o.assetAudit) rec = await assetAudit(repo, rec);
       rec.duplicate_of = duplicatesOf(rec, known);
       if (rec.duplicate_of.length) rec.reasons.push(`possible duplicate of ${rec.duplicate_of.join(", ")}: decide which one to keep before building`);
       await writeFile(path.join(o.out, fileKey(repo.full_name)), JSON.stringify(rec, null, 2) + "\n");
