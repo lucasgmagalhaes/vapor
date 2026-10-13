@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "slug": "forza-horizon-pinyon-shift",
+  "title": "Forza Horizon (Pinyon Shift)",
+  "publisher": "Microsoft / Playground Games",
+  "url": "https://github.com/arcanite24/pinyon-shift",
+  "platforms": ["windows","linux","macos"],
+  "requires": "A copy of the original game that you own (see the project's README for what is needed)",
+  "summary": "Playable preview of a static recompilation of Forza Horizon, built from the player's own disc. Unofficial.",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": ["static-recompilation"]
+}
