@@ -49,6 +49,83 @@ pub fn system_of(os: &str, arch: &str) -> System {
     System { os: os.into(), arch: arch.into(), native_ok: matches!(os, "windows" | "linux") && arch == "x86_64" }
 }
 
+/// One line of the "can this computer run it?" checklist the app shows before a game starts.
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+pub struct Check {
+    pub id: String,
+    pub label: String,
+    pub ok: bool,
+    pub detail: String,
+}
+
+fn check(id: &str, label: &str, ok: bool, detail: impl Into<String>) -> Check {
+    Check { id: id.into(), label: label.into(), ok, detail: detail.into() }
+}
+
+/// First directory that contains a file called `name`.
+pub fn find_in_dirs(dirs: &[&str], name: &str) -> Option<PathBuf> {
+    dirs.iter().map(|d| Path::new(d).join(name)).find(|p| p.is_file())
+}
+
+/// Is a Vulkan loader installed? (Vapor cannot install a GPU driver; it can only look for one.)
+pub fn vulkan_loader_present() -> bool {
+    if cfg!(target_os = "windows") {
+        let root = std::env::var("SystemRoot").unwrap_or_else(|_| "C:\\Windows".into());
+        Path::new(&root).join("System32").join("vulkan-1.dll").is_file()
+    } else {
+        find_in_dirs(
+            &["/usr/lib", "/usr/lib64", "/usr/lib/x86_64-linux-gnu", "/lib/x86_64-linux-gnu", "/usr/local/lib", "/usr/lib/i386-linux-gnu"],
+            "libvulkan.so.1",
+        )
+        .is_some()
+    }
+}
+
+#[cfg(target_arch = "x86_64")]
+fn has_avx2() -> bool {
+    std::is_x86_feature_detected!("avx2")
+}
+
+#[cfg(not(target_arch = "x86_64"))]
+fn has_avx2() -> bool {
+    false
+}
+
+/// What Vapor can verify about this computer for a native port: the system, the CPU instruction set
+/// and the presence of a Vulkan loader. Software dependencies are installed by Vapor itself; these
+/// three are hardware/driver facts that only the player can fix.
+pub fn hardware_checks() -> Vec<Check> {
+    let sys = system();
+    let vulkan = vulkan_loader_present();
+    vec![
+        check("system", "Windows or Linux on x86-64", sys.native_ok, format!("{} {}", sys.os, sys.arch)),
+        check("avx2", "CPU supports AVX2", has_avx2(), if has_avx2() { "yes" } else { "not detected" }),
+        check(
+            "vulkan",
+            "Vulkan driver installed",
+            vulkan,
+            if vulkan { "loader found" } else { "no Vulkan loader found: install your GPU vendor's current driver" },
+        ),
+    ]
+}
+
+/// `dirs` first, then the original PATH, joined with the platform separator.
+pub fn path_with(dirs: &[PathBuf], base: &str) -> String {
+    let mut all: Vec<PathBuf> = dirs.to_vec();
+    all.extend(std::env::split_paths(base));
+    std::env::join_paths(all).map(|p| p.to_string_lossy().into_owned()).unwrap_or_else(|_| base.to_string())
+}
+
+/// Variables a build needs beyond the scrubbed environment. AppImages normally need FUSE; this
+/// makes them unpack themselves and run, so nothing has to be installed on the system.
+pub fn extra_env(build: &NativeBuild) -> Vec<(String, String)> {
+    if build.asset_name().to_ascii_lowercase().ends_with(".appimage") {
+        vec![("APPIMAGE_EXTRACT_AND_RUN".into(), "1".into())]
+    } else {
+        vec![]
+    }
+}
+
 /// Size and SHA-256 of a downloaded asset against what the reviewer pinned.
 pub fn verify_asset(build: &NativeBuild, bytes: &[u8]) -> Result<()> {
     if bytes.len() as u64 != build.size {
@@ -149,7 +226,16 @@ mod tests {
             reviewed_on: "2026-10-13".into(),
             trust: "scanned".into(),
             notes: String::new(),
+            runtimes: vec![],
         }
+    }
+
+    #[test]
+    fn appimages_run_without_fuse_and_exes_get_nothing_extra() {
+        let app = build("https://github.com/o/r/releases/download/v1/Game-x86_64.AppImage", "Game-x86_64.AppImage", b"x");
+        assert_eq!(extra_env(&app), vec![("APPIMAGE_EXTRACT_AND_RUN".to_string(), "1".to_string())]);
+        let zip = build("https://github.com/o/r/releases/download/v1/g.zip", "g/run.exe", b"x");
+        assert!(extra_env(&zip).is_empty());
     }
 
     #[test]
@@ -219,6 +305,33 @@ mod tests {
         assert!(!system_of("macos", "x86_64").native_ok);
         assert!(!system_of("windows", "aarch64").native_ok, "no emulation");
         assert!(!system_of("linux", "aarch64").native_ok);
+    }
+
+    #[test]
+    fn hardware_checks_are_reported_with_details() {
+        let checks = hardware_checks();
+        assert_eq!(checks.iter().map(|c| c.id.as_str()).collect::<Vec<_>>(), ["system", "avx2", "vulkan"]);
+        assert!(checks.iter().all(|c| !c.label.is_empty() && !c.detail.is_empty()));
+    }
+
+    #[test]
+    fn files_are_found_in_the_first_directory_that_has_them() {
+        let a = tempfile::tempdir().unwrap();
+        let b = tempfile::tempdir().unwrap();
+        fs::write(b.path().join("libvulkan.so.1"), b"x").unwrap();
+        let (da, db) = (a.path().to_str().unwrap(), b.path().to_str().unwrap());
+        assert_eq!(find_in_dirs(&[da, db], "libvulkan.so.1"), Some(b.path().join("libvulkan.so.1")));
+        assert_eq!(find_in_dirs(&[da], "libvulkan.so.1"), None);
+    }
+
+    #[test]
+    fn runtime_folders_go_first_on_the_path_without_touching_the_rest() {
+        let sep = if cfg!(windows) { ";" } else { ":" };
+        let base = format!("/usr/bin{sep}/bin");
+        let out = path_with(&[PathBuf::from("/rt/python/tools"), PathBuf::from("/rt/other")], &base);
+        let parts: Vec<_> = std::env::split_paths(&out).map(|p| p.to_string_lossy().into_owned()).collect();
+        assert_eq!(parts, ["/rt/python/tools", "/rt/other", "/usr/bin", "/bin"]);
+        assert_eq!(path_with(&[], &base), base);
     }
 
     #[test]

@@ -59,10 +59,59 @@ pub struct NativeBuild {
     pub trust: String,
     #[serde(default)]
     pub notes: String,
+    /// Portable runtimes Vapor installs (privately) next to this build.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub runtimes: Vec<Runtime>,
 }
 
 fn default_trust() -> String {
     "scanned".into()
+}
+
+/// A portable runtime a native build needs (for example Python for a launcher script). Vapor
+/// downloads it, checks the pinned size and SHA-256, unpacks it into a private folder and puts its
+/// `path_dirs` on the PATH of the game's process only. Nothing is installed system-wide and no
+/// administrator rights are involved.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct Runtime {
+    /// Lower-case identifier, e.g. `python`.
+    pub name: String,
+    pub version: String,
+    /// Package URL on `RUNTIME_URL_PREFIX` (NuGet's flat container: the official PSF Python build).
+    pub url: String,
+    pub sha256: String,
+    pub size: u64,
+    /// Folders of the unpacked package (relative) that go on the PATH, e.g. `tools`.
+    #[serde(default)]
+    pub path_dirs: Vec<String>,
+}
+
+/// Where runtimes may come from.
+pub const RUNTIME_URL_PREFIX: &str = "https://api.nuget.org/v3-flatcontainer/";
+pub const MAX_RUNTIME_BYTES: u64 = 400 * 1024 * 1024;
+
+impl Runtime {
+    fn validate(&self) -> std::result::Result<(), String> {
+        let name_ok = !self.name.is_empty() && self.name.len() <= 32 && self.name.chars().all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || c == '-');
+        let ver_ok = !self.version.is_empty() && self.version.len() <= 32 && self.version.chars().all(|c| c.is_ascii_alphanumeric() || c == '.' || c == '-');
+        if !name_ok || !ver_ok {
+            return Err("runtime name/version are not valid identifiers".into());
+        }
+        let expected = format!("{RUNTIME_URL_PREFIX}{0}/{1}/{0}.{1}.nupkg", self.name, self.version);
+        if self.url != expected {
+            return Err(format!("runtime url must be exactly {expected}"));
+        }
+        if self.sha256.len() != 64 || !self.sha256.chars().all(|c| c.is_ascii_hexdigit()) {
+            return Err("runtime sha256 must be 64 hex chars".into());
+        }
+        if self.size == 0 || self.size > MAX_RUNTIME_BYTES {
+            return Err("runtime size must be between 1 byte and 400 MB".into());
+        }
+        if self.path_dirs.iter().any(|d| !d.is_empty() && !safe_rel_path(d)) {
+            return Err("runtime path_dirs must be relative folders without .., backslashes or drive letters".into());
+        }
+        Ok(())
+    }
 }
 
 /// Largest native asset the app will download (the Linux AppImages seen are up to ~900 MB).
@@ -103,6 +152,9 @@ impl NativeBuild {
         }
         if self.reviewed_by.trim().is_empty() || !valid_date(&self.reviewed_on) {
             return Err("native.reviewed_by and native.reviewed_on (YYYY-MM-DD) are required".into());
+        }
+        for r in &self.runtimes {
+            r.validate()?;
         }
         Ok(())
     }
@@ -321,7 +373,41 @@ mod tests {
             reviewed_on: "2026-10-13".into(),
             trust: "reviewed".into(),
             notes: String::new(),
+            runtimes: vec![],
         }
+    }
+
+    fn python() -> Runtime {
+        Runtime {
+            name: "python".into(),
+            version: "3.12.8".into(),
+            url: "https://api.nuget.org/v3-flatcontainer/python/3.12.8/python.3.12.8.nupkg".into(),
+            sha256: "c".repeat(64),
+            size: 14_465_481,
+            path_dirs: vec!["tools".into()],
+        }
+    }
+
+    #[test]
+    fn runtimes_are_pinned_packages_from_the_nuget_flat_container() {
+        let with = |f: &dyn Fn(&mut Runtime)| {
+            let mut e = entry();
+            let mut b = build();
+            let mut r = python();
+            f(&mut r);
+            b.runtimes = vec![r];
+            e.native = vec![b];
+            e.validate("some-port")
+        };
+        assert!(with(&|_| {}).is_ok());
+        assert!(with(&|r| r.url = "https://evil.example/python.nupkg".into()).is_err(), "other host");
+        assert!(with(&|r| r.url = "https://api.nuget.org/v3-flatcontainer/python/3.13.0/python.3.13.0.nupkg".into()).is_err(), "url must match name and version");
+        assert!(with(&|r| r.sha256 = "xyz".into()).is_err());
+        assert!(with(&|r| r.size = MAX_RUNTIME_BYTES + 1).is_err());
+        assert!(with(&|r| r.name = "Py Thon".into()).is_err());
+        assert!(with(&|r| r.path_dirs = vec!["../tools".into()]).is_err());
+        assert!(with(&|r| r.path_dirs = vec!["C:/tools".into()]).is_err());
+        assert!(with(&|r| r.path_dirs = vec![]).is_ok(), "the package root is fine");
     }
 
     #[test]
