@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "slug": "generals-mac-ios-ipad",
+  "title": "Command & Conquer™ Generals Zero Hour",
+  "publisher": "Unknown (see the project's README)",
+  "url": "https://github.com/ammaarreshi/Generals-Mac-iOS-iPad",
+  "platforms": [
+    "macos"
+  ],
+  "requires": "A copy of the original game that you own (see the project's README)",
+  "summary": "Command & Conquer Generals: Zero Hour running natively on macOS, iPhone & iPad — real engine (EA GPL v3 source, via GeneralsX), DXVK/MoltenVK renderer, RTS touch controls. No game assets included.",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": [
+    "recompilation"
+  ]
+}
