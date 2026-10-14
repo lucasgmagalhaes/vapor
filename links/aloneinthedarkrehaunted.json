@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "slug": "aloneinthedarkrehaunted",
+  "title": "Alone in the Dark 1",
+  "publisher": "Unknown (see the project's README)",
+  "url": "https://github.com/spacefarergames/AloneInTheDarkReHaunted",
+  "platforms": [
+    "other"
+  ],
+  "requires": "A copy of the original game that you own (see the project's README)",
+  "summary": "A heavily enhanced port and dynamic recomp of Alone In The Dark 1, with Textured Models, HD-4K background replacements, QOL improvements, controller support and so much more.",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": [
+    "recompilation"
+  ]
+}
