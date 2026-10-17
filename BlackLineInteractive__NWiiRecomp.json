@@ -1,0 +1,39 @@
+{
+  "repo": "BlackLineInteractive/NWiiRecomp",
+  "url": "https://github.com/BlackLineInteractive/NWiiRecomp",
+  "description": "Static recompilation and runtime toolkit for Nintendo GameCube and Wii to make native PC ports (and not only)",
+  "stars": 30,
+  "pushed_at": "2026-08-07T17:46:56Z",
+  "default_branch": "master",
+  "commit_checked": "595f176f1d24cc54ff2e8389feed12d7fb553cc2",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-15T04:39:57.873Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

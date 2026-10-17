@@ -1,0 +1,39 @@
+{
+  "repo": "OpenRAC/rac1-decomp",
+  "url": "https://github.com/OpenRAC/rac1-decomp",
+  "description": "A work-in-progress matching decompilation of the original Ratchet & Clank (2002) for PlayStation 2 (SCES_509.16, PAL v2.00). Focuses on reconstructing clean, idiomatic C/C++ source code identical to the retail executable, paving the way for native PC re-implementation and game preservation.",
+  "stars": 49,
+  "pushed_at": "2026-10-16T16:44:52Z",
+  "default_branch": "main",
+  "commit_checked": "e663063a10b7c80d9e2d9f0249e2fef351248b6d",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-16T19:33:44.639Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

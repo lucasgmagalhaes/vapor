@@ -1,0 +1,45 @@
+{
+  "repo": "Ryu7w7/OCTR-NitroFueled-PC",
+  "url": "https://github.com/Ryu7w7/OCTR-NitroFueled-PC",
+  "description": "Experimental Online Crash Team Racing: Nitro-Fueled (PS4) running natively on Windows 10/11. Windows fork of SacredFire, built on bbport and shadPS4. No game files included.",
+  "stars": 177,
+  "pushed_at": "2026-10-17T08:55:25Z",
+  "default_branch": "main",
+  "commit_checked": "8ad508e76a46b26308cb259585b7b090c3d867bc",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "gpu/third_party/half/web/Doxyfile",
+      "gpu/third_party/half/web/Mainpage.md",
+      "gpu/third_party/half/web/News.md",
+      "gpu/third_party/half/web/half.hpp",
+      "gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-17T12:12:01.494Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

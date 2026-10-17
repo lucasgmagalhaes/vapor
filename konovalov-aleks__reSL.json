@@ -1,0 +1,39 @@
+{
+  "repo": "konovalov-aleks/reSL",
+  "url": "https://github.com/konovalov-aleks/reSL",
+  "description": "The reversed source code for ShortLine v1.1 game",
+  "stars": 39,
+  "pushed_at": "2026-08-08T10:52:57Z",
+  "default_branch": "main",
+  "commit_checked": "470cca330ee9abcf6173c843f4c89686c0c7e525",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T23:44:25.523Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,39 @@
+{
+  "repo": "Yokimitsuro/khdays-decomp",
+  "url": "https://github.com/Yokimitsuro/khdays-decomp",
+  "description": "Complete matching decompilation of Kingdom Hearts 358/2 Days (Nintendo DS), byte-identical to the game.",
+  "stars": 87,
+  "pushed_at": "2026-10-11T14:41:22Z",
+  "default_branch": "main",
+  "commit_checked": "261a89eaa8f65dd566ae0828b0b57c85c847a6ee",
+  "license": {
+    "spdx": "CC0-1.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T04:55:03.752Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

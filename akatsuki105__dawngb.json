@@ -1,0 +1,64 @@
+{
+  "repo": "akatsuki105/dawngb",
+  "url": "https://github.com/akatsuki105/dawngb",
+  "description": "GameBoy Color emulator written in Go.",
+  "stars": 73,
+  "pushed_at": "2025-12-25T19:17:11Z",
+  "default_branch": "main",
+  "commit_checked": "25f4a50cf61e102152db7f7e2fd8d63e39fc0ee6",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "docs/core.wasm"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:30.080Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "no asset files in the repository: check what the build downloads or generates"
+  ],
+  "asset_audit": {
+    "verdict": "no-assets",
+    "assets": {
+      "files": 1,
+      "bytes": 666
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "MIT"
+    ],
+    "uncovered": [
+      {
+        "dir": "go.mod",
+        "bytes": 666,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T17:08:31.412Z",
+    "commit": "25f4a50cf61e102152db7f7e2fd8d63e39fc0ee6"
+  },
+  "duplicate_of": []
+}

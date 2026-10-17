@@ -1,0 +1,98 @@
+{
+  "repo": "spicyboys/drg-completionist",
+  "url": "https://github.com/spicyboys/drg-completionist",
+  "description": "DRG Completionist is a free, open-source online progress tracker for Deep Rock Galactic. It's designed to help keep track of all the different overclocks and cosmetics available for hard-working employees like yourselves, as well as to serve as an handy reference for overclock data.",
+  "stars": 57,
+  "pushed_at": "2026-05-15T22:31:50Z",
+  "default_branch": "main",
+  "commit_checked": "94c7614869a610ba66e6b9f862f28806b9469e32",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:32.669Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: data/icons, src/images, src/components"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 329,
+      "bytes": 3810462
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "GPL-family"
+    ],
+    "uncovered": [
+      {
+        "dir": "data/icons",
+        "bytes": 3489188,
+        "files": 278,
+        "level": "weak"
+      },
+      {
+        "dir": "src/images",
+        "bytes": 259342,
+        "files": 17,
+        "level": "weak"
+      },
+      {
+        "dir": "src/components",
+        "bytes": 50359,
+        "files": 23,
+        "level": "weak"
+      },
+      {
+        "dir": "src/pages",
+        "bytes": 8478,
+        "files": 7,
+        "level": "weak"
+      },
+      {
+        "dir": "gatsby-ssr.tsx",
+        "bytes": 1443,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "src/hooks",
+        "bytes": 893,
+        "files": 2,
+        "level": "weak"
+      },
+      {
+        "dir": "gatsby-browser.tsx",
+        "bytes": 759,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T17:08:35.184Z",
+    "commit": "94c7614869a610ba66e6b9f862f28806b9469e32"
+  },
+  "duplicate_of": []
+}

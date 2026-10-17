@@ -1,0 +1,59 @@
+{
+  "repo": "ammaarreshi/Generals-Mac-iOS-iPad",
+  "url": "https://github.com/ammaarreshi/Generals-Mac-iOS-iPad",
+  "description": "Command & Conquer Generals: Zero Hour running natively on macOS, iPhone & iPad — real engine (EA GPL v3 source, via GeneralsX), DXVK/MoltenVK renderer, RTS touch controls. No game assets included.",
+  "stars": 1669,
+  "pushed_at": "2026-07-05T17:23:48Z",
+  "default_branch": "main",
+  "commit_checked": "c5c8c4d3e757033d9ab464f6bd6e15e91e0e742f",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE.md"
+  },
+  "distribution": {
+    "status": "verified",
+    "platform": "steam",
+    "url": "https://store.steampowered.com/app/2732960/",
+    "title": "Command & Conquer™ Generals Zero Hour"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T13:44:50.283Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "Core/Libraries/Source/debug/compile_doxygen.bat",
+      "Core/Libraries/Source/profile/compile_doxygen.bat",
+      "Core/Tools/DebugWindow/post-build.bat",
+      "Core/Tools/ParticleEditor/post-build-Release.bat",
+      "Core/Tools/ParticleEditor/post-build.bat",
+      "Core/Tools/wolSetup/WOLAPI/wolapi.dll",
+      "Core/Tools/wolSetup/WOLAPI/woldbg.dll",
+      "Core/Tools/wolSetup/makedist.bat",
+      "Generals/Run/BrowserEngine.dll",
+      "GeneralsMD/Run/BrowserEngine.dll"
+    ],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "code license missing or not recognized",
+    "no wasm/emscripten signal found",
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

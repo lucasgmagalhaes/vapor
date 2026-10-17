@@ -1,0 +1,39 @@
+{
+  "repo": "deltamodders/deltamodkit",
+  "url": "https://github.com/deltamodders/deltamodkit",
+  "description": "The most robust, feature-complete DELTARUNE GameMaker Studio 2 decompilation / port, enhanced with a multitude of tweaks designed to make the game easier to mod.",
+  "stars": 37,
+  "pushed_at": "2026-09-17T13:23:33Z",
+  "default_branch": "develop",
+  "commit_checked": "c61032a2a6370706242f625b992132ed23b9bd7b",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T20:12:46.740Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

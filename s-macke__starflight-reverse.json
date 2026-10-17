@@ -1,0 +1,39 @@
+{
+  "repo": "s-macke/starflight-reverse",
+  "url": "https://github.com/s-macke/starflight-reverse",
+  "description": "Reverse engineered game Starflight (1986)",
+  "stars": 236,
+  "pushed_at": "2026-03-09T20:28:31Z",
+  "default_branch": "master",
+  "commit_checked": "07a3392933214419d935961675c65ffa36fe57f4",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T13:44:51.465Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

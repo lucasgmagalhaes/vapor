@@ -1,0 +1,74 @@
+{
+  "repo": "alexyakunin/BoardGames",
+  "url": "https://github.com/alexyakunin/BoardGames",
+  "description": "New Stl.Fusion sample and a fully functional web app allowing you to play real-time multiplayer board games. Powered by Stl.Fusion, Blazor, and .NET 5.",
+  "stars": 74,
+  "pushed_at": "2026-10-09T03:41:50Z",
+  "default_branch": "main",
+  "commit_checked": "cef1565e64a61c7eff683c2fe7dd55a0ff9083de",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:30.082Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(8+)"
+    ],
+    "binaries": [
+      "Docker-Build.cmd",
+      "Docker-Run-App-Debug.cmd",
+      "Docker-Run-App-Release.cmd",
+      "Docker-Start-Db.cmd",
+      "Run-MultiHost.cmd",
+      "Run.cmd",
+      "server-loop.cmd",
+      "server-loop.ps1"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(8+) (read those files before building)",
+    "no asset files in the repository: check what the build downloads or generates"
+  ],
+  "asset_audit": {
+    "verdict": "no-assets",
+    "assets": {
+      "files": 1,
+      "bytes": 32038
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "MIT"
+    ],
+    "uncovered": [
+      {
+        "dir": "src/UI",
+        "bytes": 32038,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T17:08:31.044Z",
+    "commit": "cef1565e64a61c7eff683c2fe7dd55a0ff9083de"
+  },
+  "duplicate_of": []
+}

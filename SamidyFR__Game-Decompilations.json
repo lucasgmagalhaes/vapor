@@ -1,0 +1,39 @@
+{
+  "repo": "SamidyFR/Game-Decompilations",
+  "url": "https://github.com/SamidyFR/Game-Decompilations",
+  "description": "List of Game Decompilations i could gather from around the internet.",
+  "stars": 575,
+  "pushed_at": "2026-10-17T04:02:56Z",
+  "default_branch": "main",
+  "commit_checked": "28e25dad3d0b69f024decdd181487e7ec4fe1d5c",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-17T04:27:20.229Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

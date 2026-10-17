@@ -1,0 +1,54 @@
+{
+  "repo": "wonkey-coders/wonkey",
+  "url": "https://github.com/wonkey-coders/wonkey",
+  "description": "Wonkey is an easy to learn, oriented object, modern and cross-platform programming language for creating cross-platform video games. Pull requests welcome! Join community https://discord.gg/awfuRtZay7",
+  "stars": 148,
+  "pushed_at": "2026-05-31T23:54:40Z",
+  "default_branch": "develop",
+  "commit_checked": "bf735454c677326a5899476319a572d6f7d21b3a",
+  "license": {
+    "spdx": "Zlib",
+    "file": "LICENSE.txt"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      ".github/workflows/emscripten.yml",
+      "modules/emscripten/emscripten.wx",
+      "modules/emscripten/module.json",
+      "modules/glad/assets/glad_emscripten_dummy_asset",
+      "modules/glfw/assets/glfw_emscripten_dummy_asset"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:25.126Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "bin/windows/c2wx.exe",
+      "bin/windows/libclang.dll",
+      "bin/windows/wake.exe",
+      "bin/windows/wake32-gcc.exe",
+      "bin/windows/wake32-msvc.exe",
+      "bin/windows/wake64-gcc.exe",
+      "bin/windows/wake64-msvc.exe",
+      "devtools/i686-6.2.0-posix-dwarf-rt_v5-rev1/mingw32/bin/ar.exe",
+      "devtools/i686-6.2.0-posix-dwarf-rt_v5-rev1/mingw32/bin/as.exe",
+      "devtools/i686-6.2.0-posix-dwarf-rt_v5-rev1/mingw32/bin/g++.exe"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)",
+    "repository is 229 MB: too large for the automatic asset audit"
+  ],
+  "duplicate_of": []
+}

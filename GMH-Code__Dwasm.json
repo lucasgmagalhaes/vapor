@@ -1,0 +1,40 @@
+{
+  "repo": "GMH-Code/Dwasm",
+  "url": "https://github.com/GMH-Code/Dwasm",
+  "description": "Play the DOOM engine in your browser with PrBoom+ and PrBoomX enhancements!",
+  "stars": 38,
+  "pushed_at": "2026-04-17T17:53:25Z",
+  "default_branch": "main",
+  "commit_checked": "ddf0347a4fc115b11ffb1c5710768b7c47c46698",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "COPYING"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "src/WASM/wasm_io.c",
+      "src/WASM/wasm_io.h",
+      "wasm/fs/defaults/prboomX.cfg",
+      "wasm/shell.html"
+    ],
+    "openAssets": true,
+    "byo": true,
+    "freeware": true,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:36.743Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "byo-only",
+  "reasons": [
+    "also mentions open-asset terms: check which assets are actually free",
+    "mentions freeware/shareware: not an open license"
+  ],
+  "duplicate_of": []
+}

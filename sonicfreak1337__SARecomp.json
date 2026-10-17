@@ -1,0 +1,39 @@
+{
+  "repo": "sonicfreak1337/SARecomp",
+  "url": "https://github.com/sonicfreak1337/SARecomp",
+  "description": "A fully playable, work-in-progress native Sonic Adventure port for Windows, Linux and Steam Deck. Powered by KatanaRecomp.",
+  "stars": 82,
+  "pushed_at": "2026-10-14T19:22:23Z",
+  "default_branch": "main",
+  "commit_checked": "d5288fe64e68711dd9f0e6718c1d0fb2eeca92f2",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T20:12:44.238Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

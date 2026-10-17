@@ -1,0 +1,34 @@
+{
+  "repo": "joncodeofficial/gta-vice-city-wasm",
+  "url": "https://github.com/joncodeofficial/gta-vice-city-wasm",
+  "description": "🎮 GTA: Vice City in your browser — WebAssembly ⚙️ , OPFS 💾, Service Worker 🔧, fully offline. No CDN, no server. 🚀 ",
+  "stars": 73,
+  "pushed_at": "2026-10-11T16:06:32Z",
+  "default_branch": "main",
+  "commit_checked": "9230c173327c7b5434735bcda66916cf887b3cf1",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:06.403Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized"
+  ],
+  "duplicate_of": []
+}

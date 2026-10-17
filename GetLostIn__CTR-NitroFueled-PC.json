@@ -1,0 +1,45 @@
+{
+  "repo": "GetLostIn/CTR-NitroFueled-PC",
+  "url": "https://github.com/GetLostIn/CTR-NitroFueled-PC",
+  "description": "Crash Team Racing: Nitro-Fueled (PS4) running natively on Windows 10/11. Windows fork of SacredFire, built on bbport and shadPS4. No game files included.",
+  "stars": 142,
+  "pushed_at": "2026-10-13T23:08:57Z",
+  "default_branch": "main",
+  "commit_checked": "46c810b2a30451873034e5b17c8a61ddd780618f",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "gpu/third_party/half/web/Doxyfile",
+      "gpu/third_party/half/web/Mainpage.md",
+      "gpu/third_party/half/web/News.md",
+      "gpu/third_party/half/web/half.hpp",
+      "gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-13T23:44:27.564Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

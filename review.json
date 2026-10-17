@@ -1,0 +1,1231 @@
+[
+  {
+    "repo": "Alexbeav/fm4-recomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 59,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "AxioDL/metaforce",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 797,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "BlackLineInteractive/Driveclub-Port",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 31,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "BlackLineInteractive/NWiiRecomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 30,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Buku313/Skate3-Mobile",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 223,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Cytlan/openbgi",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 73,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "DCNick3/shin",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 63,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Dickdebonair/Brightis-fan-translation",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 33,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Do0ks/MemRE",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 67,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Dyotson/ForzaHorizon1-ReImagined",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 189,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "FeroxFoxxo/MQReawakened",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 96,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "GenryTheFox0/Project-2099",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 56,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "GetLostIn/CTR-NitroFueled-PC",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 142,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "GiZcesi/OpenTricky",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 46,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence",
+      "possible duplicate of games/openttd, candidates/OpenTTD/OpenTTD: decide which one to keep before building"
+    ]
+  },
+  {
+    "repo": "HalmyLyseas/VandalHearts-PcPort",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 48,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "HayatoG/gr2_pc",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 46,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "HayatoG/iss_pc",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 466,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "HayatoG/tlg_pc",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 219,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "JackTulli/halo-64",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 71,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "JackandBeans/Snap64Recomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 106,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "JonasJakobi/SM64-Quest-3",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 155,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Jonathan-Greve/GuildWarsMapBrowser",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 81,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Jorge262007/FFTARecomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 42,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "KIexster/god-of-war-recomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 102,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "KaikoClanworth1/wwe-svr2011-pc",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 85,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "LLONSIT/AeroGauge",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 31,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "LittleBitUA/DPRecomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 159,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "LittleBitUA/DownpourRecomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 276,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "LostArtefacts/TRX",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 1011,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "LostMyCode/redstone-js",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 60,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "NoRain211/doaxvb-re",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 157,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Odrannnn/MetroidPrimePort",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 450,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "OpenAWE-Project/OpenAWE",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 220,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence",
+      "possible duplicate of games/openttd, candidates/OpenTTD/OpenTTD: decide which one to keep before building"
+    ]
+  },
+  {
+    "repo": "OpenDriver2/REDRIVER2",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 1400,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "OpenPhantom/OpenPhantom",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 56,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence",
+      "possible duplicate of games/openttd, candidates/OpenTTD/OpenTTD: decide which one to keep before building"
+    ]
+  },
+  {
+    "repo": "OpenRAC/rac1-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 49,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "PaulCombal/mw2-recompiled",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 71,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "PramAnanta/Atlas-Override",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 55,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "ReGlacier/ReHitman",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 72,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "RossyDoubleUnderscore/ICO-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 32,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Ryu7w7/OCTR-NitroFueled-PC",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 177,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "SAT-R/sa2",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 675,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "SamidyFR/Game-Decompilations",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 575,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "SpeedBreakerProject/speedbreaker",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 347,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Supermedo/bloodborne_pc",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 3175,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence",
+      "possible duplicate of candidates/Mrsuss60/bloodborne_pc_windows_port, candidates/deadinside28/bloodborne_pc: decide which one to keep before building"
+    ]
+  },
+  {
+    "repo": "TeamGDB/Yakumo",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 423,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Unchiga/YuGiOhForbiddenMemoriesRecomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 135,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Xeeynamo/sotn-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 1149,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Yharnam-Hunters/Paleblood",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 102,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Yokimitsuro/khdays-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 87,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "Yokimitsuro/khdays-port",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 88,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "bgyss/SwitchRecomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 69,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "bigmak94/GalaxyQuest",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 74,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "centollOS/SwitchWakerHD",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 144,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "chrissotraidis/projectreach",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 124,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "danielgomesvieira2000/burnout3-pc",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 101,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "deltamodders/deltamodkit",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 37,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "dk8827/ra-port",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 237,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "dorPXP/driftdroid",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 84,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "doyaGu/Ballanced",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 45,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "faligame/lost-odyssey-hd-remaster",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 78,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "farisawan-2000/evangelion",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 37,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "fmil95/recv-dc-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 37,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "fmil95/recvx-gc-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 36,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "g0aty/SickoMenu",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 316,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "gorisanson/pikachu-volleyball-p2p-online",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 343,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "gorisanson/pikachu-volleyball",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 1088,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "gradenGnostic/pokeemerald-multiplatform",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 70,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "gustavocanepa/gt4-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 48,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "iExplosiveRage/DBZ-Burst-Limit-Recompiled",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 58,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "invinceble55-wq/Estacado-The-Darkness-Recomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 55,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "jkdansereau/goldeneye-pc-port",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 248,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "kazuyette/rr-decomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 41,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "kernaltrap8/WoR-Plus",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 54,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "konovalov-aleks/reSL",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 39,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "krystalgamer/spidey-decomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 136,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "lethal-guitar/RigelEngine",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 1007,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "matiaszanolli/sega-vr-disasm",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 183,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "metrixmedia/SteamEmulator",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 427,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "mlc-ai/web-llm-chat",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 1117,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "mmzret/rmz3",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 45,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "mogaika/god_of_war_browser",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 60,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "mrcook/jetpac-disassembly",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 75,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "nathanialf/ico-pc",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 345,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "novapowers0/BloodyRoar2Recomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 61,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "obaidr1/hercules-recompiled",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 62,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "pablocpas/OpenCMR2",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 60,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence",
+      "possible duplicate of games/openttd, candidates/OpenTTD/OpenTTD: decide which one to keep before building"
+    ]
+  },
+  {
+    "repo": "paulneja/Linux-on-esp32-S3",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 201,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "psxrestore/Condemned2Recomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 226,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "ran-j/PS2Recomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 3461,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "ruslan831/PlantsVsZombies-decompilation",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 117,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "s-macke/starflight-reverse",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 236,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "saulob/dragons-crown-pro-pc",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 79,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "saulob/geometry-wars-retro-evolved-2-recompiled",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 37,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "saulob/hard-corps-uprising-recompiled",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 30,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "seedds/nxnative",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 284,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "smartblade/BldMystery",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 56,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "snuri00/psp-web-recomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 317,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "sonicfreak1337/SARecomp",
+    "project_kind": "decompilation",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 82,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "vyanhursky/DefJamFFNY-recomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 65,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "wivi514/Dead_Rising_2_Case_West_Xenon_Recomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 51,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  },
+  {
+    "repo": "wivi514/Dead_Rising_2_Case_Zero_Xenon_Recomp",
+    "project_kind": "native-port",
+    "distribution": {
+      "status": "unverified",
+      "reason": "repository has no supported store link or reviewed publisher release evidence"
+    },
+    "stars": 76,
+    "reasons": [
+      "repository has no supported store link or reviewed publisher release evidence"
+    ]
+  }
+]

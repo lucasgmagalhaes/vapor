@@ -1,0 +1,54 @@
+{
+  "repo": "justinmimbs/rs-asteroids",
+  "url": "https://github.com/justinmimbs/rs-asteroids",
+  "description": "A variation on the game Asteroids, written in Rust",
+  "stars": 164,
+  "pushed_at": "2026-06-15T12:13:07Z",
+  "default_branch": "master",
+  "commit_checked": "971031997fc1656d5423e6f3199e8e8bd7899ebf",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:24.350Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "no asset files in the repository: check what the build downloads or generates"
+  ],
+  "asset_audit": {
+    "verdict": "no-assets",
+    "assets": {
+      "files": 0,
+      "bytes": 0
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 0,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "GPL-family"
+    ],
+    "uncovered": [],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:24.632Z",
+    "commit": "971031997fc1656d5423e6f3199e8e8bd7899ebf"
+  },
+  "duplicate_of": []
+}

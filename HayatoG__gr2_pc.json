@@ -1,0 +1,45 @@
+{
+  "repo": "HayatoG/gr2_pc",
+  "url": "https://github.com/HayatoG/gr2_pc",
+  "description": "Native PC port (Linux/Windows) of Gravity Rush 2 (PS4, CUSA03694) — runs your own game dump; no game or firmware files included. Bilingual launcher (English/Portuguese). | Port nativo para PC de Gravity Rush 2 — usa o seu próprio dump.",
+  "stars": 46,
+  "pushed_at": "2026-10-17T15:35:22Z",
+  "default_branch": "main",
+  "commit_checked": "fd637d0c40301af63ddbc056f7998ab809857088",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "port/gpu/third_party/half/web/Doxyfile",
+      "port/gpu/third_party/half/web/Mainpage.md",
+      "port/gpu/third_party/half/web/News.md",
+      "port/gpu/third_party/half/web/half.hpp",
+      "port/gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-17T15:35:55.111Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

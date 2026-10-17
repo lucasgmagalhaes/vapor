@@ -1,0 +1,39 @@
+{
+  "repo": "wivi514/Dead_Rising_2_Case_Zero_Xenon_Recomp",
+  "url": "https://github.com/wivi514/Dead_Rising_2_Case_Zero_Xenon_Recomp",
+  "description": "Native PC port of the Xbox 360 XBLA game Dead Rising 2: Case Zero, by static recompilation. Windows and Linux, Vulkan, keyboard/mouse and controller. You supply your own copy of the game.",
+  "stars": 76,
+  "pushed_at": "2026-10-14T08:18:55Z",
+  "default_branch": "master",
+  "commit_checked": "a1feb9dd7a61e23b4bcbb1afab8edf3439ee86ac",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T13:44:54.024Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}
