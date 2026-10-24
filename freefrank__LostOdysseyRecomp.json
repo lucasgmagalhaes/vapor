@@ -1,0 +1,51 @@
+{
+  "repo": "freefrank/LostOdysseyRecomp",
+  "url": "https://github.com/freefrank/LostOdysseyRecomp",
+  "description": "Experimental native PC port of Lost Odyssey using static recompilation. No game assets included.",
+  "stars": 564,
+  "pushed_at": "2026-10-13T18:26:59Z",
+  "default_branch": "main",
+  "commit_checked": "e318dda2636f0dfb2b306a33f4b93bd074db8daa",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-13T18:43:48.556Z",
+  "decomp": true,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "packaging/android/gradle/wrapper/gradle-wrapper.jar",
+      "packaging/android/gradlew.bat",
+      "tools/build_release.bat",
+      "tools/build_runtime.bat",
+      "tools/build_target.bat",
+      "tools/build_tools.bat",
+      "tools/build_worktree.bat",
+      "tools/build_wsl.bat",
+      "tools/cleanup_temporary_builds.ps1",
+      "tools/configure_clang.bat"
+    ],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "no wasm/emscripten signal found",
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

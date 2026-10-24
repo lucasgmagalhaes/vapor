@@ -1,0 +1,39 @@
+{
+  "repo": "kazuyette/rr-decomp",
+  "url": "https://github.com/kazuyette/rr-decomp",
+  "description": "Matching decompilation of Ridge Racer (PlayStation, Namco, 1994, SLPS-00001), and a static recompilation that boots and plays natively on Linux and Windows. No game data here — bring your own disc.",
+  "stars": 41,
+  "pushed_at": "2026-10-10T23:21:38Z",
+  "default_branch": "main",
+  "commit_checked": "3b42b36e222b2d9aa968666706e940bf49ee76f8",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T23:15:19.618Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

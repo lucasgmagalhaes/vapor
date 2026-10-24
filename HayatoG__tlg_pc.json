@@ -1,0 +1,45 @@
+{
+  "repo": "HayatoG/tlg_pc",
+  "url": "https://github.com/HayatoG/tlg_pc",
+  "description": "Native PC port (Linux/Windows) of The Last Guardian (PS4, CUSA03627) — runs your own game dump; no game or firmware files included. Mouse/keyboard, optional 60 FPS, SMAA/CAS filters. | Port nativo para PC de The Last Guardian — usa o seu próprio dump.",
+  "stars": 411,
+  "pushed_at": "2026-10-24T03:00:35Z",
+  "default_branch": "main",
+  "commit_checked": "1a130dd48550ea6e2fad86ca3344c3e5bf6ef148",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "port/gpu/third_party/half/web/Doxyfile",
+      "port/gpu/third_party/half/web/Mainpage.md",
+      "port/gpu/third_party/half/web/News.md",
+      "port/gpu/third_party/half/web/half.hpp",
+      "port/gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-24T04:37:39.726Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

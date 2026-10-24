@@ -1,0 +1,39 @@
+{
+  "repo": "paulneja/Linux-on-esp32-S3",
+  "url": "https://github.com/paulneja/Linux-on-esp32-S3",
+  "description": "Real Linux 7.2.4 running natively on the ESP32-S3's Xtensa cores (not emulated), with working WiFi and the chip's hardware RSA accelerator exposed to the Linux Crypto API and fork(). One flashable image; 16MB flash / 8MB PSRAM; NOMMU; STA-only.",
+  "stars": 201,
+  "pushed_at": "2026-10-17T02:18:21Z",
+  "default_branch": "main",
+  "commit_checked": "a248df081b5548ce6f825eda995c00d3fff7035d",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-17T04:27:17.752Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

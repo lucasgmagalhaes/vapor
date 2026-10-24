@@ -1,0 +1,115 @@
+{
+  "repo": "MaxBittker/sandspiel",
+  "url": "https://github.com/MaxBittker/sandspiel",
+  "description": "Creative cellular automata browser game ",
+  "stars": 3201,
+  "pushed_at": "2026-09-10T19:59:08Z",
+  "default_branch": "master",
+  "commit_checked": "9936e06b07a583aedfba9589c0cead2917f405fb",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:20.711Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: assets/icon-512x512.png, assets/icon-384x384.png, assets/PPMondwest-Regular.otf"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 30,
+      "bytes": 1137911
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "MIT"
+    ],
+    "uncovered": [
+      {
+        "dir": "assets/icon-512x512.png",
+        "bytes": 250166,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/icon-384x384.png",
+        "bytes": 158629,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/PPMondwest-Regular.otf",
+        "bytes": 144460,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/PPNeueBit-Bold.otf",
+        "bytes": 128228,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/PPNeueBit-Regular.otf",
+        "bytes": 80368,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "Screenshot.png",
+        "bytes": 57008,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/icon-192x192.png",
+        "bytes": 57001,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/icon-152x152.png",
+        "bytes": 39303,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/icon-144x144.png",
+        "bytes": 36101,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/SSStudio ColorLined Big.svg",
+        "bytes": 35370,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:21.207Z",
+    "commit": "9936e06b07a583aedfba9589c0cead2917f405fb"
+  },
+  "duplicate_of": []
+}

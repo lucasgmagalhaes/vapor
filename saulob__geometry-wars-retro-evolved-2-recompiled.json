@@ -1,0 +1,39 @@
+{
+  "repo": "saulob/geometry-wars-retro-evolved-2-recompiled",
+  "url": "https://github.com/saulob/geometry-wars-retro-evolved-2-recompiled",
+  "description": "Geometry Wars: Retro Evolved 2 native PC port via static recompilation, with TRG launcher, high frame rates, local achievements and offline leaderboards",
+  "stars": 51,
+  "pushed_at": "2026-10-24T03:24:42Z",
+  "default_branch": "main",
+  "commit_checked": "91171c81884541af4d2a287a39d683119bbb6236",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-24T04:37:39.055Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

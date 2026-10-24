@@ -1,0 +1,39 @@
+{
+  "repo": "KaikoClanworth1/wwe-svr2011-pc",
+  "url": "https://github.com/KaikoClanworth1/wwe-svr2011-pc",
+  "description": "Unofficial native PC port of WWE SmackDown vs. Raw 2011 (Xbox 360). Bring your own disc.",
+  "stars": 119,
+  "pushed_at": "2026-10-22T19:32:08Z",
+  "default_branch": "main",
+  "commit_checked": "b2521fecd86cef8730e889a51e58d0490b97c3ed",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-22T20:07:30.580Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

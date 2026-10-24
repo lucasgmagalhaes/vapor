@@ -1,0 +1,41 @@
+{
+  "repo": "snuri00/psp-web-recomp",
+  "url": "https://github.com/snuri00/psp-web-recomp",
+  "description": "PSP games in the browser, static recompilation to WebAssembly, an HLE kernel and a WebGL2 renderer",
+  "stars": 317,
+  "pushed_at": "2026-10-15T09:21:04Z",
+  "default_branch": "main",
+  "commit_checked": "37826ab881d9a593efb842fe47adfae2e9118b5d",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "profile/web/shell.html"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-15T13:27:00.471Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

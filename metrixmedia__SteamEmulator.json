@@ -1,0 +1,39 @@
+{
+  "repo": "metrixmedia/SteamEmulator",
+  "url": "https://github.com/metrixmedia/SteamEmulator",
+  "description": "MIRROR REPO - Credits : Mr. Goldberg. Steam emulator that emulates Steam online features. Lets you play games that use the Steam multiplayer APIs on a LAN without steam or an internet connection.",
+  "stars": 427,
+  "pushed_at": "2025-10-05T20:40:54Z",
+  "default_branch": "master",
+  "commit_checked": "475342f0d8b2bd7eb0d93bd7cfdd61e3ae7cda24",
+  "license": {
+    "spdx": "LGPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T23:44:25.427Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

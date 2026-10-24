@@ -1,0 +1,39 @@
+{
+  "repo": "PaulCombal/mw2-recompiled",
+  "url": "https://github.com/PaulCombal/mw2-recompiled",
+  "description": "Call of Duty: Modern Warfare 2 (2009) for Xbox 360 recompiled for Windows & Linux",
+  "stars": 128,
+  "pushed_at": "2026-10-24T09:37:08Z",
+  "default_branch": "master",
+  "commit_checked": "acd414a999c3e4b942a9ebcfb821d32ff999eea8",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-24T12:40:47.698Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

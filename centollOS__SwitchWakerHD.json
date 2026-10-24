@@ -1,0 +1,39 @@
+{
+  "repo": "centollOS/SwitchWakerHD",
+  "url": "https://github.com/centollOS/SwitchWakerHD",
+  "description": "Wind Waker HD (Wii U) static recompilation for Nintendo Switch, deko3d renderer. Requires your own game dump.",
+  "stars": 177,
+  "pushed_at": "2026-10-24T01:52:02Z",
+  "default_branch": "main",
+  "commit_checked": "44dc0e23e35ed10495cea7c6866e7e5a3e3aba4d",
+  "license": {
+    "spdx": "MPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-24T04:37:36.975Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,39 @@
+{
+  "repo": "SpeedBreakerProject/speedbreaker",
+  "url": "https://github.com/SpeedBreakerProject/speedbreaker",
+  "description": "Unofficial static recompilation of the Xbox 360 version of Need for Speed: Most Wanted (2005): a native port for Steam Deck, Steam Machine, Steam Frame, Linux and Mac (iPhone/iPad: sideload the experimental IPA or build it yourself). Bring your own disc: no game files included. Not affiliated with EA or Valve.",
+  "stars": 452,
+  "pushed_at": "2026-10-22T15:12:20Z",
+  "default_branch": "main",
+  "commit_checked": "86cfaa4a6b257db9c8ad30798d34f0734c6ccf08",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "COPYING"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-22T20:07:28.561Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

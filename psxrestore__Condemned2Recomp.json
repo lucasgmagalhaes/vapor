@@ -1,0 +1,39 @@
+{
+  "repo": "psxrestore/Condemned2Recomp",
+  "url": "https://github.com/psxrestore/Condemned2Recomp",
+  "description": "A static recompilation of Condemned 2: Bloodshot done with RexGlue.",
+  "stars": 246,
+  "pushed_at": "2026-10-23T06:00:57Z",
+  "default_branch": "main",
+  "commit_checked": "819df410d320765a5bb434958aa034bf095fa503",
+  "license": {
+    "spdx": "BSD-3-Clause",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-23T13:27:54.372Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

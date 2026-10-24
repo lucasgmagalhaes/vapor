@@ -1,0 +1,45 @@
+{
+  "repo": "shehab4546/RatchetPort",
+  "url": "https://github.com/shehab4546/RatchetPort",
+  "description": "RatchetPort: unofficial Ratchet & Clank (2016) PS4 PC port project for Windows. Pre-Alpha (CUSA01047 USA v1.00). Requires your own original-disc dump; no game files included.",
+  "stars": 41,
+  "pushed_at": "2026-10-24T11:36:18Z",
+  "default_branch": "main",
+  "commit_checked": "49128a049058843af26020fcc3f0c9f9ab4b68a8",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "gpu/third_party/half/web/Doxyfile",
+      "gpu/third_party/half/web/Mainpage.md",
+      "gpu/third_party/half/web/News.md",
+      "gpu/third_party/half/web/half.hpp",
+      "gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-24T12:40:48.115Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

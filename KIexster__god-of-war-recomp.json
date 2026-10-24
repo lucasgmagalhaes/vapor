@@ -1,0 +1,39 @@
+{
+  "repo": "KIexster/god-of-war-recomp",
+  "url": "https://github.com/KIexster/god-of-war-recomp",
+  "description": "Native PC port of God of War (PS2) via static recompilation with PS2Recomp",
+  "stars": 178,
+  "pushed_at": "2026-10-24T12:13:48Z",
+  "default_branch": "main",
+  "commit_checked": "8c6989f29ed7f166941bb24c598ce504e8ba37fc",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-24T12:40:48.199Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

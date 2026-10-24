@@ -1,0 +1,39 @@
+{
+  "repo": "invinceble55-wq/Estacado-The-Darkness-Recomp",
+  "url": "https://github.com/invinceble55-wq/Estacado-The-Darkness-Recomp",
+  "description": "Estacado: a native PC recompilation of The Darkness (Xbox 360). Unofficial fan port; bring your own copy of the game.",
+  "stars": 55,
+  "pushed_at": "2026-10-12T13:15:25Z",
+  "default_branch": "main",
+  "commit_checked": "b5603ac4202b4a8083c4f1476cd5fa258e93f133",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T04:54:58.902Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

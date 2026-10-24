@@ -1,0 +1,39 @@
+{
+  "repo": "Shagg88/Athelas",
+  "url": "https://github.com/Shagg88/Athelas",
+  "description": "Play The Return of the King (PC and Xbox) and The Two Towers (Xbox) on a modern PC",
+  "stars": 100,
+  "pushed_at": "2026-10-23T23:35:02Z",
+  "default_branch": "main",
+  "commit_checked": "bc12bc235a1f7320a3aa421e2935eaf55ff0dabc",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-24T04:37:37.820Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

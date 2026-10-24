@@ -1,0 +1,72 @@
+2026-10-24T12:40:40.999Z [crawler:start] max_new=30 min_stars=30 concurrency=4 asset_audit=true out=crawl-output
+2026-10-24T12:40:42.017Z [crawler:search] topic:decompilation topic:game: returned=11 eligible=10 new=10 duration=1.0s
+2026-10-24T12:40:42.801Z [crawler:search] topic:reverse-engineering topic:game: returned=30 eligible=23 new=21 duration=0.8s
+2026-10-24T12:40:43.207Z [crawler:search] topic:recompilation topic:game: returned=11 eligible=10 new=7 duration=0.4s
+2026-10-24T12:40:43.957Z [crawler:search] topic:static-recompilation: returned=30 eligible=30 new=29 duration=0.7s
+2026-10-24T12:40:44.127Z [crawler:search] topic:game-recompilation: returned=0 eligible=0 new=0 duration=0.2s
+2026-10-24T12:40:44.997Z [crawler:search] decompilation game in:description: returned=30 eligible=27 new=27 duration=0.9s
+2026-10-24T12:40:45.373Z [crawler:search] topic:pc-port topic:ps4: returned=9 eligible=8 new=8 duration=0.4s
+2026-10-24T12:40:46.159Z [crawler:search] running natively in:description: returned=30 eligible=11 new=11 duration=0.8s
+2026-10-24T12:40:46.619Z [crawler:seed] loaded=5/5 unique_total=114
+2026-10-24T12:40:46.625Z [crawler:queue] discovered=114 unchanged=94 selected=20 deferred=0
+2026-10-24T12:40:46.625Z [crawler:inspect] kirklandsig/halo2-decompiled started
+2026-10-24T12:40:46.625Z [crawler:inspect] seedds/nxnative started
+2026-10-24T12:40:46.625Z [crawler:inspect] LostArtefacts/TRX started
+2026-10-24T12:40:46.625Z [crawler:inspect] OverkillLabs3/driveclub-recomp started
+2026-10-24T12:40:47.143Z [crawler:inspect] OverkillLabs3/driveclub-recomp classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:47.144Z [crawler:inspect] seedds/nxnative classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:47.145Z [crawler:result] OverkillLabs3/driveclub-recomp status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:47.145Z [crawler:inspect] TeamGDB/Yakumo started
+2026-10-24T12:40:47.145Z [crawler:result] seedds/nxnative status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:47.145Z [crawler:inspect] NoRain211/doaxvb-re started
+2026-10-24T12:40:47.234Z [crawler:inspect] kirklandsig/halo2-decompiled classified=byo-only kind=decompilation distribution=verified (0.6s)
+2026-10-24T12:40:47.235Z [crawler:inspect] LostArtefacts/TRX classified=distribution-unverified kind=decompilation distribution=unverified (0.6s)
+2026-10-24T12:40:47.235Z [crawler:result] kirklandsig/halo2-decompiled status=byo-only license=CC0-1.0 evidence=xbox: Halo 2 duration=0.6s
+2026-10-24T12:40:47.235Z [crawler:inspect] PaulCombal/mw2-recompiled started
+2026-10-24T12:40:47.235Z [crawler:result] LostArtefacts/TRX status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.6s
+2026-10-24T12:40:47.235Z [crawler:inspect] Xeeynamo/sotn-decomp started
+2026-10-24T12:40:47.626Z [crawler:inspect] NoRain211/doaxvb-re classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:47.627Z [crawler:result] NoRain211/doaxvb-re status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:47.627Z [crawler:inspect] OpenPortroid/ArmyOfTwoRecompilation started
+2026-10-24T12:40:47.648Z [crawler:inspect] TeamGDB/Yakumo classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-10-24T12:40:47.649Z [crawler:result] TeamGDB/Yakumo status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:47.649Z [crawler:inspect] shehab4546/RatchetPort started
+2026-10-24T12:40:47.702Z [crawler:inspect] PaulCombal/mw2-recompiled classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-10-24T12:40:47.703Z [crawler:result] PaulCombal/mw2-recompiled status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:47.703Z [crawler:inspect] Dyotson/ForzaHorizon1-ReImagined started
+2026-10-24T12:40:47.732Z [crawler:inspect] Xeeynamo/sotn-decomp classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-10-24T12:40:47.733Z [crawler:result] Xeeynamo/sotn-decomp status=distribution-unverified license=AGPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:47.733Z [crawler:inspect] KIexster/god-of-war-recomp started
+2026-10-24T12:40:48.106Z [crawler:inspect] OpenPortroid/ArmyOfTwoRecompilation classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:48.107Z [crawler:result] OpenPortroid/ArmyOfTwoRecompilation status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:48.107Z [crawler:inspect] gustavocanepa/gt4-decomp started
+2026-10-24T12:40:48.118Z [crawler:inspect] shehab4546/RatchetPort classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:48.119Z [crawler:result] shehab4546/RatchetPort status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:48.119Z [crawler:inspect] OpenRAC/rac1-decomp started
+2026-10-24T12:40:48.167Z [crawler:inspect] Dyotson/ForzaHorizon1-ReImagined classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-10-24T12:40:48.167Z [crawler:result] Dyotson/ForzaHorizon1-ReImagined status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:48.167Z [crawler:inspect] vyanhursky/DefJamFFNY-recomp started
+2026-10-24T12:40:48.202Z [crawler:inspect] KIexster/god-of-war-recomp classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:48.203Z [crawler:result] KIexster/god-of-war-recomp status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:48.203Z [crawler:inspect] dpt/The-Great-Escape-in-C started
+2026-10-24T12:40:48.551Z [crawler:inspect] dpt/The-Great-Escape-in-C classified=distribution-unverified kind=decompilation distribution=unverified (0.3s)
+2026-10-24T12:40:48.552Z [crawler:result] dpt/The-Great-Escape-in-C status=distribution-unverified license=none evidence=repository has no supported store link or reviewed publisher release evidence duration=0.3s
+2026-10-24T12:40:48.552Z [crawler:inspect] PramAnanta/Atlas-Override started
+2026-10-24T12:40:48.652Z [crawler:inspect] vyanhursky/DefJamFFNY-recomp classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:48.652Z [crawler:result] vyanhursky/DefJamFFNY-recomp status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:48.652Z [crawler:inspect] itzmeshaji-bit/NoMans-Skyward-Forge started
+2026-10-24T12:40:48.675Z [crawler:inspect] OpenRAC/rac1-decomp classified=distribution-unverified kind=decompilation distribution=unverified (0.6s)
+2026-10-24T12:40:48.676Z [crawler:result] OpenRAC/rac1-decomp status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.6s
+2026-10-24T12:40:48.676Z [crawler:inspect] Odrannnn/MetroidPrimePort started
+2026-10-24T12:40:48.792Z [crawler:inspect] gustavocanepa/gt4-decomp classified=distribution-unverified kind=decompilation distribution=unverified (0.7s)
+2026-10-24T12:40:48.792Z [crawler:result] gustavocanepa/gt4-decomp status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.7s
+2026-10-24T12:40:48.792Z [crawler:inspect] nathanialf/ico-pc started
+2026-10-24T12:40:48.903Z [crawler:inspect] PramAnanta/Atlas-Override classified=distribution-unverified kind=decompilation distribution=unverified (0.4s)
+2026-10-24T12:40:48.903Z [crawler:result] PramAnanta/Atlas-Override status=distribution-unverified license=none evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-10-24T12:40:49.003Z [crawler:inspect] itzmeshaji-bit/NoMans-Skyward-Forge classified=distribution-unverified kind=decompilation distribution=unverified (0.4s)
+2026-10-24T12:40:49.003Z [crawler:result] itzmeshaji-bit/NoMans-Skyward-Forge status=distribution-unverified license=none evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-10-24T12:40:49.187Z [crawler:inspect] Odrannnn/MetroidPrimePort classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-10-24T12:40:49.187Z [crawler:result] Odrannnn/MetroidPrimePort status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:49.275Z [crawler:inspect] nathanialf/ico-pc classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-10-24T12:40:49.275Z [crawler:result] nathanialf/ico-pc status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-10-24T12:40:49.295Z [crawler:done] inspected=20 outcomes={"distribution-unverified":19,"byo-only":1} candidates=5 review=121 duration=8.3s

@@ -1,0 +1,39 @@
+{
+  "repo": "Jonathan-Greve/GuildWarsMapBrowser",
+  "url": "https://github.com/Jonathan-Greve/GuildWarsMapBrowser",
+  "description": "Browse the Guild Wars maps using your .dat file.",
+  "stars": 81,
+  "pushed_at": "2026-03-15T15:28:13Z",
+  "default_branch": "master",
+  "commit_checked": "fcb8f34f655be354f9d47b3952bbebe7abe5aac8",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE.txt"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T13:44:52.739Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

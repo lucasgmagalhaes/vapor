@@ -1,0 +1,39 @@
+{
+  "repo": "Jorge262007/FFTARecomp",
+  "url": "https://github.com/Jorge262007/FFTARecomp",
+  "description": "Native Windows port of Final Fantasy Tactics Advance with widescreen, video/audio options and a one-click installer.",
+  "stars": 105,
+  "pushed_at": "2026-10-18T21:18:52Z",
+  "default_branch": "main",
+  "commit_checked": "fcc38cc46084793f29136419a8a15e6914a570ce",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-18T22:26:13.946Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

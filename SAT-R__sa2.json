@@ -1,0 +1,39 @@
+{
+  "repo": "SAT-R/sa2",
+  "url": "https://github.com/SAT-R/sa2",
+  "description": "A decompilation and port of Sonic Advance 1 & 2 - GameBoy Advance game's written in C",
+  "stars": 675,
+  "pushed_at": "2026-08-01T08:53:14Z",
+  "default_branch": "main",
+  "commit_checked": "393357f7c9d46b5c10b6c41a57b80fe3b58f3c8d",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T13:44:55.035Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

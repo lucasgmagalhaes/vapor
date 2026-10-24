@@ -1,0 +1,39 @@
+{
+  "repo": "mlc-ai/web-llm-chat",
+  "url": "https://github.com/mlc-ai/web-llm-chat",
+  "description": "Chat with AI large language models running natively in your browser. Enjoy private, server-free, seamless AI conversations.",
+  "stars": 1117,
+  "pushed_at": "2026-02-18T15:56:45Z",
+  "default_branch": "main",
+  "commit_checked": "223895cb1be677504cf26904df5e3b0b451ba992",
+  "license": {
+    "spdx": "Apache-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T23:44:24.340Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}
