@@ -1,0 +1,354 @@
+{
+  "games": [
+    {
+      "schema": 1,
+      "slug": "doom-freedoom",
+      "title": "Doom (Freedoom)",
+      "authors": [
+        "Chocolate Doom contributors",
+        "Cloudflare",
+        "Freedoom project"
+      ],
+      "source": {
+        "repo": "https://github.com/cloudflare/doom-wasm",
+        "commit": "65e0d3ae2ffa604155eebd96ed40da6567bd08f4"
+      },
+      "license": {
+        "code": "GPL-2.0",
+        "assets": "BSD-3-Clause (Freedoom)"
+      },
+      "assets_policy": "open",
+      "artifact": {
+        "url": "https://github.com/lucasgmagalhaes/vapor-artifacts/releases/download/doom-freedoom-5/doom-freedoom.zip",
+        "sha256": "fa58ba6aaee04cb3a2fd2829d66f3791c7f86051613701d26373edb613e00748",
+        "size": 11130175,
+        "entry": "doom-freedoom/index.html"
+      },
+      "saves": {
+        "paths": [
+          "/libsdl/doom-ws-wasm"
+        ],
+        "version": 1
+      },
+      "tags": [
+        "fps",
+        "classic",
+        "freedoom"
+      ],
+      "contact": "https://github.com/lucasgmagalhaes/vapor/issues",
+      "cover": "https://raw.githubusercontent.com/lucasgmagalhaes/vapor/catalog/covers/doom-freedoom.webp"
+    },
+    {
+      "schema": 1,
+      "slug": "openttd",
+      "title": "OpenTTD",
+      "authors": [
+        "OpenTTD team",
+        "OpenGFX team",
+        "OpenSFX team",
+        "OpenMSX team"
+      ],
+      "source": {
+        "repo": "https://github.com/OpenTTD/OpenTTD",
+        "commit": "14ec60f248547d4d062a1160f0fc26d742319888"
+      },
+      "license": {
+        "code": "GPL-2.0",
+        "assets": "GPL-2.0 (OpenGFX, OpenMSX), CC-BY-SA-3.0 (OpenSFX)"
+      },
+      "assets_policy": "open",
+      "artifact": {
+        "url": "https://github.com/lucasgmagalhaes/vapor-artifacts/releases/download/openttd-2/openttd.zip",
+        "sha256": "d0ca3010a799a223f72b74a7701af5ea3d27ad7babf1fbf523f09bd77133c998",
+        "size": 19702076,
+        "entry": "openttd/openttd.html"
+      },
+      "saves": {
+        "paths": [
+          "/home/web_user/.openttd"
+        ],
+        "version": 1
+      },
+      "tags": [
+        "simulation",
+        "tycoon",
+        "transport",
+        "openttd"
+      ],
+      "contact": "https://github.com/lucasgmagalhaes/vapor/issues",
+      "cover": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1536610/header.jpg"
+    }
+  ],
+  "links": [
+    {
+      "schema": 1,
+      "slug": "bloodborne-pc-linux",
+      "title": "Bloodborne",
+      "publisher": "Sony Interactive Entertainment / FromSoftware",
+      "url": "https://github.com/deadinside28/bloodborne_pc",
+      "platforms": [
+        "linux"
+      ],
+      "requires": "Your own Bloodborne game files (a \"dump\": the PS4 game folder, CUSA03173 v1.09, copied from your console) and a GPU with a Vulkan 1.3 driver.",
+      "summary": "Native Linux port of the PS4 game (AppImage). Unofficial.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "native-port",
+        "vulkan"
+      ],
+      "group": "bloodborne",
+      "variant": "Linux port (deadinside28)",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/6/68/Bloodborne_Cover_Wallpaper.jpg",
+      "native": [
+        {
+          "platform": "linux",
+          "url": "https://github.com/deadinside28/bloodborne_pc/releases/download/0.51/Bloodborne-bbport-x86_64.AppImage",
+          "sha256": "3dbbec828aebd542622cf25f0ea10a16f50b13f8b5338fb6596a1a69a635fcce",
+          "size": 398993952,
+          "exe": "Bloodborne-bbport-x86_64.AppImage",
+          "reviewed_by": "automatic scan (ClamAV 1.5.4) in GitHub Actions run 38443444110",
+          "reviewed_on": "2026-10-13",
+          "trust": "scanned",
+          "notes": "Release 0.51. Hash pinned and scanned with ClamAV 1.5.4/28152/Tue Oct 13 06:26:14 2026 in a throwaway CI runner; nobody reviewed the program itself. SHA-256 matches the digest published by GitHub."
+        }
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-19T06:31:22Z",
+        "latest_release": "0.6",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "bloodborne-pc-windows-port",
+      "title": "Bloodborne",
+      "publisher": "Sony Interactive Entertainment / FromSoftware",
+      "url": "https://github.com/Mrsuss60/bloodborne_pc_windows_port",
+      "platforms": [
+        "windows"
+      ],
+      "requires": "Your own Bloodborne game files (a \"dump\": the PS4 game folder, CUSA03173 v1.09, copied from your console) and a GPU with a Vulkan 1.3 driver.",
+      "summary": "Native 64-bit Windows port of the PS4 game with Vulkan rendering, based on deadinside28's bbport. Unofficial.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "native-port",
+        "vulkan"
+      ],
+      "group": "bloodborne",
+      "variant": "Windows port (Mrsuss60)",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/6/68/Bloodborne_Cover_Wallpaper.jpg",
+      "native": [
+        {
+          "platform": "windows",
+          "url": "https://github.com/Mrsuss60/bloodborne_pc_windows_port/releases/download/v0.4.2/bloodborne_pc_windows_port_v0.4.2_release.zip",
+          "sha256": "5289dbd8d4da40ed1e1b77c372d105d13044a28ad5263fba01447464460e1e46",
+          "size": 192598698,
+          "exe": "bloodborne_pc_windows_port_v0.4.2_release/launch_gui.bat",
+          "reviewed_by": "automatic scan (ClamAV 1.5.4) in GitHub Actions run 38444766771",
+          "reviewed_on": "2026-10-13",
+          "trust": "scanned",
+          "notes": "Release v0.4.2. Hash pinned and scanned with ClamAV 1.5.4/28152/Tue Oct 13 06:26:14 2026 in a throwaway CI runner; nobody reviewed the program itself. SHA-256 matches the digest published by GitHub."
+        }
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-24T10:11:01Z",
+        "latest_release": "v0.6.5",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "condemned2recomp",
+      "title": "Condemned2Recomp",
+      "publisher": "Unknown (see the project's README)",
+      "url": "https://github.com/psxrestore/Condemned2Recomp",
+      "platforms": [
+        "other"
+      ],
+      "requires": "A copy of the original game that you own (see the project's README)",
+      "summary": "A static recompilation of Condemned 2: Bloodshot done with RexGlue.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "recompilation"
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-23T06:00:57Z",
+        "latest_release": "0.3.7",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "downpourrecomp",
+      "title": "Downpour Recomp",
+      "publisher": "Unknown (see the project's README)",
+      "url": "https://github.com/LittleBitUA/DownpourRecomp",
+      "platforms": [
+        "windows"
+      ],
+      "requires": "A copy of the original game that you own (see the project's README)",
+      "summary": "Silent Hill: Downpour — native Windows PC port via static recompilation of the Xbox 360 binary. v1.0 stable: 60 FPS unlocked, ROV warm-cache, standalone launcher, DualSense adaptive triggers, portable saves. Tested on USA + Europe X360 dumps.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "recompilation"
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-09-02T22:18:50Z",
+        "latest_release": "v1.1.8",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "forza-horizon-pinyon-shift",
+      "title": "Forza Horizon (Pinyon Shift)",
+      "publisher": "Microsoft / Playground Games",
+      "url": "https://github.com/arcanite24/pinyon-shift",
+      "platforms": [
+        "windows",
+        "linux",
+        "macos"
+      ],
+      "requires": "Your own Forza Horizon disc image (a \"dump\": an ISO file made from your original USA retail disc) and a GPU with a Vulkan 1.3 driver.",
+      "summary": "Playable preview of a static recompilation of Forza Horizon, built from the player's own disc. Unofficial.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "static-recompilation"
+      ],
+      "cover": "https://upload.wikimedia.org/wikipedia/en/7/77/Forza_Horizon_boxart.jpg",
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-23T03:33:13Z",
+        "latest_release": "v0.6.1",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "god-of-war-3-pc",
+      "title": "God of War III Remastered PC port",
+      "publisher": "Sony Interactive Entertainment / Santa Monica Studio",
+      "url": "https://github.com/FelipePrado0/gow3_pc",
+      "platforms": [
+        "windows",
+        "linux"
+      ],
+      "requires": "Your own God of War III game files (a \"dump\": the game's data copied from your PS3 or its disc), a CPU with AVX and a GPU with a Vulkan 1.3 driver.",
+      "summary": "Windows/Linux port of the PS4 remaster: original x86-64 code on a custom runtime, graphics on a Vulkan video core. Unofficial.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "native-port",
+        "vulkan"
+      ],
+      "cover": "https://upload.wikimedia.org/wikipedia/en/8/8b/God_of_War_III_cover_art.jpg",
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-24T01:51:03Z",
+        "latest_release": "windows-v2.7.0",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "lostodysseyrecomp",
+      "title": "Lost Odyssey Recomp",
+      "publisher": "Unknown (see the project's README)",
+      "url": "https://github.com/freefrank/LostOdysseyRecomp",
+      "platforms": [
+        "other"
+      ],
+      "requires": "A copy of the original game that you own (see the project's README)",
+      "summary": "Experimental native PC port of Lost Odyssey using static recompilation. No game assets included.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "recompilation"
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-23T01:06:47Z",
+        "latest_release": "v1.0.6",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "ps2recomp",
+      "title": "PS2Recomp",
+      "publisher": "Unknown (see the project's README)",
+      "url": "https://github.com/ran-j/PS2Recomp",
+      "platforms": [
+        "other"
+      ],
+      "requires": "A copy of the original game that you own (see the project's README)",
+      "summary": "Playstation 2 Static Recompiler & Runtime Tool to make native PC ports",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "recompilation"
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-23T14:39:54Z",
+        "latest_release": null,
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "speedbreaker",
+      "title": "Speedbreaker",
+      "publisher": "Unknown (see the project's README)",
+      "url": "https://github.com/SpeedBreakerProject/speedbreaker",
+      "platforms": [
+        "linux"
+      ],
+      "requires": "A copy of the original game that you own (see the project's README)",
+      "summary": "Unofficial static recompilation of the Xbox 360 version of Need for Speed: Most Wanted (2005): a native port for Steam Deck, Steam Machine, Steam Frame, Linux and Mac (iPhone/iPad: sideload the experimental IPA or build it yourself). Bring your own disc: no game files included. Not affiliated wit...",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "recompilation"
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-22T15:12:20Z",
+        "latest_release": "v0.1.8",
+        "failures": 0
+      }
+    },
+    {
+      "schema": 1,
+      "slug": "yakumo",
+      "title": "Yakumo",
+      "publisher": "Unknown (see the project's README)",
+      "url": "https://github.com/TeamGDB/Yakumo",
+      "platforms": [
+        "other"
+      ],
+      "requires": "A copy of the original game that you own (see the project's README)",
+      "summary": "Static recompilation of a PSP game into a native executable. Vulkan and SDL3. Bring your own copy of the game.",
+      "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+      "tags": [
+        "recompilation"
+      ],
+      "status": {
+        "state": "alive",
+        "checked_at": "2026-10-24T12:55:31.946Z",
+        "pushed_at": "2026-10-24T10:34:32Z",
+        "latest_release": "v0.7.5",
+        "failures": 0
+      }
+    }
+  ]
+}
