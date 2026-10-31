@@ -1,0 +1,39 @@
+{
+  "repo": "matiaszanolli/sega-vr-disasm",
+  "url": "https://github.com/matiaszanolli/sega-vr-disasm",
+  "description": "Complete static recompilation of Virtua Racing for the Sega 32X (optimization in progress)",
+  "stars": 183,
+  "pushed_at": "2026-09-05T14:42:01Z",
+  "default_branch": "master",
+  "commit_checked": "60819eff3cdf2abe0037081c9e6a484bf06bb9dc",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T13:44:53.159Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

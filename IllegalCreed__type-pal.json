@@ -1,0 +1,105 @@
+{
+  "repo": "IllegalCreed/type-pal",
+  "url": "https://github.com/IllegalCreed/type-pal",
+  "description": "用 TypeScript 从零重写《仙剑奇侠传》（1995），浏览器里能通关，附可视化编辑器 · A from-scratch TypeScript remake of PAL (1995) with a visual editor. Unofficial fan project.",
+  "stars": 61,
+  "pushed_at": "2026-10-13T18:29:26Z",
+  "default_branch": "main",
+  "commit_checked": "646c8097034e4bd30a3ebde86cd61d46a2382e8a",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "reference/sdlpal/.github/workflows/emscripten.yml",
+      "reference/sdlpal/emscripten/Makefile",
+      "reference/sdlpal/emscripten/icon.png"
+    ],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T18:43:48.598Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(2+)"
+    ],
+    "binaries": [
+      "reference/sdlpal/android/gradle/wrapper/gradle-wrapper.jar",
+      "reference/sdlpal/android/gradlew.bat"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "blocked",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(2+) (read those files before building)",
+    "asset license terms incompatible with redistribution: no-derivatives in reference/sdlpal/adplug/NOTES/COPYING"
+  ],
+  "asset_audit": {
+    "verdict": "blocked",
+    "assets": {
+      "files": 1446,
+      "bytes": 55102898
+    },
+    "coverage": {
+      "strong": 0.054,
+      "weak": 0.946,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "CC-BY",
+      "CC0/Unlicense",
+      "GPL-family",
+      "OFL",
+      "public-domain"
+    ],
+    "uncovered": [
+      {
+        "dir": "projects/pal",
+        "bytes": 45752373,
+        "files": 833,
+        "level": "weak"
+      },
+      {
+        "dir": "packages/editor",
+        "bytes": 6236402,
+        "files": 447,
+        "level": "weak"
+      },
+      {
+        "dir": "packages/reforge",
+        "bytes": 116124,
+        "files": 87,
+        "level": "weak"
+      },
+      {
+        "dir": "projects/demo",
+        "bytes": 18494,
+        "files": 11,
+        "level": "weak"
+      },
+      {
+        "dir": "packages/game",
+        "bytes": 2686,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [
+      {
+        "file": "reference/sdlpal/adplug/NOTES/COPYING",
+        "reason": "no-derivatives"
+      }
+    ],
+    "audited_at": "2026-10-13T18:43:57.185Z",
+    "commit": "646c8097034e4bd30a3ebde86cd61d46a2382e8a"
+  },
+  "duplicate_of": []
+}

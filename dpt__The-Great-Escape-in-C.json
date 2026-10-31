@@ -1,0 +1,42 @@
+{
+  "repo": "dpt/The-Great-Escape-in-C",
+  "url": "https://github.com/dpt/The-Great-Escape-in-C",
+  "description": "Classic ZX Spectrum game \"The Great Escape\" rewritten in portable C",
+  "stars": 134,
+  "pushed_at": "2026-10-24T12:47:45Z",
+  "default_branch": "main",
+  "commit_checked": "9e658f58b144dae3cb2fa85b3f0ce2153885a88c",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "platform/generic/build-emscripten-sdl.sh",
+      "platform/generic/build-emscripten.sh"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-24T18:48:01.583Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

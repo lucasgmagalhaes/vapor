@@ -1,0 +1,123 @@
+{
+  "repo": "YuriSizuku/OnscripterYuri",
+  "url": "https://github.com/YuriSizuku/OnscripterYuri",
+  "description": "An enhancement ONScripter project porting to many platforms, especially web. ",
+  "stars": 855,
+  "pushed_at": "2026-06-23T17:47:09Z",
+  "default_branch": "master",
+  "commit_checked": "08f744b31cc1907b66a15f0402e62321a131ed81",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:20.514Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(2+)"
+    ],
+    "binaries": [
+      "src/onsyuri_android/gradle/wrapper/gradle-wrapper.jar",
+      "src/onsyuri_android/gradlew.bat"
+    ],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(2+) (read those files before building)",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: screenshot/onsyuri_mo2_linuxtest2.png, screenshot/onsyuri_mo2_webtest.png, screenshot/onsyuri_mo2_webtest2.png"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 10,
+      "bytes": 8451458
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "GPL-family"
+    ],
+    "uncovered": [
+      {
+        "dir": "screenshot/onsyuri_mo2_linuxtest2.png",
+        "bytes": 2287953,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "screenshot/onsyuri_mo2_webtest.png",
+        "bytes": 1762307,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "screenshot/onsyuri_mo2_webtest2.png",
+        "bytes": 1260726,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "screenshot/onsyuri_mo2_webtest3.jpg",
+        "bytes": 1098267,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "screenshot/onsyuri_mo2_linuxtest.jpg",
+        "bytes": 695773,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "screenshot/onsyuri_ui_androidtest1.jpg",
+        "bytes": 608794,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "screenshot/onsyuri_ui_androidtest2.jpg",
+        "bytes": 441635,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "asset/icon1.ico",
+        "bytes": 161645,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "asset/icon1.png",
+        "bytes": 67179,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "src/onsyuri_android",
+        "bytes": 67179,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:24.087Z",
+    "commit": "08f744b31cc1907b66a15f0402e62321a131ed81"
+  },
+  "duplicate_of": []
+}

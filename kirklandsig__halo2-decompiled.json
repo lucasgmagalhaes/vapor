@@ -1,0 +1,45 @@
+{
+  "repo": "kirklandsig/halo2-decompiled",
+  "url": "https://github.com/kirklandsig/halo2-decompiled",
+  "description": "Halo 2 decompilation (decomp) for the original Xbox: a matching decompilation of the retail game into C/C++ source, rebuilt byte for byte, toward native PC, Linux and handheld ports. Contributors welcome. Source only; bring your own disc.",
+  "stars": 129,
+  "pushed_at": "2026-10-31T14:17:17Z",
+  "default_branch": "main",
+  "commit_checked": "e6f7de18dcca622f8bbd44ff042b5f066df698e7",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "verified",
+    "platform": "xbox",
+    "url": "https://www.halowaypoint.com/news/halo-2-twentieth-anniversary",
+    "title": "Halo 2",
+    "released_at": "2004-11-09",
+    "source": "reviewed-publisher-release"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-31T14:32:13.353Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "byo-only",
+  "reasons": [
+    "no wasm/emscripten signal found",
+    "decompilation project: the game's original assets are almost certainly proprietary (bring-your-own)",
+    "also mentions open-asset terms: check which assets are actually free"
+  ],
+  "duplicate_of": []
+}

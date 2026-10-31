@@ -1,0 +1,45 @@
+{
+  "repo": "HayatoG/iss_pc",
+  "url": "https://github.com/HayatoG/iss_pc",
+  "description": "Native PC port (Linux/Windows) of inFAMOUS Second Son (PS4, CUSA00223) — in development, playable; runs your own game dump; no game or firmware files included. Motion sensor emulation. | Port nativo para PC de inFAMOUS Second Son (em desenvolvimento) — usa o seu próprio dump.",
+  "stars": 964,
+  "pushed_at": "2026-10-28T02:39:34Z",
+  "default_branch": "developer",
+  "commit_checked": "37c05ba21bb328f5962edfbc42bb5360f7db42ed",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "port/gpu/third_party/half/web/Doxyfile",
+      "port/gpu/third_party/half/web/Mainpage.md",
+      "port/gpu/third_party/half/web/News.md",
+      "port/gpu/third_party/half/web/half.hpp",
+      "port/gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-28T05:43:05.055Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

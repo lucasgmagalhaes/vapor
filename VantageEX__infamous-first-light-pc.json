@@ -1,0 +1,45 @@
+{
+  "repo": "VantageEX/infamous-first-light-pc",
+  "url": "https://github.com/VantageEX/infamous-first-light-pc",
+  "description": "Unofficial native PC port of inFAMOUS First Light (PS4). Bring your own game dump - no game files included.",
+  "stars": 77,
+  "pushed_at": "2026-10-26T15:08:52Z",
+  "default_branch": "main",
+  "commit_checked": "467822b09789aadbd8426c57f6d604bad96ea06f",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "port/gpu/third_party/half/web/Doxyfile",
+      "port/gpu/third_party/half/web/Mainpage.md",
+      "port/gpu/third_party/half/web/News.md",
+      "port/gpu/third_party/half/web/half.hpp",
+      "port/gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-26T15:12:17.372Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

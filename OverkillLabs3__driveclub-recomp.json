@@ -1,0 +1,43 @@
+{
+  "repo": "OverkillLabs3/driveclub-recomp",
+  "url": "https://github.com/OverkillLabs3/driveclub-recomp",
+  "description": "DriveClub (PS4, version 1.28) running natively on Windows",
+  "stars": 814,
+  "pushed_at": "2026-10-30T22:38:41Z",
+  "default_branch": "main",
+  "commit_checked": "d720742662bd1c8b3e2d8777277c407d5c15adf3",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "gpu/third_party/half/web/Doxyfile",
+      "gpu/third_party/half/web/half.hpp",
+      "gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-31T05:41:41.406Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

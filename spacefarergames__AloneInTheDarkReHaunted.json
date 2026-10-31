@@ -1,0 +1,61 @@
+{
+  "repo": "spacefarergames/AloneInTheDarkReHaunted",
+  "url": "https://github.com/spacefarergames/AloneInTheDarkReHaunted",
+  "description": "A heavily enhanced port and dynamic recomp of Alone In The Dark 1, with Textured Models, HD-4K background replacements, QOL improvements, controller support and so much more.",
+  "stars": 117,
+  "pushed_at": "2026-08-10T11:23:03Z",
+  "default_branch": "main",
+  "commit_checked": "3c230894e39a70f1822196bd2012eadc61755758",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "verified",
+    "platform": "steam",
+    "url": "https://store.steampowered.com/app/548090/Alone_in_the_Dark_1/",
+    "title": "Alone in the Dark 1"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "TatouSource/ThirdParty/SDL/cmake/PreseedEmscriptenCache.cmake",
+      "TatouSource/ThirdParty/SDL/docs/INTRO-emscripten.md",
+      "TatouSource/ThirdParty/SDL/docs/README-emscripten.md",
+      "TatouSource/ThirdParty/SDL/src/audio/emscripten/SDL_emscriptenaudio.c",
+      "TatouSource/ThirdParty/SDL/src/audio/emscripten/SDL_emscriptenaudio.h"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T04:55:03.496Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "TatouSource/FitdLib/generate_embedded.ps1",
+      "TatouSource/FitdLib/pack_audio.ps1",
+      "TatouSource/ThirdParty/SDL/android-project/gradle/wrapper/gradle-wrapper.jar",
+      "TatouSource/ThirdParty/SDL/android-project/gradlew.bat",
+      "TatouSource/ThirdParty/SDL/src/gpu/d3d12/compile_shaders.bat",
+      "TatouSource/ThirdParty/SDL/src/gpu/d3d12/compile_shaders_xbox.bat",
+      "TatouSource/ThirdParty/SDL/src/render/direct3d/compile_shaders.bat",
+      "TatouSource/ThirdParty/SDL/src/render/direct3d11/compile_shaders.bat",
+      "TatouSource/ThirdParty/SDL/src/render/direct3d12/compile_shaders.bat",
+      "TatouSource/ThirdParty/SDL/src/render/direct3d12/compile_shaders_xbox.bat"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

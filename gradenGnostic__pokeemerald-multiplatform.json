@@ -1,0 +1,39 @@
+{
+  "repo": "gradenGnostic/pokeemerald-multiplatform",
+  "url": "https://github.com/gradenGnostic/pokeemerald-multiplatform",
+  "description": "Pokemon Emerald ported to multiple platforms",
+  "stars": 70,
+  "pushed_at": "2026-08-15T21:24:44Z",
+  "default_branch": "main",
+  "commit_checked": "db1cab3d2dc9f0e0a9f4a3d67983e5acf30a9a46",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T20:12:47.955Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

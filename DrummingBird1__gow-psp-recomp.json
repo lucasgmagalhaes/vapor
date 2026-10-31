@@ -1,0 +1,39 @@
+{
+  "repo": "DrummingBird1/gow-psp-recomp",
+  "url": "https://github.com/DrummingBird1/gow-psp-recomp",
+  "description": "Unofficial native PC ports of God of War: Chains of Olympus and Ghost of Sparta (PSP) by static recompilation. Bring your own disc.",
+  "stars": 156,
+  "pushed_at": "2026-10-30T13:12:57Z",
+  "default_branch": "main",
+  "commit_checked": "afc345b4033e0f5a1487617832b407ac85b9ad03",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-30T15:03:24.210Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

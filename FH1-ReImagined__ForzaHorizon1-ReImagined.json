@@ -1,0 +1,39 @@
+{
+  "repo": "FH1-ReImagined/ForzaHorizon1-ReImagined",
+  "url": "https://github.com/FH1-ReImagined/ForzaHorizon1-ReImagined",
+  "description": "Forza Horizon (Xbox 360) natively on PC, rebuilt around the modern Horizon experience: shared online free roam, leaderboards and rivals, 120/144 fps, and a self-hostable online server.",
+  "stars": 372,
+  "pushed_at": "2026-10-31T13:34:31Z",
+  "default_branch": "main",
+  "commit_checked": "4e733e2f493c86995fd5f1676ae1dcdc0d7ca62d",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-31T14:32:15.130Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

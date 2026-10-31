@@ -1,0 +1,39 @@
+{
+  "repo": "danielgomesvieira2000/burnout3-pc",
+  "url": "https://github.com/danielgomesvieira2000/burnout3-pc",
+  "description": "Burnout 3: Takedown as a native Windows port, through a PS2 decompilation toolchain. Unofficial; bring your own disc. No game content included.",
+  "stars": 196,
+  "pushed_at": "2026-10-30T21:09:18Z",
+  "default_branch": "master",
+  "commit_checked": "9a5b8be9e8b8f4e4be28bd8fa53b4fccf9e2dfff",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-31T05:41:42.284Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

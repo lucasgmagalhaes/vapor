@@ -1,0 +1,131 @@
+[
+  {
+    "repo": "kirklandsig/halo2-decompiled",
+    "status": "byo-only",
+    "stars": 129,
+    "license": "GPL-3.0",
+    "distribution": {
+      "status": "verified",
+      "platform": "xbox",
+      "url": "https://www.halowaypoint.com/news/halo-2-twentieth-anniversary",
+      "title": "Halo 2",
+      "released_at": "2004-11-09",
+      "source": "reviewed-publisher-release"
+    },
+    "wasm": false,
+    "security": [],
+    "duplicate_of": [],
+    "reasons": [
+      "no wasm/emscripten signal found",
+      "decompilation project: the game's original assets are almost certainly proprietary (bring-your-own)",
+      "also mentions open-asset terms: check which assets are actually free"
+    ]
+  },
+  {
+    "repo": "headshot2017/re-plants-vs-zombies",
+    "status": "byo-only",
+    "stars": 48,
+    "license": "CC0-1.0",
+    "distribution": {
+      "status": "verified",
+      "platform": "steam",
+      "url": "https://store.steampowered.com/app/3590/Plants_vs_Zombies_GOTY_Edition/",
+      "title": "Plants vs. Zombies GOTY Edition"
+    },
+    "wasm": false,
+    "security": [],
+    "duplicate_of": [],
+    "reasons": [
+      "no wasm/emscripten signal found",
+      "decompilation project: the game's original assets are almost certainly proprietary (bring-your-own)",
+      "also mentions open-asset terms: check which assets are actually free"
+    ]
+  },
+  {
+    "repo": "ammaarreshi/Generals-Mac-iOS-iPad",
+    "status": "external-only",
+    "stars": 1669,
+    "license": "NOASSERTION",
+    "distribution": {
+      "status": "verified",
+      "platform": "steam",
+      "url": "https://store.steampowered.com/app/2732960/",
+      "title": "Command & Conquer™ Generals Zero Hour"
+    },
+    "wasm": false,
+    "security": [
+      "committed-binaries(10+)"
+    ],
+    "duplicate_of": [],
+    "reasons": [
+      "code license missing or not recognized",
+      "no wasm/emscripten signal found",
+      "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+      "supply-chain flags: committed-binaries(10+) (read those files before building)"
+    ]
+  },
+  {
+    "repo": "ammaarreshi/RedAlert2-Mac-iOS-iPad",
+    "status": "external-only",
+    "stars": 432,
+    "license": "GPL-3.0",
+    "distribution": {
+      "status": "verified",
+      "platform": "steam",
+      "url": "https://store.steampowered.com/app/2229850/",
+      "title": "Command & Conquer Red Alert™ 2 and Yuri’s Revenge™"
+    },
+    "wasm": true,
+    "security": [
+      "script:pipe-to-shell"
+    ],
+    "duplicate_of": [],
+    "reasons": [
+      "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+      "supply-chain flags: script:pipe-to-shell (read those files before building)"
+    ]
+  },
+  {
+    "repo": "spacefarergames/AloneInTheDarkReHaunted",
+    "status": "external-only",
+    "stars": 117,
+    "license": "GPL-2.0",
+    "distribution": {
+      "status": "verified",
+      "platform": "steam",
+      "url": "https://store.steampowered.com/app/548090/Alone_in_the_Dark_1/",
+      "title": "Alone in the Dark 1"
+    },
+    "wasm": true,
+    "security": [
+      "committed-binaries(10+)"
+    ],
+    "duplicate_of": [],
+    "reasons": [
+      "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+      "supply-chain flags: committed-binaries(10+) (read those files before building)"
+    ]
+  },
+  {
+    "repo": "tarek369/GeneralsZH-Android",
+    "status": "external-only",
+    "stars": 75,
+    "license": "GPL-3.0",
+    "distribution": {
+      "status": "verified",
+      "platform": "steam",
+      "url": "https://store.steampowered.com/app/2732960/",
+      "title": "Command & Conquer™ Generals Zero Hour"
+    },
+    "wasm": false,
+    "security": [
+      "committed-binaries(10+)"
+    ],
+    "duplicate_of": [],
+    "reasons": [
+      "no wasm/emscripten signal found",
+      "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+      "supply-chain flags: committed-binaries(10+) (read those files before building)"
+    ]
+  }
+]

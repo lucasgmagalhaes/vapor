@@ -1,0 +1,39 @@
+{
+  "repo": "saulob/odin-sphere-leifthrasir-pc",
+  "url": "https://github.com/saulob/odin-sphere-leifthrasir-pc",
+  "description": "Odin Sphere Leifthrasir native PC port for Windows, with direct PS4 PKG installation, TRG launcher and modern graphics options",
+  "stars": 81,
+  "pushed_at": "2026-10-31T05:28:02Z",
+  "default_branch": "main",
+  "commit_checked": "97ce0abbb439f24b6511758523ec6ddc344a09b6",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-31T05:41:41.865Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

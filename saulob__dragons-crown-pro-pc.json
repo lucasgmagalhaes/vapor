@@ -1,0 +1,39 @@
+{
+  "repo": "saulob/dragons-crown-pro-pc",
+  "url": "https://github.com/saulob/dragons-crown-pro-pc",
+  "description": "Dragon's Crown Pro native PC port for Windows, with direct PS4 PKG installation, TRG launcher and modern graphics options",
+  "stars": 319,
+  "pushed_at": "2026-10-30T16:18:56Z",
+  "default_branch": "main",
+  "commit_checked": "77f0488b13d8ccc975ea3ddfaa188c1636b469af",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-30T20:48:06.773Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

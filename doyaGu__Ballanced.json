@@ -1,0 +1,39 @@
+{
+  "repo": "doyaGu/Ballanced",
+  "url": "https://github.com/doyaGu/Ballanced",
+  "description": "The reversed code of Ballance.",
+  "stars": 48,
+  "pushed_at": "2026-10-30T00:00:39Z",
+  "default_branch": "sdl",
+  "commit_checked": "ececf940b3d195b3f95c9c55a6f9dd79e0ac1472",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-30T05:49:58.006Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

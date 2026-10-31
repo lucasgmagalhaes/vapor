@@ -1,0 +1,42 @@
+{
+  "repo": "SoftbearStudios/mk48",
+  "url": "https://github.com/SoftbearStudios/mk48",
+  "description": "Mk48.io ship combat game (repository commits may lag behind game updates)",
+  "stars": 450,
+  "pushed_at": "2025-08-11T00:39:56Z",
+  "default_branch": "main",
+  "commit_checked": "277fa87fe6707bd256029337ca4dab83efd2323d",
+  "license": {
+    "spdx": "AGPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:21.755Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(2+)"
+    ],
+    "binaries": [
+      "assets/embed/microsoft/install.ps1",
+      "assets/embed/microsoft/utils/pwainstaller.exe"
+    ],
+    "submodule_hosts": [
+      "gitlab.com"
+    ],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(2+) (read those files before building)",
+    "repository is 357 MB: too large for the automatic asset audit"
+  ],
+  "duplicate_of": []
+}

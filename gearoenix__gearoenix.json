@@ -1,0 +1,63 @@
+{
+  "repo": "gearoenix/gearoenix",
+  "url": "https://github.com/gearoenix/gearoenix",
+  "description": "Cross-platform C++ 3D game engine.",
+  "stars": 38,
+  "pushed_at": "2026-05-05T21:19:55Z",
+  "default_branch": "main",
+  "commit_checked": "261048822a8b7e9f1498092e840b07850cc87e70",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "cmake/toolchains/gearoenix-emscripten.cmake",
+      "cmake/vcpkg/ports/ktx/0007-skip-emscripten-js-targets.patch",
+      "gearoenix/platform/wasm/gx-plt-wasm-file-chooser.cpp",
+      "gearoenix/platform/wasm/gx-plt-wasm-file-chooser.hpp",
+      "wasm/build.py"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:36.377Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "no asset files in the repository: check what the build downloads or generates"
+  ],
+  "asset_audit": {
+    "verdict": "no-assets",
+    "assets": {
+      "files": 0,
+      "bytes": 0
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 0,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "GPL-family"
+    ],
+    "uncovered": [],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T17:08:41.697Z",
+    "commit": "261048822a8b7e9f1498092e840b07850cc87e70"
+  },
+  "duplicate_of": []
+}

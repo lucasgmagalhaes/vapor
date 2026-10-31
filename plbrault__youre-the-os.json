@@ -1,0 +1,76 @@
+{
+  "repo": "plbrault/youre-the-os",
+  "url": "https://github.com/plbrault/youre-the-os",
+  "description": "A game where you are a computer's OS and you have to manage processes, memory and I/O events.",
+  "stars": 2690,
+  "pushed_at": "2026-10-12T21:32:17Z",
+  "default_branch": "main",
+  "commit_checked": "20ff9e4a78b5447b3f7d55c82d4c7e664a374aaf",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE.txt"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:21.526Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: src/assets, readme-assets/in_game_screenshot.png, favicon.png"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 52,
+      "bytes": 1809401
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "CC-BY",
+      "CC-BY-SA",
+      "CC0/Unlicense",
+      "GPL-family"
+    ],
+    "uncovered": [
+      {
+        "dir": "src/assets",
+        "bytes": 1747546,
+        "files": 50,
+        "level": "weak"
+      },
+      {
+        "dir": "readme-assets/in_game_screenshot.png",
+        "bytes": 50226,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "favicon.png",
+        "bytes": 11629,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:21.798Z",
+    "commit": "20ff9e4a78b5447b3f7d55c82d4c7e664a374aaf"
+  },
+  "duplicate_of": []
+}

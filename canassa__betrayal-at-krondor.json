@@ -1,0 +1,39 @@
+{
+  "repo": "canassa/betrayal-at-krondor",
+  "url": "https://github.com/canassa/betrayal-at-krondor",
+  "description": "Betrayal at Krondor: A byte-perfect recompilation of the 1993 classic.",
+  "stars": 31,
+  "pushed_at": "2026-08-02T22:07:03Z",
+  "default_branch": "master",
+  "commit_checked": "1fc2a69e306af1623cd22f3390a5569302059f4d",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-22T20:07:31.641Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

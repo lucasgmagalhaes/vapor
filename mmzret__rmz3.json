@@ -1,0 +1,39 @@
+{
+  "repo": "mmzret/rmz3",
+  "url": "https://github.com/mmzret/rmz3",
+  "description": "WIP: Decompilation of Megaman Zero 3(Japan)",
+  "stars": 45,
+  "pushed_at": "2026-07-24T10:59:56Z",
+  "default_branch": "main",
+  "commit_checked": "2a28700e0a74edd9578737c3b3435ced9d074045",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T23:15:19.561Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

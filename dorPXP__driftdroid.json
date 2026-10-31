@@ -1,0 +1,39 @@
+{
+  "repo": "dorPXP/driftdroid",
+  "url": "https://github.com/dorPXP/driftdroid",
+  "description": "A native Android port of Mario Kart Wii and Retro Rewind. Fast, easy.",
+  "stars": 117,
+  "pushed_at": "2026-10-30T22:42:55Z",
+  "default_branch": "android-port",
+  "commit_checked": "257be908ed3cdd35f2cb37f3bc06f5c8f02c16d4",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-31T05:41:41.458Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}
