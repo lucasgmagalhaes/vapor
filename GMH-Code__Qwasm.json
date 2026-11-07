@@ -1,0 +1,51 @@
+{
+  "repo": "GMH-Code/Qwasm",
+  "url": "https://github.com/GMH-Code/Qwasm",
+  "description": "Play the Quake engine in your browser!  True to the original.  Supports WebGL, software-rendered mode, mods, and mission packs.",
+  "stars": 55,
+  "pushed_at": "2024-12-11T13:44:02Z",
+  "default_branch": "master",
+  "commit_checked": "f56b5e71e4be8effede29bae1785a5306dcc0249",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "WinQuake/Makefile.emscripten"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": true,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:07.140Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "QW/clean.bat",
+      "QW/client/q.bat",
+      "QW/makezip.bat",
+      "WinQuake/clean.bat",
+      "WinQuake/cwsdpmi.exe",
+      "WinQuake/kit/GLQUAKE.EXE",
+      "WinQuake/kit/OPENGL32.DLL",
+      "WinQuake/makezip.bat",
+      "WinQuake/q.bat",
+      "WinQuake/qa.bat"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized",
+    "mentions freeware/shareware: not an open license",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

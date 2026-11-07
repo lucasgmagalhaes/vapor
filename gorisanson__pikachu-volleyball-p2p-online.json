@@ -1,0 +1,39 @@
+{
+  "repo": "gorisanson/pikachu-volleyball-p2p-online",
+  "url": "https://github.com/gorisanson/pikachu-volleyball-p2p-online",
+  "description": "Pikachu Volleyball peer-to-peer online via WebRTC data channels",
+  "stars": 343,
+  "pushed_at": "2026-01-18T21:27:23Z",
+  "default_branch": "main",
+  "commit_checked": "9f2dd56d6fb31f86ad0a6716d26636a9f504a91c",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T13:44:50.792Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

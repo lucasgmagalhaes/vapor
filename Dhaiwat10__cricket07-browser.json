@@ -1,0 +1,45 @@
+{
+  "repo": "Dhaiwat10/cricket07-browser",
+  "url": "https://github.com/Dhaiwat10/cricket07-browser",
+  "description": "EA Sports Cricket 07 (2006) running in the browser: every function statically recompiled from x86 to C, then WebAssembly, with Direct3D 8 rebuilt on WebGPU. Bring your own copy.",
+  "stars": 100,
+  "pushed_at": "2026-10-22T15:23:56Z",
+  "default_branch": "main",
+  "commit_checked": "4febc615b6e07d3e70b22c05a65bf37959c6989a",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "web/audio-worklet.js",
+      "web/index.html",
+      "web/loader.js",
+      "web/netplay.js",
+      "web/node_env.js"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-23T19:57:25.733Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

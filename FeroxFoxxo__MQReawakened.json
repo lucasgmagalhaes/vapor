@@ -1,0 +1,39 @@
+{
+  "repo": "FeroxFoxxo/MQReawakened",
+  "url": "https://github.com/FeroxFoxxo/MQReawakened",
+  "description": "An open source emulation for the backend of MQ's servers, written from scratch with love!",
+  "stars": 96,
+  "pushed_at": "2026-11-05T11:10:55Z",
+  "default_branch": "main",
+  "commit_checked": "8e9acf39cb6592fdb49c1db8188c4d2612c4adc5",
+  "license": {
+    "spdx": "AGPL-3.0",
+    "file": "LICENSE.md"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-05T12:22:05.991Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

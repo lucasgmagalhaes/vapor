@@ -1,0 +1,43 @@
+{
+  "repo": "OpenPhantom/OpenPhantom",
+  "url": "https://github.com/OpenPhantom/OpenPhantom",
+  "description": "Star Wars Episode I: The Phantom Menace (1999) PC modernized with online co-op multiplayer for up to 4 players. Play on Windows 10/11, Steam Deck and Proton with a modern installer, widescreen and ultrawide support, uncapped FPS, FOV fixes, improved controls, restored music and video, engine reimplementation and modding tools.",
+  "stars": 56,
+  "pushed_at": "2026-10-05T14:40:28Z",
+  "default_branch": "main",
+  "commit_checked": "1eb1ea70b618dc7991f4e9b8c878ecf1fd3dc431",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T04:55:04.581Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence",
+    "possible duplicate of games/openttd, candidates/OpenTTD/OpenTTD: decide which one to keep before building"
+  ],
+  "duplicate_of": [
+    "games/openttd",
+    "candidates/OpenTTD/OpenTTD"
+  ]
+}

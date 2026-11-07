@@ -1,0 +1,39 @@
+{
+  "repo": "gorisanson/pikachu-volleyball",
+  "url": "https://github.com/gorisanson/pikachu-volleyball",
+  "description": "Pikachu Volleyball reimplemented in JavaScript by reverse engineering the original game",
+  "stars": 1088,
+  "pushed_at": "2026-10-02T15:49:07Z",
+  "default_branch": "main",
+  "commit_checked": "6bc096ad9e25137ae27eb536a6eac1d056be7506",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T13:44:50.693Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

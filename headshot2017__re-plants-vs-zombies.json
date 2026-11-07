@@ -1,0 +1,43 @@
+{
+  "repo": "headshot2017/re-plants-vs-zombies",
+  "url": "https://github.com/headshot2017/re-plants-vs-zombies",
+  "description": "Fork of Patoke's PVZ GOTY decompilation with the intention of porting the game to other platforms (including game consoles)",
+  "stars": 48,
+  "pushed_at": "2026-01-28T07:25:22Z",
+  "default_branch": "main",
+  "commit_checked": "cfabf8b1b89886e85ef514e7db443c6425fd9181",
+  "license": {
+    "spdx": "CC0-1.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "verified",
+    "platform": "steam",
+    "url": "https://store.steampowered.com/app/3590/Plants_vs_Zombies_GOTY_Edition/",
+    "title": "Plants vs. Zombies GOTY Edition"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T04:54:59.375Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "byo-only",
+  "reasons": [
+    "no wasm/emscripten signal found",
+    "decompilation project: the game's original assets are almost certainly proprietary (bring-your-own)",
+    "also mentions open-asset terms: check which assets are actually free"
+  ],
+  "duplicate_of": []
+}

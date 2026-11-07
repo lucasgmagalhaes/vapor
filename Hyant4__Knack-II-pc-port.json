@@ -1,0 +1,45 @@
+{
+  "repo": "Hyant4/Knack-II-pc-port",
+  "url": "https://github.com/Hyant4/Knack-II-pc-port",
+  "description": "Unofficial Knack II (Knack 2) PC port for Windows. Experimental Vulkan alpha, launcher and local co-op; requires your own PS4 game dump.",
+  "stars": 61,
+  "pushed_at": "2026-10-30T05:47:14Z",
+  "default_branch": "main",
+  "commit_checked": "ed42d1a73fe5361f5f593abf5001905f9b3ceae5",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "port/gpu/third_party/half/web/Doxyfile",
+      "port/gpu/third_party/half/web/Mainpage.md",
+      "port/gpu/third_party/half/web/News.md",
+      "port/gpu/third_party/half/web/half.hpp",
+      "port/gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-30T05:49:58.667Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

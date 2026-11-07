@@ -1,0 +1,39 @@
+{
+  "repo": "LostMyCode/redstone-js",
+  "url": "https://github.com/LostMyCode/redstone-js",
+  "description": "RedStoneJS: Play \"RED STONE ONLINE\" on your browser / 無料オンラインゲーム「RED STONE」をWEBに移植するプロジェクト",
+  "stars": 60,
+  "pushed_at": "2025-12-08T03:27:33Z",
+  "default_branch": "master",
+  "commit_checked": "38ac1782485e9865421f5400ba7b18fc97d83075",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T20:12:44.305Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

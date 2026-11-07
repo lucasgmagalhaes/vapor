@@ -1,0 +1,39 @@
+{
+  "repo": "PramAnanta/Atlas-Override",
+  "url": "https://github.com/PramAnanta/Atlas-Override",
+  "description": "No Man’s Sky Trainer 2026: Advanced C++ Mod Tool for Exploration & Survival",
+  "stars": 55,
+  "pushed_at": "2026-11-07T05:08:37Z",
+  "default_branch": "main",
+  "commit_checked": "3d655a10a737e8ede0cb43a253cc1a186a9f53a0",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-07T05:58:51.178Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,58 @@
+{
+  "repo": "tarek369/GeneralsZH-Android",
+  "url": "https://github.com/tarek369/GeneralsZH-Android",
+  "description": "C&C Generals Zero Hour running natively on Android tablets (arm64-v8a) via DXVK→Vulkan. First-ever DXVK build for Android.",
+  "stars": 75,
+  "pushed_at": "2026-09-08T17:05:11Z",
+  "default_branch": "main",
+  "commit_checked": "52cbb68e4b5ff1856c1d402adf6b4f2ea4725626",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "verified",
+    "platform": "steam",
+    "url": "https://store.steampowered.com/app/2732960/",
+    "title": "Command & Conquer™ Generals Zero Hour"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-27T14:32:11.368Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "Core/Libraries/Source/debug/compile_doxygen.bat",
+      "Core/Libraries/Source/profile/compile_doxygen.bat",
+      "Core/Tools/DebugWindow/post-build.bat",
+      "Core/Tools/ParticleEditor/post-build-Release.bat",
+      "Core/Tools/ParticleEditor/post-build.bat",
+      "Core/Tools/wolSetup/WOLAPI/wolapi.dll",
+      "Core/Tools/wolSetup/WOLAPI/woldbg.dll",
+      "Core/Tools/wolSetup/makedist.bat",
+      "Generals/Run/BrowserEngine.dll",
+      "GeneralsMD/Run/BrowserEngine.dll"
+    ],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "no wasm/emscripten signal found",
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

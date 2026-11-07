@@ -1,0 +1,45 @@
+{
+  "repo": "ravencaio/tlou-remastered-pc",
+  "url": "https://github.com/ravencaio/tlou-remastered-pc",
+  "description": "Native Windows PC port of The Last of Us Remastered (PS4, CUSA00552). Runs the game’s own x86-64 code on a custom runtime, with PS4 system libraries reimplemented and a Vulkan renderer based on shadPS4. Includes a launcher. No game files included: you need your own copy.",
+  "stars": 231,
+  "pushed_at": "2026-11-04T18:41:10Z",
+  "default_branch": "main",
+  "commit_checked": "212fb04aaf81613326efcb9b9985326c612799cc",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "gow3_pc/gpu/third_party/half/web/Doxyfile",
+      "gow3_pc/gpu/third_party/half/web/Mainpage.md",
+      "gow3_pc/gpu/third_party/half/web/News.md",
+      "gow3_pc/gpu/third_party/half/web/half.hpp",
+      "gow3_pc/gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-04T19:45:54.825Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

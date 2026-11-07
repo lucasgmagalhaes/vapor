@@ -1,0 +1,34 @@
+{
+  "repo": "burnedpopcorn/Pizza-Tower-1.1.0-Web-Port",
+  "url": "https://github.com/burnedpopcorn/Pizza-Tower-1.1.0-Web-Port",
+  "description": "Pizza Tower 1.1.0 playable in the Browser",
+  "stars": 42,
+  "pushed_at": "2025-01-18T07:41:16Z",
+  "default_branch": "main",
+  "commit_checked": "ce562377b426c16a2a54f10d5a60c1293917dc0b",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:10.155Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized"
+  ],
+  "duplicate_of": []
+}

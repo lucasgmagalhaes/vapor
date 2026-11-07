@@ -1,0 +1,38 @@
+{
+  "repo": "muhammedaksam/opentui-doom",
+  "url": "https://github.com/muhammedaksam/opentui-doom",
+  "description": "Play DOOM in your terminal using OpenTUI's framebuffer rendering and doomgeneric WASM",
+  "stars": 46,
+  "pushed_at": "2026-08-10T16:09:08Z",
+  "default_branch": "main",
+  "commit_checked": "91844a24edcd166890462995c29ad0402c31a894",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": true,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:08.828Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized",
+    "mentions freeware/shareware: not an open license",
+    "possible duplicate of games/doom-freedoom: decide which one to keep before building"
+  ],
+  "duplicate_of": [
+    "games/doom-freedoom"
+  ]
+}

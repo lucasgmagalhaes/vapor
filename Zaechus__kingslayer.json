@@ -1,0 +1,55 @@
+{
+  "repo": "Zaechus/kingslayer",
+  "url": "https://github.com/Zaechus/kingslayer",
+  "description": "A text-based adventure written in Rust",
+  "stars": 42,
+  "pushed_at": "2026-05-28T23:45:39Z",
+  "default_branch": "main",
+  "commit_checked": "943336dd2fc3ea5215fdef3a4b86885d7014c7a9",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:35.972Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "no asset files in the repository: check what the build downloads or generates"
+  ],
+  "asset_audit": {
+    "verdict": "no-assets",
+    "assets": {
+      "files": 0,
+      "bytes": 0
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 0,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "MIT"
+    ],
+    "uncovered": [],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T17:08:37.483Z",
+    "commit": "943336dd2fc3ea5215fdef3a4b86885d7014c7a9"
+  },
+  "duplicate_of": []
+}

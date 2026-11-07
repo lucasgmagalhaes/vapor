@@ -1,0 +1,89 @@
+{
+  "repo": "mmatyas/openblok",
+  "url": "https://github.com/mmatyas/openblok",
+  "description": "A customizable, cross platform, open-source falling block game, packed with a bunch of features.",
+  "stars": 121,
+  "pushed_at": "2025-10-02T21:52:06Z",
+  "default_branch": "master",
+  "commit_checked": "f5cbbde4ac852083e7a0ed32f4122cecbac4f455",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE.md"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "etc/emscripten/emscripten.html",
+      "etc/emscripten/emscripten.patch",
+      "etc/emscripten/emscripten_howto.md"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:25.298Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: data/themes, data/fonts, etc/promo"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 39,
+      "bytes": 6920704
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "GPL-family"
+    ],
+    "uncovered": [
+      {
+        "dir": "data/themes",
+        "bytes": 4293227,
+        "files": 27,
+        "level": "weak"
+      },
+      {
+        "dir": "data/fonts",
+        "bytes": 2506928,
+        "files": 7,
+        "level": "weak"
+      },
+      {
+        "dir": "etc/promo",
+        "bytes": 114464,
+        "files": 3,
+        "level": "weak"
+      },
+      {
+        "dir": "data/gamepad-connect.png",
+        "bytes": 5851,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "data/icon.png",
+        "bytes": 234,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:26.502Z",
+    "commit": "f5cbbde4ac852083e7a0ed32f4122cecbac4f455"
+  },
+  "duplicate_of": []
+}

@@ -1,0 +1,45 @@
+{
+  "repo": "raulzrrs/letsgo-recomp",
+  "url": "https://github.com/raulzrrs/letsgo-recomp",
+  "description": "Native Windows port of Pokémon: Let's Go, Eevee! (Switch v1.0.0) by static recompilation, built on LAS Recomp. No game files included.",
+  "stars": 247,
+  "pushed_at": "2026-11-01T14:22:14Z",
+  "default_branch": "main",
+  "commit_checked": "1a70f777c7abac6834ca54bd69b1235471193e1e",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "third_party/imgui/examples/example_glfw_opengl3/Makefile.emscripten",
+      "third_party/imgui/examples/example_glfw_wgpu/Makefile.emscripten",
+      "third_party/imgui/examples/example_sdl2_opengl3/Makefile.emscripten",
+      "third_party/imgui/examples/example_sdl3_opengl3/Makefile.emscripten",
+      "third_party/imgui/examples/libs/emscripten/emscripten_mainloop_stub.h"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-01T15:10:04.976Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

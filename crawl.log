@@ -1,0 +1,87 @@
+2026-11-07T05:58:41.004Z [crawler:start] max_new=30 min_stars=30 concurrency=4 asset_audit=true out=crawl-output
+2026-11-07T05:58:41.549Z [crawler:search] topic:decompilation topic:game: returned=12 eligible=11 new=11 duration=0.5s
+2026-11-07T05:58:42.289Z [crawler:search] topic:reverse-engineering topic:game: returned=30 eligible=23 new=21 duration=0.7s
+2026-11-07T05:58:42.713Z [crawler:search] topic:recompilation topic:game: returned=14 eligible=13 new=9 duration=0.4s
+2026-11-07T05:58:43.459Z [crawler:search] topic:static-recompilation: returned=30 eligible=28 new=27 duration=0.7s
+2026-11-07T05:58:43.625Z [crawler:search] topic:game-recompilation: returned=0 eligible=0 new=0 duration=0.2s
+2026-11-07T05:58:44.340Z [crawler:search] decompilation game in:description: returned=30 eligible=26 new=26 duration=0.7s
+2026-11-07T05:58:44.778Z [crawler:search] topic:pc-port topic:ps4: returned=16 eligible=15 new=15 duration=0.4s
+2026-11-07T05:58:45.450Z [crawler:search] running natively in:description: returned=30 eligible=13 new=13 duration=0.7s
+2026-11-07T05:58:45.930Z [crawler:seed] loaded=5/5 unique_total=122
+2026-11-07T05:58:45.935Z [crawler:queue] discovered=122 unchanged=97 selected=25 deferred=0
+2026-11-07T05:58:45.936Z [crawler:inspect] Supermedo/bloodborne_pc started
+2026-11-07T05:58:45.936Z [crawler:inspect] FelipePrado0/SpartanPort started
+2026-11-07T05:58:45.936Z [crawler:inspect] seedds/nxnative started
+2026-11-07T05:58:45.936Z [crawler:inspect] kuraeow/ultratears started
+2026-11-07T05:58:46.705Z [crawler:inspect] Supermedo/bloodborne_pc classified=distribution-unverified kind=native-port distribution=unverified (0.8s)
+2026-11-07T05:58:46.757Z [crawler:result] Supermedo/bloodborne_pc status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.8s
+2026-11-07T05:58:46.757Z [crawler:inspect] saulob/dragons-crown-pro-pc started
+2026-11-07T05:58:46.826Z [crawler:inspect] kuraeow/ultratears classified=distribution-unverified kind=decompilation distribution=unverified (0.9s)
+2026-11-07T05:58:46.827Z [crawler:inspect] FelipePrado0/SpartanPort classified=distribution-unverified kind=native-port distribution=unverified (0.9s)
+2026-11-07T05:58:46.828Z [crawler:result] kuraeow/ultratears status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:46.828Z [crawler:inspect] elripalda/RecompStore started
+2026-11-07T05:58:46.828Z [crawler:result] FelipePrado0/SpartanPort status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:46.828Z [crawler:inspect] sostenesfreitas/ocarina-recomp started
+2026-11-07T05:58:46.841Z [crawler:inspect] seedds/nxnative classified=distribution-unverified kind=native-port distribution=unverified (0.9s)
+2026-11-07T05:58:46.879Z [crawler:result] seedds/nxnative status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:46.879Z [crawler:inspect] scarletnx/ScarletNX started
+2026-11-07T05:58:47.625Z [crawler:inspect] elripalda/RecompStore classified=distribution-unverified kind=decompilation distribution=unverified (0.8s)
+2026-11-07T05:58:47.626Z [crawler:result] elripalda/RecompStore status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.8s
+2026-11-07T05:58:47.626Z [crawler:inspect] daniel-madrid-07/weeping-of-the-empire started
+2026-11-07T05:58:47.683Z [crawler:inspect] saulob/dragons-crown-pro-pc classified=distribution-unverified kind=native-port distribution=unverified (0.9s)
+2026-11-07T05:58:47.685Z [crawler:result] saulob/dragons-crown-pro-pc status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:47.685Z [crawler:inspect] NoRain211/doaxvb-re started
+2026-11-07T05:58:47.698Z [crawler:inspect] sostenesfreitas/ocarina-recomp classified=distribution-unverified kind=native-port distribution=unverified (0.9s)
+2026-11-07T05:58:47.698Z [crawler:result] sostenesfreitas/ocarina-recomp status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:47.698Z [crawler:inspect] Vnnc1/gow-native-pc started
+2026-11-07T05:58:47.827Z [crawler:inspect] scarletnx/ScarletNX classified=distribution-unverified kind=decompilation distribution=unverified (0.9s)
+2026-11-07T05:58:47.827Z [crawler:result] scarletnx/ScarletNX status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:47.827Z [crawler:inspect] Shagg88/Athelas started
+2026-11-07T05:58:48.628Z [crawler:inspect] daniel-madrid-07/weeping-of-the-empire classified=distribution-unverified kind=decompilation distribution=unverified (1.0s)
+2026-11-07T05:58:48.629Z [crawler:result] daniel-madrid-07/weeping-of-the-empire status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=1.0s
+2026-11-07T05:58:48.629Z [crawler:inspect] griches/EternalDarknessRecomp started
+2026-11-07T05:58:48.656Z [crawler:inspect] NoRain211/doaxvb-re classified=distribution-unverified kind=native-port distribution=unverified (1.0s)
+2026-11-07T05:58:48.657Z [crawler:result] NoRain211/doaxvb-re status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=1.0s
+2026-11-07T05:58:48.657Z [crawler:inspect] Xeeynamo/sotn-decomp started
+2026-11-07T05:58:48.659Z [crawler:inspect] Vnnc1/gow-native-pc classified=distribution-unverified kind=native-port distribution=unverified (1.0s)
+2026-11-07T05:58:48.660Z [crawler:result] Vnnc1/gow-native-pc status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=1.0s
+2026-11-07T05:58:48.660Z [crawler:inspect] FH1-ReImagined/ForzaHorizon1-ReImagined started
+2026-11-07T05:58:48.740Z [crawler:inspect] Shagg88/Athelas classified=distribution-unverified kind=decompilation distribution=unverified (0.9s)
+2026-11-07T05:58:48.741Z [crawler:result] Shagg88/Athelas status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:48.741Z [crawler:inspect] petrishevgeorgii-debug/prototype-pc-slop started
+2026-11-07T05:58:49.533Z [crawler:inspect] griches/EternalDarknessRecomp classified=distribution-unverified kind=decompilation distribution=unverified (0.9s)
+2026-11-07T05:58:49.534Z [crawler:result] griches/EternalDarknessRecomp status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:49.534Z [crawler:inspect] Yokimitsuro/khdays-port started
+2026-11-07T05:58:49.605Z [crawler:inspect] Xeeynamo/sotn-decomp classified=distribution-unverified kind=decompilation distribution=unverified (0.9s)
+2026-11-07T05:58:49.605Z [crawler:result] Xeeynamo/sotn-decomp status=distribution-unverified license=AGPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:49.605Z [crawler:inspect] Yharnam-Hunters/Paleblood started
+2026-11-07T05:58:49.634Z [crawler:inspect] FH1-ReImagined/ForzaHorizon1-ReImagined classified=distribution-unverified kind=decompilation distribution=unverified (1.0s)
+2026-11-07T05:58:49.637Z [crawler:result] FH1-ReImagined/ForzaHorizon1-ReImagined status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=1.0s
+2026-11-07T05:58:49.638Z [crawler:inspect] nekomancer01/DarkSoulsPS2 started
+2026-11-07T05:58:49.646Z [crawler:inspect] petrishevgeorgii-debug/prototype-pc-slop classified=distribution-unverified kind=native-port distribution=unverified (0.9s)
+2026-11-07T05:58:49.646Z [crawler:result] petrishevgeorgii-debug/prototype-pc-slop status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:49.646Z [crawler:inspect] JonathanDC64/Soulbrandt started
+2026-11-07T05:58:50.537Z [crawler:inspect] JonathanDC64/Soulbrandt classified=distribution-unverified kind=native-port distribution=unverified (0.9s)
+2026-11-07T05:58:50.538Z [crawler:inspect] Yokimitsuro/khdays-port classified=distribution-unverified kind=decompilation distribution=unverified (1.0s)
+2026-11-07T05:58:50.538Z [crawler:result] JonathanDC64/Soulbrandt status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:50.538Z [crawler:inspect] vyanhursky/DefJamFFNY-recomp started
+2026-11-07T05:58:50.541Z [crawler:result] Yokimitsuro/khdays-port status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=1.0s
+2026-11-07T05:58:50.541Z [crawler:inspect] PramAnanta/Atlas-Override started
+2026-11-07T05:58:50.552Z [crawler:inspect] nekomancer01/DarkSoulsPS2 classified=distribution-unverified kind=decompilation distribution=unverified (0.9s)
+2026-11-07T05:58:50.553Z [crawler:result] nekomancer01/DarkSoulsPS2 status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.9s
+2026-11-07T05:58:50.553Z [crawler:inspect] itzmeshaji-bit/NoMans-Skyward-Forge started
+2026-11-07T05:58:50.600Z [crawler:inspect] Yharnam-Hunters/Paleblood classified=distribution-unverified kind=decompilation distribution=unverified (1.0s)
+2026-11-07T05:58:50.601Z [crawler:result] Yharnam-Hunters/Paleblood status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=1.0s
+2026-11-07T05:58:50.601Z [crawler:inspect] nathanialf/ico-pc started
+2026-11-07T05:58:51.181Z [crawler:inspect] PramAnanta/Atlas-Override classified=distribution-unverified kind=decompilation distribution=unverified (0.6s)
+2026-11-07T05:58:51.181Z [crawler:result] PramAnanta/Atlas-Override status=distribution-unverified license=none evidence=repository has no supported store link or reviewed publisher release evidence duration=0.6s
+2026-11-07T05:58:51.181Z [crawler:inspect] PascalPixel/alchemy started
+2026-11-07T05:58:51.219Z [crawler:inspect] itzmeshaji-bit/NoMans-Skyward-Forge classified=distribution-unverified kind=decompilation distribution=unverified (0.7s)
+2026-11-07T05:58:51.220Z [crawler:result] itzmeshaji-bit/NoMans-Skyward-Forge status=distribution-unverified license=none evidence=repository has no supported store link or reviewed publisher release evidence duration=0.7s
+2026-11-07T05:58:51.588Z [crawler:inspect] nathanialf/ico-pc classified=distribution-unverified kind=decompilation distribution=unverified (1.0s)
+2026-11-07T05:58:51.589Z [crawler:result] nathanialf/ico-pc status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=1.0s
+2026-11-07T05:58:51.616Z [crawler:inspect] vyanhursky/DefJamFFNY-recomp classified=distribution-unverified kind=native-port distribution=unverified (1.1s)
+2026-11-07T05:58:51.617Z [crawler:result] vyanhursky/DefJamFFNY-recomp status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=1.1s
+2026-11-07T05:58:51.950Z [crawler:inspect] PascalPixel/alchemy classified=distribution-unverified kind=decompilation distribution=unverified (0.8s)
+2026-11-07T05:58:51.951Z [crawler:result] PascalPixel/alchemy status=distribution-unverified license=none evidence=repository has no supported store link or reviewed publisher release evidence duration=0.8s
+2026-11-07T05:58:51.964Z [crawler:done] inspected=25 outcomes={"distribution-unverified":25} candidates=6 review=154 duration=11.0s

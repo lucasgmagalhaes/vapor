@@ -1,0 +1,46 @@
+{
+  "repo": "mgerhardy/caveexpress",
+  "url": "https://github.com/mgerhardy/caveexpress",
+  "description": "CaveExpress is a classic 2D platformer with physics-based gameplay and dozens of levels. CavePacker is a Sokoban game.",
+  "stars": 166,
+  "pushed_at": "2026-09-13T19:46:03Z",
+  "default_branch": "master",
+  "commit_checked": "43fc170567c140d037d592148e652fc864ee0302",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "cmake/emscripten.cmake",
+      "contrib/scripts/emscripten.sh",
+      "docs/EMSCRIPTEN.md"
+    ],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:03.147Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(4+)"
+    ],
+    "binaries": [
+      "android-project/app/src/main/libs/google-play-services.jar",
+      "android-project/gradle/wrapper/gradle-wrapper.jar",
+      "android-project/gradlew.bat",
+      "contrib/installer/windows/plugins/games.dll"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized",
+    "supply-chain flags: committed-binaries(4+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,39 @@
+{
+  "repo": "Xeeynamo/sotn-decomp",
+  "url": "https://github.com/Xeeynamo/sotn-decomp",
+  "description": "Decompilation of Castlevania: Symphony of the Night (PSX, PSP, Saturn)",
+  "stars": 1231,
+  "pushed_at": "2026-11-07T03:46:17Z",
+  "default_branch": "master",
+  "commit_checked": "4a555bded28204c2b7c378537724ff703d84c357",
+  "license": {
+    "spdx": "AGPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-07T05:58:49.602Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

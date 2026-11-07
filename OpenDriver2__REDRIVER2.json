@@ -1,0 +1,45 @@
+{
+  "repo": "OpenDriver2/REDRIVER2",
+  "url": "https://github.com/OpenDriver2/REDRIVER2",
+  "description": "Driver 2 Playstation game reverse engineering effort",
+  "stars": 1400,
+  "pushed_at": "2026-09-22T12:58:13Z",
+  "default_branch": "master",
+  "commit_checked": "b2d8857426f815007486def9bd23f9a6007a2c64",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "src_rebuild/platform/Emscripten/emscripten_exports.cpp",
+      "src_rebuild/platform/Emscripten/lsfs.js",
+      "src_rebuild/platform/Emscripten/shell.html",
+      "src_rebuild/platform/Emscripten/style.css",
+      "src_rebuild/premake_modules/emscripten/LICENSE.txt"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T23:44:27.848Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

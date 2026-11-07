@@ -1,0 +1,45 @@
+{
+  "repo": "UstymUkhman/WebDOOM",
+  "url": "https://github.com/UstymUkhman/WebDOOM",
+  "description": ":suspect: Classic DOOM recompiled with WebAssembly :feelsgood:",
+  "stars": 125,
+  "pushed_at": "2026-05-01T07:22:40Z",
+  "default_branch": "master",
+  "commit_checked": "d859ca74907f8306c4f17a22e1d38980ea864ecc",
+  "license": {
+    "spdx": "MIT",
+    "file": "COPYING"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "public/doom1.wasm",
+      "public/doom2.wasm"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": true
+  },
+  "crawled_at": "2026-10-13T16:35:25.185Z",
+  "decomp": true,
+  "security": {
+    "flags": [
+      "committed-binaries(1+)"
+    ],
+    "binaries": [
+      "build.bat"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "byo-only",
+  "reasons": [
+    "decompilation project: the game's original assets are almost certainly proprietary (bring-your-own)",
+    "mentions freeware/shareware: not an open license",
+    "supply-chain flags: committed-binaries(1+) (read those files before building)",
+    "possible duplicate of games/doom-freedoom: decide which one to keep before building"
+  ],
+  "duplicate_of": [
+    "games/doom-freedoom"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "repo": "itzmeshaji-bit/NoMans-Skyward-Forge",
+  "url": "https://github.com/itzmeshaji-bit/NoMans-Skyward-Forge",
+  "description": "NoMansTrainer 2026 C++ Open Source Save Editor and Modding Toolkit for No Man's Sky",
+  "stars": 53,
+  "pushed_at": "2026-11-07T02:41:08Z",
+  "default_branch": "main",
+  "commit_checked": "e392e10e3731133637836803cf4d944f93af997d",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-07T05:58:51.216Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,43 @@
+{
+  "repo": "nekomancer01/DarkSoulsPS2",
+  "url": "https://github.com/nekomancer01/DarkSoulsPS2",
+  "description": "Homebrew PS2 port of Dark Souls Remastered: C/VU1 engine plus exporters that read your own copy of the game (no game data included)",
+  "stars": 73,
+  "pushed_at": "2026-11-07T05:57:37Z",
+  "default_branch": "main",
+  "commit_checked": "1b0b9e96c8d312a5dd88e32e6f56ae7a259fae00",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "tools/native/wasm/math.h",
+      "tools/native/wasm/stdlib.h",
+      "tools/native/wasm/string.h"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-07T05:58:50.548Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

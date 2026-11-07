@@ -1,0 +1,39 @@
+{
+  "repo": "bigmak94/GalaxyQuest",
+  "url": "https://github.com/bigmak94/GalaxyQuest",
+  "description": "GalaxyQuest: Super Mario Galaxy in VR on Meta Quest 3, a native port built on the Petari decompilation. Bring your own game files. 100% made by AI (Claude Opus 5.5 in Claude Code).",
+  "stars": 106,
+  "pushed_at": "2026-10-19T21:36:29Z",
+  "default_branch": "main",
+  "commit_checked": "179739d6d1538ba64f7544e601ccc95748de846a",
+  "license": {
+    "spdx": "Unlicense",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-20T04:52:02.952Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

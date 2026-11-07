@@ -1,0 +1,39 @@
+{
+  "repo": "RossyDoubleUnderscore/ICO-decomp",
+  "url": "https://github.com/RossyDoubleUnderscore/ICO-decomp",
+  "description": "Decompilation project for the PS2 game ICO, targeting 1:1 matching",
+  "stars": 32,
+  "pushed_at": "2026-01-08T12:54:46Z",
+  "default_branch": "main",
+  "commit_checked": "4324c16d7f891c963a29e24365a0287683b64288",
+  "license": {
+    "spdx": "CC0-1.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T04:55:01.199Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

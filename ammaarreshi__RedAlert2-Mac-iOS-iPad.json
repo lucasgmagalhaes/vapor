@@ -1,0 +1,51 @@
+{
+  "repo": "ammaarreshi/RedAlert2-Mac-iOS-iPad",
+  "url": "https://github.com/ammaarreshi/RedAlert2-Mac-iOS-iPad",
+  "description": "Red Alert 2 + Yuri's Revenge running natively on iPhone and iPad. EA never released RA2's source, so this builds on Chrono Divide's from-scratch TypeScript engine — proprietary, used with the author's permission, non-commercial only — wrapped in a Swift/WKWebView shell. Bring your own retail copy; no game assets included.",
+  "stars": 432,
+  "pushed_at": "2026-08-08T20:31:02Z",
+  "default_branch": "main",
+  "commit_checked": "991945d60a7139d3c4c438326abb6d3c093b2497",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "verified",
+    "platform": "steam",
+    "url": "https://store.steampowered.com/app/2229850/",
+    "title": "Command & Conquer Red Alert™ 2 and Yuri’s Revenge™"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "redalert2/public/7zz.wasm"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T23:44:25.378Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "script:pipe-to-shell"
+    ],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": [
+      {
+        "file": "scripts/setup.sh",
+        "pattern": "pipe-to-shell"
+      }
+    ]
+  },
+  "status": "external-only",
+  "reasons": [
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+    "supply-chain flags: script:pipe-to-shell (read those files before building)"
+  ],
+  "duplicate_of": []
+}

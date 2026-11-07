@@ -1,0 +1,45 @@
+{
+  "repo": "mogaika/god_of_war_browser",
+  "url": "https://github.com/mogaika/god_of_war_browser",
+  "description": null,
+  "stars": 60,
+  "pushed_at": "2026-02-04T21:55:48Z",
+  "default_branch": "master",
+  "commit_checked": "1bfc55c0172e67c48c8e941c495333f583c721a0",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "web/data/index.html",
+      "web/data/label.html",
+      "web/data/static/fonts/BjAYBlHtW3CJxDcjzrnZCCYE0-AqJ3nfInTTiDXDjU4.woff2",
+      "web/data/static/fonts/BjAYBlHtW3CJxDcjzrnZCI4P5ICox8Kq3LLUNMylGO4.woff2",
+      "web/data/static/fonts/font-inconsolata.css"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T20:12:45.193Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

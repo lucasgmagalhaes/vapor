@@ -1,0 +1,39 @@
+{
+  "repo": "sostenesfreitas/ocarina-recomp",
+  "url": "https://github.com/sostenesfreitas/ocarina-recomp",
+  "description": "Ocarina of Time running natively on Windows, no emulator. Built on your PC from your own copy. No game files included.",
+  "stars": 339,
+  "pushed_at": "2026-11-07T04:13:57Z",
+  "default_branch": "main",
+  "commit_checked": "9fb47c63fe9d1021dc9dd9b03210477108e72f54",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-07T05:58:47.694Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

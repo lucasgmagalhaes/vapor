@@ -1,0 +1,45 @@
+{
+  "repo": "lethal-guitar/RigelEngine",
+  "url": "https://github.com/lethal-guitar/RigelEngine",
+  "description": "A modern re-implementation of the classic DOS game Duke Nukem II",
+  "stars": 1007,
+  "pushed_at": "2026-09-28T10:11:06Z",
+  "default_branch": "master",
+  "commit_checked": "30afeff8f0b105eac77ee0a2fbd54b06e1a49b60",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE.md"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "dist/emscripten/android-chrome-192x192.png",
+      "dist/emscripten/android-chrome-512x512.png",
+      "dist/emscripten/apple-touch-icon.png",
+      "dist/emscripten/browserconfig.xml",
+      "dist/emscripten/favicon-16x16.png"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": true,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T23:44:24.754Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

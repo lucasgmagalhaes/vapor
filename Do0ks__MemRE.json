@@ -1,0 +1,39 @@
+{
+  "repo": "Do0ks/MemRE",
+  "url": "https://github.com/Do0ks/MemRE",
+  "description": "MemRE is a memory editor with Unreal Engine support",
+  "stars": 67,
+  "pushed_at": "2026-04-22T13:22:38Z",
+  "default_branch": "master",
+  "commit_checked": "abe7c82cab425fcfc28afda695ebdc7567d47fa7",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE.txt"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T04:54:57.858Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}
