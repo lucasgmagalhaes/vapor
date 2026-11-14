@@ -1,0 +1,40 @@
+{
+  "repo": "fiorix/cat-o-licious",
+  "url": "https://github.com/fiorix/cat-o-licious",
+  "description": "Cat game written in Go",
+  "stars": 104,
+  "pushed_at": "2026-02-15T22:43:22Z",
+  "default_branch": "master",
+  "commit_checked": "48ca3751f3bb71e5f8598405e1c79357afbe829e",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "wasm/Makefile",
+      "wasm/assets",
+      "wasm/cat-o-licious.wasm",
+      "wasm/game/engine.go",
+      "wasm/game/player.go"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:03.865Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized"
+  ],
+  "duplicate_of": []
+}

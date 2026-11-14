@@ -1,0 +1,39 @@
+{
+  "repo": "Odrannnn/MetroidPrimePort",
+  "url": "https://github.com/Odrannnn/MetroidPrimePort",
+  "description": "Native port of Metroid Prime (GameCube) for Linux, Windows and Android, built from the PrimeDecomp decompilation. No emulator, no game assets included: bring your own disc image.",
+  "stars": 683,
+  "pushed_at": "2026-11-12T19:05:28Z",
+  "default_branch": "port",
+  "commit_checked": "c872da704adde9a7838492aaa56dac73a32053e4",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-13T01:05:43.672Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

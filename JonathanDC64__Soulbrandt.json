@@ -1,0 +1,39 @@
+{
+  "repo": "JonathanDC64/Soulbrandt",
+  "url": "https://github.com/JonathanDC64/Soulbrandt",
+  "description": "Soulbrandt: Demon's Souls, running natively on PC",
+  "stars": 457,
+  "pushed_at": "2026-11-14T06:24:19Z",
+  "default_branch": "master",
+  "commit_checked": "4d3e9d42a03f4dc93cdd1c576241333c88e34ad6",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-14T11:28:43.525Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

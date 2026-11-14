@@ -1,0 +1,39 @@
+{
+  "repo": "adrbn/bo2-mac",
+  "url": "https://github.com/adrbn/bo2-mac",
+  "description": "Call of Duty: Black Ops II statically recompiled from 32-bit x86 Windows to native ARM64 macOS: Remill → LLVM IR, a hand-written Win32 runtime, Direct3D 11 drawn by Metal. No Wine, no game files.",
+  "stars": 230,
+  "pushed_at": "2026-11-13T16:05:44Z",
+  "default_branch": "main",
+  "commit_checked": "ea6f78e0a41a374e5748635da99bafcc2d062d0b",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-13T19:44:34.713Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

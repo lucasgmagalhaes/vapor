@@ -1,0 +1,39 @@
+{
+  "repo": "OpenSmash-Ultimate/WindowSmash",
+  "url": "https://github.com/OpenSmash-Ultimate/WindowSmash",
+  "description": "Experimental Windows x64 native porting toolkit for Super Smash Bros. Ultimate: static AArch64 recompilation, a D3D11 runtime, and Local Wireless relay netplay.",
+  "stars": 449,
+  "pushed_at": "2026-11-03T13:41:59Z",
+  "default_branch": "main",
+  "commit_checked": "598d05240fc146f7184b3450653e2eec2ee97312",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-03T19:31:34.398Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,40 @@
+{
+  "repo": "albrow/elara",
+  "url": "https://github.com/albrow/elara",
+  "description": "Work-in-progress educational programming game",
+  "stars": 87,
+  "pushed_at": "2025-06-08T23:36:14Z",
+  "default_branch": "main",
+  "commit_checked": "e747efb665eb2362e0b51754712f4aac9c9bc05b",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE.txt"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "web/audio/dialog/ask_about_journey.mp3",
+      "web/audio/dialog/ask_about_journey.ogg",
+      "web/audio/dialog/cant_call_someone.mp3",
+      "web/audio/dialog/cant_call_someone.ogg",
+      "web/audio/dialog/cant_disable_remotely.mp3"
+    ],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:05.475Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized"
+  ],
+  "duplicate_of": []
+}

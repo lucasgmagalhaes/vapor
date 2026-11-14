@@ -1,0 +1,39 @@
+{
+  "repo": "vyanhursky/DefJamFFNY-recomp",
+  "url": "https://github.com/vyanhursky/DefJamFFNY-recomp",
+  "description": "Def Jam: Fight for NY PC port — static recompilation of the original Xbox game for native Windows and macOS (Direct3D 11 / Vulkan). Bring your own game dump.",
+  "stars": 262,
+  "pushed_at": "2026-11-14T05:46:44Z",
+  "default_branch": "main",
+  "commit_checked": "9427c44cddfc3b827fc73ad05f62cf2a441f5e80",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-14T11:28:43.654Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

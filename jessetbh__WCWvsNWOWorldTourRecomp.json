@@ -1,0 +1,48 @@
+{
+  "repo": "jessetbh/WCWvsNWOWorldTourRecomp",
+  "url": "https://github.com/jessetbh/WCWvsNWOWorldTourRecomp",
+  "description": "Native PC port of WCW vs. nWo World Tour (N64) via static recompilation. No game assets included — bring your own ROM.",
+  "stars": 39,
+  "pushed_at": "2026-10-12T01:18:14Z",
+  "default_branch": "main",
+  "commit_checked": "a054974bea5b610cc31adcd4639e091ea4807f6e",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "COPYING"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-13T17:09:00.977Z",
+  "decomp": true,
+  "security": {
+    "flags": [
+      "committed-binaries(7+)"
+    ],
+    "binaries": [
+      "lib-patches/apply.ps1",
+      "lib-patches/export.ps1",
+      "run/build.ps1",
+      "tools/cycle.ps1",
+      "tools/env-msvc.ps1",
+      "tools/env.ps1",
+      "tools/recompile.ps1"
+    ],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "no wasm/emscripten signal found",
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+    "supply-chain flags: committed-binaries(7+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,43 @@
+{
+  "repo": "pablocpas/OpenCMR2",
+  "url": "https://github.com/pablocpas/OpenCMR2",
+  "description": "Native SDL3 port of Colin McRae Rally 2.0 built from the CMR2Decomp decompilation. No game data included.",
+  "stars": 161,
+  "pushed_at": "2026-11-12T22:23:50Z",
+  "default_branch": "main",
+  "commit_checked": "c4ece964de8d7d399e1c1180ea40ca4811287767",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-13T01:05:42.683Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence",
+    "possible duplicate of games/openttd, candidates/OpenTTD/OpenTTD: decide which one to keep before building"
+  ],
+  "duplicate_of": [
+    "games/openttd",
+    "candidates/OpenTTD/OpenTTD"
+  ]
+}

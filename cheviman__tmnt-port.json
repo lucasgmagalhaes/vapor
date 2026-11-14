@@ -1,0 +1,39 @@
+{
+  "repo": "cheviman/tmnt-port",
+  "url": "https://github.com/cheviman/tmnt-port",
+  "description": "A native port of Konami's Teenage Mutant Ninja Turtles (1989 arcade), built on the verified decompilation tmntarcade-decomp: TMNT Arcade, the arcade game 1:1, and Splinter Way, made for home. Windows, Linux, macOS, Android, Nintendo Switch and Anbernic. Bring your own ROM set.",
+  "stars": 99,
+  "pushed_at": "2026-11-13T20:06:36Z",
+  "default_branch": "main",
+  "commit_checked": "9a3b0c8ab20f269068f1f0975d04efb9731ba0e7",
+  "license": {
+    "spdx": "BSD-3-Clause",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-14T00:53:31.507Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

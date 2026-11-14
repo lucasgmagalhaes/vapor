@@ -1,0 +1,39 @@
+{
+  "repo": "bgyss/SwitchRecomp",
+  "url": "https://github.com/bgyss/SwitchRecomp",
+  "description": "Preservation-focused static recompilation research for Nintendo Switch.",
+  "stars": 69,
+  "pushed_at": "2026-03-06T01:19:54Z",
+  "default_branch": "main",
+  "commit_checked": "0f99e1c5c1e78fdc8e01e58a0f8dc8622e82976b",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T13:44:54.692Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

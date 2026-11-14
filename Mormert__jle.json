@@ -1,0 +1,85 @@
+{
+  "repo": "Mormert/jle",
+  "url": "https://github.com/Mormert/jle",
+  "description": "Jet-Lagged Engine is a work-in-progress C++/Lua game engine supporting Windows, Linux, Mac and browsers.",
+  "stars": 317,
+  "pushed_at": "2025-11-19T19:55:06Z",
+  "default_branch": "master",
+  "commit_checked": "d6b122163a5812d9229e48cfe220830b680a8d06",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:22.350Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(7+)"
+    ],
+    "binaries": [
+      "engine/3rdparty/luasocket/linux.cmd",
+      "engine/3rdparty/luasocket/macosx.cmd",
+      "engine/3rdparty/luasocket/mingw.cmd",
+      "engine/3rdparty/luasocket/vc32.bat",
+      "engine/3rdparty/luasocket/vc64.bat",
+      "engine/3rdparty/luasocket/win32.cmd",
+      "engine/3rdparty/luasocket/win64.cmd"
+    ],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(7+) (read those files before building)",
+    "asset licenses not proven: strong 3%, root-only 98%, none 0%; largest uncovered: engine/EditorResources, engine/EngineResources"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 39,
+      "bytes": 6306133
+    },
+    "coverage": {
+      "strong": 0.025,
+      "weak": 0.975,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "CC-BY",
+      "CC0/Unlicense",
+      "GPL-family",
+      "MIT",
+      "Zlib",
+      "public-domain"
+    ],
+    "uncovered": [
+      {
+        "dir": "engine/EditorResources",
+        "bytes": 5322798,
+        "files": 12,
+        "level": "weak"
+      },
+      {
+        "dir": "engine/EngineResources",
+        "bytes": 825172,
+        "files": 12,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:23.611Z",
+    "commit": "d6b122163a5812d9229e48cfe220830b680a8d06"
+  },
+  "duplicate_of": []
+}

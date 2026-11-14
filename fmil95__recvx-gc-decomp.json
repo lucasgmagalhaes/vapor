@@ -1,0 +1,39 @@
+{
+  "repo": "fmil95/recvx-gc-decomp",
+  "url": "https://github.com/fmil95/recvx-gc-decomp",
+  "description": "Decompilation project of Resident Evil - Code: Veronica X (GC) which aims to reconstruct the source code of the game. ",
+  "stars": 36,
+  "pushed_at": "2026-08-05T12:36:26Z",
+  "default_branch": "main",
+  "commit_checked": "556f897e05945f4ad636be41f0de3d02106ea192",
+  "license": {
+    "spdx": "CC0-1.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T04:55:00.949Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

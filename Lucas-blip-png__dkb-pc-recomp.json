@@ -1,0 +1,39 @@
+{
+  "repo": "Lucas-blip-png/dkb-pc-recomp",
+  "url": "https://github.com/Lucas-blip-png/dkb-pc-recomp",
+  "description": "Static recompilation of Donkey Kong Bananza (Switch 2) to native Windows with Vulkan. 0.3.0 plays well past the first level on recent NVIDIA cards. On the bananza branch: AMD device loss fixed for testers, a heavy scene at about 58 fps (was 53), full-resolution 3D (scene_res). Roadmap: #10. No game files included.",
+  "stars": 930,
+  "pushed_at": "2026-11-13T14:20:25Z",
+  "default_branch": "bananza",
+  "commit_checked": "fac48bcdc5ec0edd6296bc3672bdebb540d5958d",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-13T19:44:32.303Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,39 @@
+{
+  "repo": "TalhaMudo/NFSU2Recomp",
+  "url": "https://github.com/TalhaMudo/NFSU2Recomp",
+  "description": "Play Need for Speed: Underground 2 natively on Apple Silicon Macs (M1+). Static recompilation of the PC game (x86, Direct3D 9) to ARM64 + Metal: no Wine, CrossOver or emulator; 119 fps vs 10-15 fps under Wine. Bring your own copy; no game code or assets included.",
+  "stars": 212,
+  "pushed_at": "2026-11-09T11:21:18Z",
+  "default_branch": "main",
+  "commit_checked": "9d0fe214c9442f1d7a259ea9cb55abcbc285cf43",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-09T18:49:03.850Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

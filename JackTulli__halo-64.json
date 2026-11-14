@@ -1,0 +1,39 @@
+{
+  "repo": "JackTulli/halo-64",
+  "url": "https://github.com/JackTulli/halo-64",
+  "description": "Halo: Combat Evolved multiplayer on the Nintendo 64: 4-player split screen, bots and Firefight. Built from the halo-ce-universal decompilation; needs your own copy of the Xbox game.",
+  "stars": 185,
+  "pushed_at": "2026-11-11T20:36:52Z",
+  "default_branch": "main",
+  "commit_checked": "e28022ae43915c9323d4135f503ad49a0c35fd38",
+  "license": {
+    "spdx": "CC0-1.0",
+    "file": "LICENSE.md"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-11T22:42:25.285Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

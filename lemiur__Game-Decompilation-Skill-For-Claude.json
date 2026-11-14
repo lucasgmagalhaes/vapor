@@ -1,0 +1,39 @@
+{
+  "repo": "lemiur/Game-Decompilation-Skill-For-Claude",
+  "url": "https://github.com/lemiur/Game-Decompilation-Skill-For-Claude",
+  "description": "Skill for creating a bytematching decompilation of a game with Claude",
+  "stars": 175,
+  "pushed_at": "2026-11-01T17:05:15Z",
+  "default_branch": "main",
+  "commit_checked": "490d68b868f27760483afd441c9800b38d692569",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-01T20:30:25.739Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

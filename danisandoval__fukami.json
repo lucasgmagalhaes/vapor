@@ -1,0 +1,35 @@
+{
+  "repo": "danisandoval/fukami",
+  "url": "https://github.com/danisandoval/fukami",
+  "description": "Fukami: native macOS / Steam Deck port of Ridge Racer V (USA) by static recompilation. No game data.",
+  "stars": 47,
+  "pushed_at": "2026-10-10T20:11:47Z",
+  "default_branch": "main",
+  "commit_checked": "e8818121566cfaf3d361e38745860b0a9438e27b",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-13T17:08:56.374Z",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "no wasm/emscripten signal found",
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)"
+  ],
+  "duplicate_of": []
+}
