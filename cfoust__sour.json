@@ -1,0 +1,39 @@
+{
+  "repo": "cfoust/sour",
+  "url": "https://github.com/cfoust/sour",
+  "description": "Sauerbraten for the web.",
+  "stars": 213,
+  "pushed_at": "2026-06-05T15:25:33Z",
+  "default_branch": "main",
+  "commit_checked": "2ed2b492d5491dfaf41fb883e6646c666e0f6035",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "game/src/web/.agignore",
+      "game/src/web/engine/keepalive",
+      "game/src/web/fpsgame/keepalive",
+      "game/src/web/shared/keepalive"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:23.476Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "repository is 423 MB: too large for the automatic asset audit"
+  ],
+  "duplicate_of": []
+}

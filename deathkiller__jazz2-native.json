@@ -1,0 +1,53 @@
+{
+  "repo": "deathkiller/jazz2-native",
+  "url": "https://github.com/deathkiller/jazz2-native",
+  "description": "🎮 · Jazz² Resurrection: Native C++ reimplementation of Jazz Jackrabbit 2",
+  "stars": 714,
+  "pushed_at": "2026-10-13T15:12:11Z",
+  "default_branch": "master",
+  "commit_checked": "26dbbd2d2cbdbc222244d25f974c2618e3b46d44",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      ".github/workflows/emscripten.yml",
+      "Sources/Shared/IO/EmscriptenFileStream.cpp",
+      "Sources/Shared/IO/EmscriptenFileStream.h",
+      "Sources/Utilities/AssetPacker/Web/README.md",
+      "Sources/Utilities/AssetPacker/Web/assetpacker-worker.js"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": true
+  },
+  "crawled_at": "2026-10-13T16:35:21.540Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "Sources/Jazz2/Tests/LayerEffects/Generate.ps1",
+      "Sources/Jazz2/Tests/Tools/Categories.ps1",
+      "Sources/Jazz2/Tests/Tools/CompareCam.ps1",
+      "Sources/Jazz2/Tests/Tools/CompareFrameRates.ps1",
+      "Sources/Jazz2/Tests/Tools/CompareTraces.ps1",
+      "Sources/Jazz2/Tests/Tools/ExtractTrace.ps1",
+      "Sources/Jazz2/Tests/Tools/TraceIO.ps1",
+      "Sources/Utilities/ShaderCompiler/GenerateAll.ps1",
+      "Sources/Utilities/ShaderCompiler/tests/GlslSweep.ps1",
+      "Sources/Utilities/ShaderCompiler/tests/RunTests.ps1"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "byo-only",
+  "reasons": [
+    "mentions freeware/shareware: not an open license",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

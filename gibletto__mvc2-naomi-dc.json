@@ -1,0 +1,39 @@
+{
+  "repo": "gibletto/mvc2-naomi-dc",
+  "url": "https://github.com/gibletto/mvc2-naomi-dc",
+  "description": "100% Byte Matching Decompilation and ports of NAOMI Game Marvel Vs. Capcom 2",
+  "stars": 68,
+  "pushed_at": "2026-11-21T15:31:43Z",
+  "default_branch": "main",
+  "commit_checked": "66e476d7d9823c702a8f21629c0f4c0dc35872e1",
+  "license": {
+    "spdx": "AGPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-21T21:39:27.470Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,39 @@
+{
+  "repo": "vascon-es/lego-dimensions-pc",
+  "url": "https://github.com/vascon-es/lego-dimensions-pc",
+  "description": "Unofficial native port of LEGO Dimensions (PS4) to Windows - requires your own dump of the game (THIS PROJECT IS NOT RELATED WITH DIMENSIONS RECOMPILED, ALL QUESTIONS SHOULD BE SUBMITTED ON THIS SERVER BELOW)",
+  "stars": 33,
+  "pushed_at": "2026-11-21T21:34:09Z",
+  "default_branch": "main",
+  "commit_checked": "26a9d96e14dcd9599f35816c4628a57485905e69",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-21T21:39:28.079Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

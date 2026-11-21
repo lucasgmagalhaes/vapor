@@ -1,0 +1,41 @@
+{
+  "repo": "JohnImril/diablo_web",
+  "url": "https://github.com/JohnImril/diablo_web",
+  "description": "Play the original Diablo in your browser. Powered by React, TypeScript, Vite, and WebAssembly, with local saves, a free shareware demo, and support for your own MPQ files.",
+  "stars": 54,
+  "pushed_at": "2026-10-11T16:00:46Z",
+  "default_branch": "main",
+  "commit_checked": "8e9775f6fef73d0b7f0a5c7fa09a1301e7f21ab3",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "src/modules/engine/adapters/diablo.wasm",
+      "src/modules/engine/adapters/diabloSpawn.wasm",
+      "src/modules/mpqcmp/adapters/mpqCmp.wasm",
+      "src/shared/emscriptenModule.test.ts",
+      "src/shared/emscriptenModule.ts"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": true,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:07.461Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized",
+    "mentions freeware/shareware: not an open license"
+  ],
+  "duplicate_of": []
+}

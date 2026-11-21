@@ -1,0 +1,45 @@
+{
+  "repo": "mamcjr/TOTKDroid",
+  "url": "https://github.com/mamcjr/TOTKDroid",
+  "description": "TOTKDroid (formerly TOTKRecompAndroid): The Legend of Zelda: Tears of the Kingdom (Switch 1.4.3) running natively on Android - no game files included",
+  "stars": 262,
+  "pushed_at": "2026-11-14T01:03:22Z",
+  "default_branch": "main",
+  "commit_checked": "27be1909d2aa0941755bec84fb642f9163ca74f0",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "third_party/imgui/examples/example_glfw_opengl3/Makefile.emscripten",
+      "third_party/imgui/examples/example_glfw_wgpu/Makefile.emscripten",
+      "third_party/imgui/examples/example_sdl2_opengl3/Makefile.emscripten",
+      "third_party/imgui/examples/example_sdl3_opengl3/Makefile.emscripten",
+      "third_party/imgui/examples/libs/emscripten/emscripten_mainloop_stub.h"
+    ],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-14T11:28:43.681Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

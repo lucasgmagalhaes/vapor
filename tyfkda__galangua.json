@@ -1,0 +1,93 @@
+{
+  "repo": "tyfkda/galangua",
+  "url": "https://github.com/tyfkda/galangua",
+  "description": "2D shoot 'em up game, written in Rust",
+  "stars": 42,
+  "pushed_at": "2026-05-26T03:54:31Z",
+  "default_branch": "main",
+  "commit_checked": "4c2224bbca9d5be302d232046998a9a253c6f7bc",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:33.977Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: galangua-wasm/www, assets/audio, tools/gen_sprite_sheet"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 91,
+      "bytes": 431629
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "Apache-2.0",
+      "MIT"
+    ],
+    "uncovered": [
+      {
+        "dir": "galangua-wasm/www",
+        "bytes": 240874,
+        "files": 14,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/audio",
+        "bytes": 162709,
+        "files": 10,
+        "level": "weak"
+      },
+      {
+        "dir": "tools/gen_sprite_sheet",
+        "bytes": 20496,
+        "files": 64,
+        "level": "weak"
+      },
+      {
+        "dir": "ss.png",
+        "bytes": 4240,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/chr.png",
+        "bytes": 2829,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/font.png",
+        "bytes": 481,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T17:08:35.641Z",
+    "commit": "4c2224bbca9d5be302d232046998a9a253c6f7bc"
+  },
+  "duplicate_of": []
+}

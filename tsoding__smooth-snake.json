@@ -1,0 +1,69 @@
+{
+  "repo": "tsoding/smooth-snake",
+  "url": "https://github.com/tsoding/smooth-snake",
+  "description": "Snake written in Pure C and compilable to WebAssembly",
+  "stars": 176,
+  "pushed_at": "2026-10-13T06:08:16Z",
+  "default_branch": "master",
+  "commit_checked": "4da721f30aff6a025bb41094dfdc57776f16eac9",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "game.wasm"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:24.398Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "no asset files in the repository: check what the build downloads or generates"
+  ],
+  "asset_audit": {
+    "verdict": "no-assets",
+    "assets": {
+      "files": 2,
+      "bytes": 171332
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "MIT"
+    ],
+    "uncovered": [
+      {
+        "dir": "fonts/AnekLatin-Light.ttf",
+        "bytes": 110816,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "thumbnail.png",
+        "bytes": 60516,
+        "files": 1,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:24.799Z",
+    "commit": "4da721f30aff6a025bb41094dfdc57776f16eac9"
+  },
+  "duplicate_of": []
+}

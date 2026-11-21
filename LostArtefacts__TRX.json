@@ -1,0 +1,39 @@
+{
+  "repo": "LostArtefacts/TRX",
+  "url": "https://github.com/LostArtefacts/TRX",
+  "description": "Open source re-implementation of Tomb Raider I, Tomb Raider II and Tomb Raider III, along with additional enhancements and bugfixes",
+  "stars": 1043,
+  "pushed_at": "2026-11-21T20:43:33Z",
+  "default_branch": "develop",
+  "commit_checked": "ea31f011538828b2bb22b6cab2aff4299335444c",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "COPYING.md"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": true,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-21T21:39:25.737Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

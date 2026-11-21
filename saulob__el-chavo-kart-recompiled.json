@@ -1,0 +1,39 @@
+{
+  "repo": "saulob/el-chavo-kart-recompiled",
+  "url": "https://github.com/saulob/el-chavo-kart-recompiled",
+  "description": "Chaves Kart (El Chavo Kart) for Xbox 360, statically recompiled as a native PC port for Windows and Linux, with online multiplayer, modern graphics options and Steam Deck support",
+  "stars": 30,
+  "pushed_at": "2026-11-08T05:40:16Z",
+  "default_branch": "main",
+  "commit_checked": "66f3b5aad5f67924efff448832afd744bc790ea9",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-09T06:30:17.629Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

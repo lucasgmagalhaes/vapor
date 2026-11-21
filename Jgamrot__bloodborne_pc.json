@@ -1,0 +1,49 @@
+{
+  "repo": "Jgamrot/bloodborne_pc",
+  "url": "https://github.com/Jgamrot/bloodborne_pc",
+  "description": "Bloodborne running natively on Windows 10/11: launcher in 13 languages, DLSS, FSR 3.1/4, unlocked FPS, cheats, mods, one-click updates.",
+  "stars": 555,
+  "pushed_at": "2026-10-28T01:27:45Z",
+  "default_branch": "windows",
+  "commit_checked": "080938728432eb6f3c1a474a375bd2c8212dc963",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "gpu/third_party/half/web/Doxyfile",
+      "gpu/third_party/half/web/Mainpage.md",
+      "gpu/third_party/half/web/News.md",
+      "gpu/third_party/half/web/half.hpp",
+      "gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": true,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-28T05:43:01.474Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence",
+    "possible duplicate of candidates/Mrsuss60/bloodborne_pc_windows_port, candidates/deadinside28/bloodborne_pc: decide which one to keep before building"
+  ],
+  "duplicate_of": [
+    "candidates/Mrsuss60/bloodborne_pc_windows_port",
+    "candidates/deadinside28/bloodborne_pc"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "repo": "jackpoison-prog/RingOut",
+  "url": "https://github.com/jackpoison-prog/RingOut",
+  "description": "Native PC port of a GameCube fighting game via static recompilation - PowerPC translated to C, run as native x86-64 on a Dolphin-derived runtime",
+  "stars": 158,
+  "pushed_at": "2026-10-08T21:59:32Z",
+  "default_branch": "main",
+  "commit_checked": "4862a791949d3f086e014db1e581390c4013833d",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/cmake/PreseedEmscriptenCache.cmake",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/docs/INTRO-emscripten.md",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/docs/README-emscripten.md",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/audio/emscripten/SDL_emscriptenaudio.c",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/audio/emscripten/SDL_emscriptenaudio.h"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-13T17:08:48.013Z",
+  "decomp": true,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      ".github/scripts/check-setup-gating.ps1",
+      ".github/scripts/package-windows.ps1",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/android-project/gradle/wrapper/gradle-wrapper.jar",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/android-project/gradlew.bat",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/gpu/d3d12/compile_shaders.bat",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/gpu/d3d12/compile_shaders_xbox.bat",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/render/direct3d/compile_shaders.bat",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/render/direct3d11/compile_shaders.bat",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/render/direct3d12/compile_shaders.bat",
+      "ModernGekko/vendor/dolphin/Externals/SDL/SDL/src/render/direct3d12/compile_shaders_xbox.bat"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

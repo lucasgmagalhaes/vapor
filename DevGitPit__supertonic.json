@@ -1,0 +1,45 @@
+{
+  "repo": "DevGitPit/supertonic",
+  "url": "https://github.com/DevGitPit/supertonic",
+  "description": "Lightning-Fast, On-Device TTS — running natively via ONNX.",
+  "stars": 39,
+  "pushed_at": "2026-02-04T13:28:01Z",
+  "default_branch": "main",
+  "commit_checked": "04481a738579a840cdc4250dd439fe36525e4efc",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "web/.gitignore",
+      "web/README.md",
+      "web/assets",
+      "web/helper.js",
+      "web/index.html"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-27T14:32:11.465Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

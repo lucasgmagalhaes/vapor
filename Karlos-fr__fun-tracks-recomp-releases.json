@@ -1,0 +1,39 @@
+{
+  "repo": "Karlos-fr/fun-tracks-recomp-releases",
+  "url": "https://github.com/Karlos-fr/fun-tracks-recomp-releases",
+  "description": "Multi-platform releases (Windows, Android) of the Fun Tracks (1997) decompilation / recompilation. Original game files required.",
+  "stars": 53,
+  "pushed_at": "2026-11-17T20:05:14Z",
+  "default_branch": "main",
+  "commit_checked": "f04c6344669499495c6a0ae74896c2117c75f4fa",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-17T23:30:35.980Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

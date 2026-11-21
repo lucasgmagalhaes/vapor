@@ -1,0 +1,39 @@
+{
+  "repo": "smartblade/BldMystery",
+  "url": "https://github.com/smartblade/BldMystery",
+  "description": "Severance: Blade of Darkness source code recovery",
+  "stars": 60,
+  "pushed_at": "2026-11-21T20:08:13Z",
+  "default_branch": "master",
+  "commit_checked": "403e064a5f7f6966dba1f07e622cb49e99800186",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-21T21:39:29.927Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

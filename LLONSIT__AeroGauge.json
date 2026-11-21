@@ -1,0 +1,39 @@
+{
+  "repo": "LLONSIT/AeroGauge",
+  "url": "https://github.com/LLONSIT/AeroGauge",
+  "description": "Decompilation of a speedy game !",
+  "stars": 31,
+  "pushed_at": "2026-01-23T18:48:17Z",
+  "default_branch": "main",
+  "commit_checked": "55ccafad3bf003b4794774c89caaf84afe1eafe1",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-14T23:15:19.829Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

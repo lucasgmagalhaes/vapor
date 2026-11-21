@@ -1,0 +1,39 @@
+{
+  "repo": "scarletnx/ScarletNX",
+  "url": "https://github.com/scarletnx/ScarletNX",
+  "description": "Static ARM64 to x86 recompiler (GPLv3)",
+  "stars": 353,
+  "pushed_at": "2026-11-21T20:49:25Z",
+  "default_branch": "main",
+  "commit_checked": "ed0aae0a36f6b0fbe8c09a080eee258cfbc83b21",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-21T21:39:26.627Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

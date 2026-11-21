@@ -1,0 +1,39 @@
+{
+  "repo": "Dyotson/ForzaHorizon1-ReImagined",
+  "url": "https://github.com/Dyotson/ForzaHorizon1-ReImagined",
+  "description": "Forza Horizon (Xbox 360) natively on PC, rebuilt around the modern Horizon experience: shared online free roam, leaderboards and rivals, 120/144 fps, and a self-hostable online server.",
+  "stars": 310,
+  "pushed_at": "2026-10-25T21:58:33Z",
+  "default_branch": "main",
+  "commit_checked": "3aadb508d1bf0ac77a263e577fb1ab88677ef3ed",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-25T22:33:48.833Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

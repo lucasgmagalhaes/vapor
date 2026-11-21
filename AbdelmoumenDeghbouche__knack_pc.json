@@ -1,0 +1,45 @@
+{
+  "repo": "AbdelmoumenDeghbouche/knack_pc",
+  "url": "https://github.com/AbdelmoumenDeghbouche/knack_pc",
+  "description": "Native PC port of Knack (PS4): the game's own x86-64 code runs on the PC, with a PS4 runtime and the shadPS4 Vulkan video core. No emulator. 💙 Donate: PayPal a.deghbouche@esi-sba.dz or ko-fi.com/abd_dbh",
+  "stars": 45,
+  "pushed_at": "2026-11-12T03:36:57Z",
+  "default_branch": "main",
+  "commit_checked": "b1063a82efff51a145fe9c459b5767460eee9c8c",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "gpu/third_party/half/web/Doxyfile",
+      "gpu/third_party/half/web/Mainpage.md",
+      "gpu/third_party/half/web/News.md",
+      "gpu/third_party/half/web/half.hpp",
+      "gpu/third_party/half/web/layout.xml"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-12T07:11:15.944Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

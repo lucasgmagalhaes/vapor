@@ -1,0 +1,39 @@
+{
+  "repo": "yozander2009-stack/Metroid-Dread-Recomp",
+  "url": "https://github.com/yozander2009-stack/Metroid-Dread-Recomp",
+  "description": "Static recompilation of Metroid Dread (Switch, 2.1.0) for Windows, Linux and Steam Deck. Bring your own dump: no game files, keys or dumping tools included.",
+  "stars": 466,
+  "pushed_at": "2026-11-21T19:38:10Z",
+  "default_branch": "main",
+  "commit_checked": "474500215a7428dff2a827e71d40bf36853ed8f4",
+  "license": {
+    "spdx": "Apache-2.0",
+    "file": "LICENSE.txt"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-21T21:39:25.753Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}
