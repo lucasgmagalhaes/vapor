@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "slug": "halo2-decompiled",
+  "title": "Halo 2",
+  "publisher": "Unknown (see the project's README)",
+  "url": "https://github.com/kirklandsig/halo2-decompiled",
+  "platforms": [
+    "linux"
+  ],
+  "requires": "A copy of the original game that you own (see the project's README)",
+  "summary": "Halo 2 decompilation (decomp) for the original Xbox: a matching decompilation of the retail game into C/C++ source, rebuilt byte for byte, toward native PC, Linux and handheld ports. Contributors welcome. Source only; bring your own disc.",
+  "legal_note": "Unofficial, third-party project derived from proprietary game code. Not hosted, tested, verified or endorsed by Vapor, which only links to the original source. It does not run inside Vapor. Use at your own risk and check the rights in your country.",
+  "tags": [
+    "recompilation"
+  ]
+}
