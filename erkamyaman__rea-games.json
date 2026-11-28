@@ -1,0 +1,45 @@
+{
+  "repo": "erkamyaman/rea-games",
+  "url": "https://github.com/erkamyaman/rea-games",
+  "description": "Reverse-engineer any game, rebuild it in any engine (web, Rust, Godot) and prove the rebuild plays the same, frame by frame. Behavior specs in the open GAME.md format.",
+  "stars": 463,
+  "pushed_at": "2026-11-28T15:37:17Z",
+  "default_branch": "main",
+  "commit_checked": "40355c15c4655b7c4b925302d997b6840a7bc78d",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "games/2048/ports/web/game2048.mjs",
+      "games/2048/ports/web/index.html",
+      "games/2048/ports/web/run.mjs",
+      "games/blocks/ports/web/blocks.mjs",
+      "games/blocks/ports/web/index.html"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-28T16:53:31.291Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

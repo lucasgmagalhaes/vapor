@@ -1,0 +1,45 @@
+{
+  "repo": "Vnnc1/MK8-online",
+  "url": "https://github.com/Vnnc1/MK8-online",
+  "description": "Experimental static recompilation of Mario Kart 8 Deluxe 4.0.1 for Windows x64 and Linux amd64. Native Vulkan runtime, Mii creator, online play via Nextendo and Steam rooms. Bring your own game files and keys: no ROMs, assets or keys included.",
+  "stars": 304,
+  "pushed_at": "2026-11-27T17:57:03Z",
+  "default_branch": "master",
+  "commit_checked": "5603bfba823e87d592f9275dbfaf2a07056b9c77",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "apps/launcher/web/app.js",
+      "apps/launcher/web/en.json",
+      "apps/launcher/web/es.json",
+      "apps/launcher/web/fsr.css",
+      "apps/launcher/web/fsr.js"
+    ],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-28T00:03:22.440Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

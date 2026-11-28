@@ -1,0 +1,52 @@
+{
+  "repo": "GardensOfKadesh/Homeworld",
+  "url": "https://github.com/GardensOfKadesh/Homeworld",
+  "description": "Gardens of Kadesh: A WebAssembly port of Homeworld. Main repo is on gitlab.com, this is only a mirror.",
+  "stars": 85,
+  "pushed_at": "2025-09-28T21:31:27Z",
+  "default_branch": "master-tenhauser",
+  "commit_checked": "348dbf30bae81389f9446f3c66031aad1ed8a234",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE.txt"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "wasm/coi-serviceworker.min.js",
+      "wasm/index.html",
+      "wasm/wasm32-emscripten.meson-cross-build-definition.txt"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:05.756Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(10+)"
+    ],
+    "binaries": [
+      "tools/convertors/3D+Exploration+(v1.2.5.4)/cw3230mt.dll",
+      "tools/convertors/3D+Exploration+(v1.2.5.4)/dxbmp32.dll",
+      "tools/convertors/3D+Exploration+(v1.2.5.4)/dxopengl.dll",
+      "tools/convertors/3D+Exploration+(v1.2.5.4)/explor3d.exe",
+      "tools/convertors/3D+Exploration+(v1.2.5.4)/object3d.dll",
+      "tools/convertors/3D+Exploration+(v1.2.5.4)/triang32.dll",
+      "tools/convertors/3D+Exploration+(v1.7).exe",
+      "tools/convertors/AIFR+sound+encoder/enc.exe",
+      "tools/convertors/Convert+HW+to+HWC+models.exe",
+      "tools/convertors/Crook's+BTG+Creator+v2/HW_BTG_Creator_2_0.exe"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized",
+    "supply-chain flags: committed-binaries(10+) (read those files before building)"
+  ],
+  "duplicate_of": []
+}

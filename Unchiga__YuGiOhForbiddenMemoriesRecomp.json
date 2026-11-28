@@ -1,0 +1,39 @@
+{
+  "repo": "Unchiga/YuGiOhForbiddenMemoriesRecomp",
+  "url": "https://github.com/Unchiga/YuGiOhForbiddenMemoriesRecomp",
+  "description": "Static recompilation of Yu-Gi-Oh! Forbidden Memories (PS1) into a native executable - with a live duel-rank meter, a fusion assistant, adjustable card drops and a cheat menu. Bring your own disc.",
+  "stars": 135,
+  "pushed_at": "2026-09-26T20:40:11Z",
+  "default_branch": "main",
+  "commit_checked": "90cc0a9f894386856986b0cafb058c8588674d95",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-14T20:12:47.266Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

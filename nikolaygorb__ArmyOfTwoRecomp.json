@@ -1,0 +1,37 @@
+{
+  "repo": "nikolaygorb/ArmyOfTwoRecomp",
+  "url": "https://github.com/nikolaygorb/ArmyOfTwoRecomp",
+  "description": "Army of Two (Army of 2) 2008 [Xbox360] game static recompilation project based on RexGlue-SDK",
+  "stars": 65,
+  "pushed_at": "2026-10-11T07:23:04Z",
+  "default_branch": "main",
+  "commit_checked": "a3dc677a124c2c35807bcbd14840715ada77c7d8",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-13T17:08:53.702Z",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [
+      "github.com"
+    ],
+    "risky": []
+  },
+  "status": "external-only",
+  "reasons": [
+    "no wasm/emscripten signal found",
+    "native port / recompilation of a commercial game that needs the player's own copy: cannot run in Vapor (not wasm) and must not be hosted; at most a link-only entry in links/ pointing to the original source (see docs/PIPELINE.md)"
+  ],
+  "duplicate_of": []
+}

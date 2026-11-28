@@ -1,0 +1,39 @@
+{
+  "repo": "Royal2-4/Lake-Trio",
+  "url": "https://github.com/Royal2-4/Lake-Trio",
+  "description": "Platinum Decompiled for Linux & Windows. One Screen S, Controller-Friendly Dashboard, and Mouse Input fixes in SteamOS. Fork of xgcModding's 'platinum'.",
+  "stars": 30,
+  "pushed_at": "2026-11-19T15:08:14Z",
+  "default_branch": "main",
+  "commit_checked": "dbd7afd3cda7c177d64c48f191fb8b0737d5a051",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE.md"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-25T14:22:51.802Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

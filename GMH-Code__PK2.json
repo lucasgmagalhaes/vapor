@@ -1,0 +1,110 @@
+{
+  "repo": "GMH-Code/PK2",
+  "url": "https://github.com/GMH-Code/PK2",
+  "description": "Play the Pekka Kana 2 platform game in your browser - supports mobile devices and desktop systems",
+  "stars": 34,
+  "pushed_at": "2024-12-19T18:20:32Z",
+  "default_branch": "main",
+  "commit_checked": "52aca24c524047b7016d25ee30ed4d2ef26f45f1",
+  "license": {
+    "spdx": "MIT",
+    "file": "licence.txt"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "wasm/screenshots/pk2-1.jpg",
+      "wasm/screenshots/pk2-2.jpg",
+      "wasm/screenshots/pk2-3.jpg",
+      "wasm/screenshots/pk2-4.jpg",
+      "wasm/shell.html"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:39.136Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: res/gfx, res/music, res/sprites"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 137,
+      "bytes": 16482870
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "MIT"
+    ],
+    "uncovered": [
+      {
+        "dir": "res/gfx",
+        "bytes": 7019608,
+        "files": 31,
+        "level": "weak"
+      },
+      {
+        "dir": "res/music",
+        "bytes": 6268374,
+        "files": 16,
+        "level": "weak"
+      },
+      {
+        "dir": "res/sprites",
+        "bytes": 2231900,
+        "files": 70,
+        "level": "weak"
+      },
+      {
+        "dir": "res/episodes",
+        "bytes": 308278,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "res/mobile",
+        "bytes": 230692,
+        "files": 1,
+        "level": "weak"
+      },
+      {
+        "dir": "res/language",
+        "bytes": 196312,
+        "files": 4,
+        "level": "weak"
+      },
+      {
+        "dir": "res/sfx",
+        "bytes": 149346,
+        "files": 10,
+        "level": "weak"
+      },
+      {
+        "dir": "wasm/screenshots",
+        "bytes": 78360,
+        "files": 4,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T17:08:41.948Z",
+    "commit": "52aca24c524047b7016d25ee30ed4d2ef26f45f1"
+  },
+  "duplicate_of": []
+}

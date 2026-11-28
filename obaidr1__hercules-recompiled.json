@@ -1,0 +1,44 @@
+{
+  "repo": "obaidr1/hercules-recompiled",
+  "url": "https://github.com/obaidr1/hercules-recompiled",
+  "description": "Native PC port of the 1997 PlayStation game Disney's Hercules (SCES-00893) plus its decompilation. No game data included.",
+  "stars": 127,
+  "pushed_at": "2026-11-18T22:48:20Z",
+  "default_branch": "main",
+  "commit_checked": "cebb8bf9d8973ccfeb47fa368573f53dc2400823",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "port/launcher/web/i18n.js",
+      "port/launcher/web/index.html",
+      "port/launcher/web/launcher.css",
+      "port/launcher/web/launcher.js"
+    ],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-19T01:52:41.382Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

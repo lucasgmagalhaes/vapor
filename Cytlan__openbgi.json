@@ -1,0 +1,45 @@
+{
+  "repo": "Cytlan/openbgi",
+  "url": "https://github.com/Cytlan/openbgi",
+  "description": "Ethornell Buriko General Interpreter open source reimplementation",
+  "stars": 89,
+  "pushed_at": "2026-11-27T22:04:06Z",
+  "default_branch": "main",
+  "commit_checked": "e6e9e24790d72ed3c4162092062f7425e82223ab",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "src/host/wasm/audio.c",
+      "src/host/wasm/font.c",
+      "src/host/wasm/fs.c",
+      "src/host/wasm/host.c",
+      "src/host/wasm/main.c"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-28T00:03:22.465Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

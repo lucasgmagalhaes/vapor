@@ -1,0 +1,39 @@
+{
+  "repo": "ran-j/PS2Recomp",
+  "url": "https://github.com/ran-j/PS2Recomp",
+  "description": "Playstation 2 Static Recompiler & Runtime Tool to make native PC ports",
+  "stars": 3907,
+  "pushed_at": "2026-11-24T21:58:37Z",
+  "default_branch": "main",
+  "commit_checked": "ccc1655f4fe015b1615eb1a5d63e15acf6d69561",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-25T00:44:15.116Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

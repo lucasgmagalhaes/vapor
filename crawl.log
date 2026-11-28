@@ -1,0 +1,69 @@
+2026-11-28T16:53:24.497Z [crawler:start] max_new=30 min_stars=30 concurrency=4 asset_audit=true out=crawl-output
+2026-11-28T16:53:25.201Z [crawler:search] topic:decompilation topic:game: returned=14 eligible=13 new=13 duration=0.7s
+2026-11-28T16:53:26.122Z [crawler:search] topic:reverse-engineering topic:game: returned=30 eligible=23 new=21 duration=0.9s
+2026-11-28T16:53:26.574Z [crawler:search] topic:recompilation topic:game: returned=18 eligible=17 new=13 duration=0.5s
+2026-11-28T16:53:27.447Z [crawler:search] topic:static-recompilation: returned=30 eligible=28 new=28 duration=0.9s
+2026-11-28T16:53:27.688Z [crawler:search] topic:game-recompilation: returned=1 eligible=1 new=1 duration=0.2s
+2026-11-28T16:53:28.470Z [crawler:search] decompilation game in:description: returned=30 eligible=27 new=27 duration=0.8s
+2026-11-28T16:53:29.043Z [crawler:search] topic:pc-port topic:ps4: returned=19 eligible=18 new=18 duration=0.6s
+2026-11-28T16:53:29.859Z [crawler:search] running natively in:description: returned=30 eligible=13 new=13 duration=0.8s
+2026-11-28T16:53:30.419Z [crawler:seed] loaded=5/5 unique_total=134
+2026-11-28T16:53:30.424Z [crawler:queue] discovered=134 unchanged=115 selected=19 deferred=0
+2026-11-28T16:53:30.425Z [crawler:inspect] kirklandsig/halo2-decompiled started
+2026-11-28T16:53:30.425Z [crawler:inspect] seedds/nxnative started
+2026-11-28T16:53:30.425Z [crawler:inspect] R0Y00/Xbox2Windows started
+2026-11-28T16:53:30.425Z [crawler:inspect] Lucas-blip-png/dkb-pc-recomp started
+2026-11-28T16:53:30.865Z [crawler:inspect] seedds/nxnative classified=distribution-unverified kind=native-port distribution=unverified (0.4s)
+2026-11-28T16:53:30.867Z [crawler:result] seedds/nxnative status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-11-28T16:53:30.867Z [crawler:inspect] ProjectLeonidaL/leonida started
+2026-11-28T16:53:30.871Z [crawler:inspect] R0Y00/Xbox2Windows classified=distribution-unverified kind=decompilation distribution=unverified (0.4s)
+2026-11-28T16:53:30.871Z [crawler:result] R0Y00/Xbox2Windows status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-11-28T16:53:30.871Z [crawler:inspect] erkamyaman/rea-games started
+2026-11-28T16:53:30.907Z [crawler:inspect] Lucas-blip-png/dkb-pc-recomp classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-11-28T16:53:30.908Z [crawler:inspect] kirklandsig/halo2-decompiled classified=external-only kind=decompilation distribution=verified (0.5s)
+2026-11-28T16:53:30.909Z [crawler:result] Lucas-blip-png/dkb-pc-recomp status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:30.909Z [crawler:inspect] scarletnx/ScarletNX started
+2026-11-28T16:53:30.909Z [crawler:result] kirklandsig/halo2-decompiled status=external-only license=GPL-3.0 evidence=xbox: Halo 2 duration=0.5s
+2026-11-28T16:53:30.909Z [crawler:inspect] gamboozino/ng2recomp started
+2026-11-28T16:53:31.295Z [crawler:inspect] erkamyaman/rea-games classified=distribution-unverified kind=decompilation distribution=unverified (0.4s)
+2026-11-28T16:53:31.295Z [crawler:result] erkamyaman/rea-games status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-11-28T16:53:31.295Z [crawler:inspect] PaulCombal/mw2-recompiled started
+2026-11-28T16:53:31.348Z [crawler:inspect] ProjectLeonidaL/leonida classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-11-28T16:53:31.349Z [crawler:result] ProjectLeonidaL/leonida status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:31.349Z [crawler:inspect] gibletto/mvc2-naomi-dc started
+2026-11-28T16:53:31.373Z [crawler:inspect] gamboozino/ng2recomp classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-11-28T16:53:31.373Z [crawler:result] gamboozino/ng2recomp status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:31.373Z [crawler:inspect] petrishevgeorgii-debug/prototype-pc-slop started
+2026-11-28T16:53:31.406Z [crawler:inspect] scarletnx/ScarletNX classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-11-28T16:53:31.407Z [crawler:result] scarletnx/ScarletNX status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:31.407Z [crawler:inspect] vascon-es/lego-dimensions-pc started
+2026-11-28T16:53:31.718Z [crawler:inspect] PaulCombal/mw2-recompiled classified=distribution-unverified kind=decompilation distribution=unverified (0.4s)
+2026-11-28T16:53:31.719Z [crawler:result] PaulCombal/mw2-recompiled status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-11-28T16:53:31.719Z [crawler:inspect] Yharnam-Hunters/Paleblood started
+2026-11-28T16:53:31.794Z [crawler:inspect] gibletto/mvc2-naomi-dc classified=distribution-unverified kind=decompilation distribution=unverified (0.4s)
+2026-11-28T16:53:31.795Z [crawler:result] gibletto/mvc2-naomi-dc status=distribution-unverified license=AGPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-11-28T16:53:31.795Z [crawler:inspect] gustavocanepa/gt4-decomp started
+2026-11-28T16:53:31.873Z [crawler:inspect] vascon-es/lego-dimensions-pc classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-11-28T16:53:31.873Z [crawler:result] vascon-es/lego-dimensions-pc status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:31.873Z [crawler:inspect] nekomancer01/DarkSoulsPS2 started
+2026-11-28T16:53:31.885Z [crawler:inspect] petrishevgeorgii-debug/prototype-pc-slop classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-11-28T16:53:31.886Z [crawler:result] petrishevgeorgii-debug/prototype-pc-slop status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:31.886Z [crawler:inspect] jaenster/redivivus started
+2026-11-28T16:53:32.245Z [crawler:inspect] Yharnam-Hunters/Paleblood classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-11-28T16:53:32.246Z [crawler:result] Yharnam-Hunters/Paleblood status=distribution-unverified license=GPL-2.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:32.246Z [crawler:inspect] JonathanDC64/Soulbrandt started
+2026-11-28T16:53:32.350Z [crawler:inspect] nekomancer01/DarkSoulsPS2 classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-11-28T16:53:32.350Z [crawler:result] nekomancer01/DarkSoulsPS2 status=distribution-unverified license=GPL-3.0 evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:32.351Z [crawler:inspect] vyanhursky/DefJamFFNY-recomp started
+2026-11-28T16:53:32.362Z [crawler:inspect] jaenster/redivivus classified=distribution-unverified kind=decompilation distribution=unverified (0.5s)
+2026-11-28T16:53:32.363Z [crawler:result] jaenster/redivivus status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:32.363Z [crawler:inspect] PramAnanta/Atlas-Override started
+2026-11-28T16:53:32.408Z [crawler:inspect] gustavocanepa/gt4-decomp classified=distribution-unverified kind=decompilation distribution=unverified (0.6s)
+2026-11-28T16:53:32.408Z [crawler:result] gustavocanepa/gt4-decomp status=distribution-unverified license=MIT evidence=repository has no supported store link or reviewed publisher release evidence duration=0.6s
+2026-11-28T16:53:32.656Z [crawler:inspect] JonathanDC64/Soulbrandt classified=distribution-unverified kind=native-port distribution=unverified (0.4s)
+2026-11-28T16:53:32.656Z [crawler:result] JonathanDC64/Soulbrandt status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=0.4s
+2026-11-28T16:53:32.704Z [crawler:inspect] PramAnanta/Atlas-Override classified=distribution-unverified kind=decompilation distribution=unverified (0.3s)
+2026-11-28T16:53:32.705Z [crawler:result] PramAnanta/Atlas-Override status=distribution-unverified license=none evidence=repository has no supported store link or reviewed publisher release evidence duration=0.3s
+2026-11-28T16:53:32.812Z [crawler:inspect] vyanhursky/DefJamFFNY-recomp classified=distribution-unverified kind=native-port distribution=unverified (0.5s)
+2026-11-28T16:53:32.813Z [crawler:result] vyanhursky/DefJamFFNY-recomp status=distribution-unverified license=NOASSERTION evidence=repository has no supported store link or reviewed publisher release evidence duration=0.5s
+2026-11-28T16:53:32.831Z [crawler:done] inspected=19 outcomes={"distribution-unverified":18,"external-only":1} candidates=6 review=184 duration=8.3s

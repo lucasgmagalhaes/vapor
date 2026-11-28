@@ -1,0 +1,40 @@
+{
+  "repo": "GMH-Code/Qwasm2",
+  "url": "https://github.com/GMH-Code/Qwasm2",
+  "description": "Play the Quake 2 first-person shooter engine in your browser! Supports WebGL 2 and software-rendered modes.",
+  "stars": 58,
+  "pushed_at": "2026-04-18T17:14:34Z",
+  "default_branch": "main",
+  "commit_checked": "c9ab09343d587ee36392aaefe29755e9a149e3af",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "src/backends/wasm/capmouse.c",
+      "src/backends/wasm/export.c",
+      "src/backends/wasm/header/capmouse.h",
+      "src/backends/wasm/header/export.h",
+      "src/backends/wasm/header/initfs.h"
+    ],
+    "openAssets": true,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:07.208Z",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized"
+  ],
+  "duplicate_of": []
+}

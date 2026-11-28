@@ -1,0 +1,39 @@
+{
+  "repo": "jaenster/redivivus",
+  "url": "https://github.com/jaenster/redivivus",
+  "description": "Diablo II (Diablo 2) 1.14d decompilation: the shipped Game.exe recovered as C++ source that builds. Not a reimplementation.",
+  "stars": 81,
+  "pushed_at": "2026-11-28T16:10:09Z",
+  "default_branch": "main",
+  "commit_checked": "5474a691d6527e00b6ec60c46d1a54691050f440",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-28T16:53:32.360Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

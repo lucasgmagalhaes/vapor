@@ -1,0 +1,39 @@
+{
+  "repo": "BlackLineInteractive/Driveclub-Port",
+  "url": "https://github.com/BlackLineInteractive/Driveclub-Port",
+  "description": "Driveclub PS4 PC Port",
+  "stars": 90,
+  "pushed_at": "2026-10-19T05:20:56Z",
+  "default_branch": "main",
+  "commit_checked": "80823216cec0921aa2a87f30d24edb97187405f2",
+  "license": {
+    "spdx": "GPL-2.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-10-20T13:34:16.769Z",
+  "project_kind": "native-port",
+  "decomp": false,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

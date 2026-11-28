@@ -1,0 +1,53 @@
+{
+  "repo": "alexbarry/AlexGames",
+  "url": "https://github.com/alexbarry/AlexGames",
+  "description": "Simple Lua/Rust games available on web and more",
+  "stars": 45,
+  "pushed_at": "2026-07-03T14:45:21Z",
+  "default_branch": "main",
+  "commit_checked": "689b40c2a2ec4e0dd119f8c2f0000520d1a59e22",
+  "license": {
+    "spdx": "NOASSERTION",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "build/wasm/.gitignore",
+      "build/wasm/CMakeLists.txt",
+      "build/wasm/archive.sh",
+      "build/wasm/build.sh",
+      "build/wasm/push.sh"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:09:09.346Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(3+)",
+      "script:pipe-to-shell"
+    ],
+    "binaries": [
+      "build/wxWidgets/build.bat",
+      "src/android/gradle/wrapper/gradle-wrapper.jar",
+      "src/android/gradlew.bat"
+    ],
+    "submodule_hosts": [],
+    "risky": [
+      {
+        "file": "docker/http_server/Dockerfile.build_wasm",
+        "pattern": "pipe-to-shell"
+      }
+    ]
+  },
+  "status": "rejected",
+  "reasons": [
+    "code license missing or not recognized",
+    "supply-chain flags: committed-binaries(3+), script:pipe-to-shell (read those files before building)"
+  ],
+  "duplicate_of": []
+}

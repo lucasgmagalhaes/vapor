@@ -1,0 +1,39 @@
+{
+  "repo": "TeamGDB/Yakumo",
+  "url": "https://github.com/TeamGDB/Yakumo",
+  "description": "Static recompilation of a PSP game into a native executable. Vulkan and SDL3. Bring your own copy of the game.",
+  "stars": 621,
+  "pushed_at": "2026-11-18T10:41:25Z",
+  "default_branch": "main",
+  "commit_checked": "b63d652d1fa79dcc8a3e392f2cbb27e3d985f7f4",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-18T17:15:54.109Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

@@ -1,0 +1,39 @@
+{
+  "repo": "Berny23/slingshot-animals-recomp",
+  "url": "https://github.com/Berny23/slingshot-animals-recomp",
+  "description": "Unofficial static recompilation of Rovio's old Android Angry Birds games (+ mods) for Linux, Windows, macOS, 64-bit Android and Nintendo Switch (homebrew). Games: Classic, Seasons, Rio, Space, Star Wars, Star Wars 2, Stella.",
+  "stars": 60,
+  "pushed_at": "2026-11-26T19:32:01Z",
+  "default_branch": "master",
+  "commit_checked": "875a5652d291d61bef9ac8115766856128c46dec",
+  "license": {
+    "spdx": "GPL-3.0",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": true
+  },
+  "crawled_at": "2026-11-27T00:35:21.917Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

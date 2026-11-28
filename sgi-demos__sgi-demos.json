@@ -1,0 +1,52 @@
+{
+  "repo": "sgi-demos/sgi-demos",
+  "url": "https://github.com/sgi-demos/sgi-demos",
+  "description": "SGI demos from long ago, running in your browser today.",
+  "stars": 99,
+  "pushed_at": "2026-09-27T18:45:08Z",
+  "default_branch": "main",
+  "commit_checked": "e807c2107c229ded1cad83886d7acca598cb139f",
+  "license": {
+    "spdx": "Apache-2.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [
+      "demos/arena/web/arena.js",
+      "demos/arena/web/arena.wasm",
+      "demos/arena/web/index.html",
+      "demos/bounce/web/bounce.data",
+      "demos/bounce/web/bounce.js"
+    ],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-10-13T17:08:30.204Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(7+)"
+    ],
+    "binaries": [
+      "libs/libgles/lib-linux/libEGL.so",
+      "libs/libgles/lib-linux/libGLESv2.so",
+      "libs/libgles/lib-mac/libEGL.dylib",
+      "libs/libgles/lib-mac/libGLESv2.dylib",
+      "libs/libgles/lib-win/exp.bat",
+      "libs/libgles/lib-win/libEGL.dll",
+      "libs/libgles/lib-win/libGLESv2.dll"
+    ],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(7+) (read those files before building)",
+    "repository is 230 MB: too large for the automatic asset audit"
+  ],
+  "duplicate_of": []
+}

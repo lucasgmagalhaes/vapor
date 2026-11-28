@@ -1,0 +1,90 @@
+{
+  "repo": "SoftbearStudios/kiomet",
+  "url": "https://github.com/SoftbearStudios/kiomet",
+  "description": "Kiomet.com real-time strategy game (repository commits may lag behind game updates) ",
+  "stars": 179,
+  "pushed_at": "2025-09-10T02:21:14Z",
+  "default_branch": "main",
+  "commit_checked": "d3f0956f27f48f6cac9ac9991f948fa7f90ba77c",
+  "license": {
+    "spdx": "AGPL-3.0",
+    "file": "LICENSE"
+  },
+  "signals": {
+    "wasm": true,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false
+  },
+  "crawled_at": "2026-10-13T16:35:24.145Z",
+  "decomp": false,
+  "security": {
+    "flags": [
+      "committed-binaries(2+)",
+      "submodule-from-unusual-host(../engine.git)"
+    ],
+    "binaries": [
+      "assets/embed/microsoft/install.ps1",
+      "assets/embed/microsoft/utils/pwainstaller.exe"
+    ],
+    "submodule_hosts": [
+      "../engine.git"
+    ],
+    "risky": []
+  },
+  "status": "needs-asset-audit",
+  "reasons": [
+    "asset licenses must be verified file by file before assets_policy=open",
+    "supply-chain flags: committed-binaries(2+), submodule-from-unusual-host(../engine.git) (read those files before building)",
+    "asset licenses not proven: strong 0%, root-only 100%, none 0%; largest uncovered: assets/audio, assets/paintings, assets/branding"
+  ],
+  "asset_audit": {
+    "verdict": "needs-human",
+    "assets": {
+      "files": 73,
+      "bytes": 70004013
+    },
+    "coverage": {
+      "strong": 0,
+      "weak": 1,
+      "none": 0,
+      "bad": 0
+    },
+    "licenses_seen": [
+      "CC0/Unlicense",
+      "GPL-family",
+      "public-domain"
+    ],
+    "uncovered": [
+      {
+        "dir": "assets/audio",
+        "bytes": 52812574,
+        "files": 2,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/paintings",
+        "bytes": 10615098,
+        "files": 20,
+        "level": "weak"
+      },
+      {
+        "dir": "assets/branding",
+        "bytes": 3532850,
+        "files": 25,
+        "level": "weak"
+      },
+      {
+        "dir": "client/data",
+        "bytes": 3043491,
+        "files": 26,
+        "level": "weak"
+      }
+    ],
+    "bad_hits": [],
+    "audited_at": "2026-10-13T16:35:29.506Z",
+    "commit": "d3f0956f27f48f6cac9ac9991f948fa7f90ba77c"
+  },
+  "duplicate_of": []
+}

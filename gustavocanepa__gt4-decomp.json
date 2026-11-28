@@ -1,0 +1,39 @@
+{
+  "repo": "gustavocanepa/gt4-decomp",
+  "url": "https://github.com/gustavocanepa/gt4-decomp",
+  "description": "Matching decompilation of the Gran Turismo 4 (PS2) engine, AI-assisted. No game data included.",
+  "stars": 145,
+  "pushed_at": "2026-11-28T14:46:02Z",
+  "default_branch": "master",
+  "commit_checked": "9bcd578cbfca5d985c82cf34e6d113a6b8c40c8a",
+  "license": {
+    "spdx": "MIT",
+    "file": "LICENSE"
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": true,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-28T16:53:32.403Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}

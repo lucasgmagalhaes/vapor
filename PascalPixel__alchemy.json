@@ -1,0 +1,39 @@
+{
+  "repo": "PascalPixel/alchemy",
+  "url": "https://github.com/PascalPixel/alchemy",
+  "description": "The 🌋 Alchemy project reconstructs the source code of both Golden Sun games on Game Boy Advance for video game preservation. It is a 100% matching decompilation.",
+  "stars": 149,
+  "pushed_at": "2026-11-27T15:45:20Z",
+  "default_branch": "main",
+  "commit_checked": "19a7f1907d4f29a8f650367a5118c7f3ed4448d7",
+  "license": {
+    "spdx": null,
+    "file": null
+  },
+  "distribution": {
+    "status": "unverified",
+    "reason": "repository has no supported store link or reviewed publisher release evidence"
+  },
+  "signals": {
+    "wasm": false,
+    "wasm_paths": [],
+    "openAssets": false,
+    "byo": false,
+    "freeware": false,
+    "consolePort": false
+  },
+  "crawled_at": "2026-11-28T00:03:25.746Z",
+  "project_kind": "decompilation",
+  "decomp": true,
+  "security": {
+    "flags": [],
+    "binaries": [],
+    "submodule_hosts": [],
+    "risky": []
+  },
+  "status": "distribution-unverified",
+  "reasons": [
+    "repository has no supported store link or reviewed publisher release evidence"
+  ],
+  "duplicate_of": []
+}
